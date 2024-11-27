@@ -1,0 +1,16 @@
+{
+  "name": "culture-bot",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir dist",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
