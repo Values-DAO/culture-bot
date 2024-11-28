@@ -57,7 +57,7 @@ export class TelegramService {
     const welcomeMessage = `
 🌟 Welcome to Culture Bot by ValuesDAO! 🚀
 
-I'm here to help you store and manage your community's culture on-chain! 📜✨
+I'm here to help you store and manage your community's culture onchain! 📜✨
 
 🛠️ *Getting Started:*
 0️⃣ Make sure to give the bot permission to read messages in this chat. 📚 🔐
@@ -118,7 +118,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
       // Check if community already exists
       const existingCommunity = await CultureBotCommunity.findOne({ trustPoolId });
       if (existingCommunity) {
-        await ctx.reply("This trust pool is already connected to a community.");
+        await ctx.reply("This trust pool is already connected to a community ✅.");
         return;
       }
 
@@ -139,7 +139,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
         chatId: chatId.toString(),
       });
 
-      await ctx.reply(`Community ${communityName} connected to trust pool ${trustPoolName}.`);
+      await ctx.reply(`Community ${communityName} connected to trust pool ${trustPoolName} 🎉.`);
       logger.info(`Community ${communityName} connected to trust pool ${trustPoolName}.`);
     } catch (error) {
       logger.error("Error handling /trustpool command:", error);
