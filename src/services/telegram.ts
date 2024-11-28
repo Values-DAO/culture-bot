@@ -112,11 +112,13 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       const args = ctx.message?.text?.split(" ").slice(1);
       if (!args || args.length < 2) {
-        await ctx.reply("Error: Please use format: /trustpool <pool_id> <pool_name>");
+        await ctx.reply("Error: Please use format: /trustpool <link> <name>");
         return;
       }
 
-      const [trustPoolId, trustPoolName] = args;
+      const [trustPoolLink, trustPoolName] = args;
+      
+      const trustPoolId = trustPoolLink.split("/").pop();
 
       ctx.reply(`Connecting to trust pool ${trustPoolName}...`);
 
@@ -166,7 +168,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       if (!community) {
         await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <pool_id> <pool_name>."
+          "Error: Community not found. Please connect to a trust pool first using /trustpool <link> <name>."
         );
         return;
       }
@@ -327,7 +329,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       if (!community) {
         await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <pool_id> <pool_name>."
+          "Error: Community not found. Please connect to a trust pool first using /trustpool <link> <name>."
         );
         return;
       }
@@ -515,7 +517,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
     const args = ctx.message?.text?.split(" ").slice(1);
     
     if (!args || args.length < 1) {
-      await ctx.reply("Error: Please use format: /trustpool <pool_id> <pool_name>");
+      await ctx.reply("Error: Please use format: /trustpool <link> <name>");
       return;
     }
     
@@ -575,7 +577,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
       const communityDetailsMessage = `
 🌐 *Community Details* 📋
 
-🔹 *Trust Pool ID:* ${community.trustPoolId}
+🔹 *Trust Pool Link:* https://app.valuesdao.io/trustpools/${community.trustPoolId}
 🔹 *Trust Pool Name:* ${community.trustPoolName}
 🔹 *Community Name:* ${community.communityName}
 🔹 *Initiator:* ${community.initiator}
