@@ -6,6 +6,7 @@ import { TrustPools } from "../models/trustpool";
 import { CultureBotMessage } from "../models/message";
 import { ethers } from "ethers";
 import { CryptoUtils } from "../utils/cryptoUtils";
+import { PinataSDK } from "pinata-web3";
 
 // TODO: Only the admins can trigger the bot.
 // TODO: Change trustpool functionality.
@@ -33,6 +34,7 @@ export class TelegramService {
     this.bot.command("watch", (ctx: Context) => this.handleStartWatching(ctx));
     this.bot.command("stopwatch", (ctx: Context) => this.handleStopWatching(ctx));
     this.bot.command("details", (ctx: Context) => this.handleDetails(ctx));
+    this.bot.command("getmessage", (ctx: Context) => this.handleGetMessage(ctx));
 
     this.bot.on("message", (ctx: Context) => this.handleMessage(ctx));
   }
@@ -82,8 +84,11 @@ I'm here to help you store and manage your community's culture onchain! 📜✨
    
 7️⃣ *Stop Watching Messages:*  
    Use /details to know the details of the community 📋🔍
+   
+8️⃣ *Get Message:*
+   Use /getmessage <txHash> to fetch the message from chain 📜🔗
 
-💡 *Pro Tip:* Messages in which this bot is mentioned will be stored onchain! 🏛️🌐
+💡 *Pro Tip:* Tag the bot in a message to store it onchain! 🏛️🌐
 
 Enjoy preserving your culture with Culture Bot! 🌍🔗
 `;
@@ -370,6 +375,46 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
       await ctx.reply("Failed to stop watching community. Please try again.");
     }
   }
+  
+  private async storeMessageOnIpfs(message: string): Promise<IpfsResponse | undefined> {
+    try {
+      const pinata = new PinataSDK({
+        pinataJwt: config.pinataJwt,
+        pinataGateway: config.pinataGateway,
+      });
+      
+      const file = new File([message], "message.txt", { type: "text/plain" });
+      const upload = await pinata.upload.file(file);
+      logger.info("Uploaded message to IPFS (console logged by normal command!):");
+      console.log(upload)
+      return upload;
+    } catch (error) {
+      logger.error("Error storing message on IPFS:", error);
+      return ;
+    }
+  }
+  
+  private async storeMessageOnChain(privateKey: string, ipfsHash: string): Promise<string> {
+    const wallet = new ethers.Wallet(privateKey, this.provider);
+    const abiCoder = ethers.AbiCoder.defaultAbiCoder();
+    
+    // Encode message data with IPFS hash
+    const messageData = abiCoder.encode(
+      ["string"],
+      [ipfsHash]
+    );
+
+    const tx = await wallet.sendTransaction({
+      to: wallet.address,
+      data: messageData,
+      value: 0,
+      gasLimit: 150000,
+    });
+
+    const receipt = await tx.wait();
+    if (!receipt?.hash) throw new Error("Transaction failed");
+    return receipt.hash;
+  }
 
   // * HANDLE MESSAGE
   // * Handles incoming messages from the community.
@@ -406,6 +451,47 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
         community.messages.push(message._id);
 
         await community.save();
+        
+        const mentionsBot = ctx.message?.entities?.some(
+          (entity) =>
+            entity.type === "mention" &&
+            ctx.message?.text?.slice(entity.offset, entity.offset + entity.length) === "@valuesdao_culture_bot"
+        );
+        
+        if (mentionsBot) {
+          const processingMsg = await ctx.reply("📝 Processing message...");
+          
+          try {
+            // check if privateKey is set
+            if (!community.privateKey) {
+              await ctx.reply("Error: Wallet not created. Please use /wallet to create a wallet. 🪙💼");
+              return;
+            }
+            // Upload the message to pinata ipfs
+            const response = await this.storeMessageOnIpfs(text);
+            
+            if (!response) {
+              await ctx.reply("Error storing message on IPFS. Please try again. 🚫");
+              return;
+            }
+          
+            const privateKey = CryptoUtils.decrypt(community.privateKey);
+            const txHash = await this.storeMessageOnChain(privateKey, response.IpfsHash);
+            
+            message.transactionHash = txHash;
+            message.ipfsHash = response.IpfsHash;
+            await message.save();
+            
+            await ctx.api.editMessageText(
+              chatId,
+              processingMsg.message_id,
+              `✅ Message stored!\n\nChain: https://sepolia.basescan.org/tx/${txHash}\nIPFS: https://gateway.pinata.cloud/ipfs/${response.IpfsHash}`
+            );
+          } catch (error) {
+            logger.error("Storage failed:", error);
+            await ctx.reply("❌ Storage failed. Please try again.");
+          }
+        }
 
         logger.info(`Stored message from ${senderUsername} in community ${community.communityName}.`);
 
@@ -414,6 +500,58 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
       }
     } catch (error) {
       logger.error("Error handling message:", error);
+    }
+  }
+  
+  // * GET MESSAGE COMMAND
+  // * Fetches the message given the transaction hash
+  private async handleGetMessage(ctx: Context) {
+    const chatId = ctx.chat?.id;
+    if (!chatId) {
+      await ctx.reply("Error: Could not determine chat ID.");
+      return;
+    }
+    
+    const args = ctx.message?.text?.split(" ").slice(1);
+    
+    if (!args || args.length < 1) {
+      await ctx.reply("Error: Please use format: /trustpool <pool_id> <pool_name>");
+      return;
+    }
+    
+    const [txHash] = args;
+        
+    // Fetch the message from base sepolia using transaction hash
+    const tx = await this.provider.getTransaction(txHash);
+    if (!tx) {
+      await ctx.reply("Error: Transaction not found.");
+      return;
+    }
+    
+    const abiCoder = ethers.AbiCoder.defaultAbiCoder();
+    const decodedData = abiCoder.decode(["string"], tx.data);
+    const ipfsHash = decodedData[0];
+    
+    // Fetch the message from IPFS using IPFS hash
+    const pinata = new PinataSDK({
+      pinataJwt: config.pinataJwt,
+      pinataGateway: config.pinataGateway,
+    });
+    
+    const data = await pinata.gateways.get(ipfsHash);
+    if (!data) {
+      await ctx.reply("Error: IPFS data not found.");
+      return;
+    }
+    
+    const messageText = data.data?.toString();
+    await ctx.reply(`📜 *Message* 📜\n\n${messageText}`, { parse_mode: "Markdown" });
+    
+    logger.info(`Fetched message from IPFS for community ${chatId}.`);
+    
+    if (!txHash || !ipfsHash) {
+      await ctx.reply("Error: Please use format: /getmessage <txHash> <ipfsHash>");
+      return;
     }
   }
   

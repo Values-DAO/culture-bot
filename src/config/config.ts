@@ -9,4 +9,6 @@ export const config = {
   privateKey: process.env.PRIVATE_KEY!,
   encryptionKey: process.env.ENCRYPTION_KEY!,
   IV_LENGTH: 16,
+  pinataJwt: process.env.PINATA_JWT!,
+  pinataGateway: process.env.PINATA_GATEWAY!,
 };

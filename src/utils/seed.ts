@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
 import { connectDB, disconnectDB } from "../services/database";
-import { Message } from "../models/message";
+import { CultureBotMessage } from "../models/message";
 import { logger } from "./logger";
 
 const messages = [
@@ -37,7 +37,7 @@ const messages = [
 async function seedDB () {
   try {
     await connectDB();
-    await Message.insertMany(messages);
+    await CultureBotMessage.insertMany(messages);
     logger.info("Database seeded successfully");
   } catch (error) {
     logger.error("Error seeding database:", error);

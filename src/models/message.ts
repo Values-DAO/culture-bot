@@ -20,6 +20,9 @@ const cultureBotMessageSchema = new Schema({
   transactionHash: {
     type: String,
   },
+  ipfsHash: {
+    type: String,
+  },
   community: {
     type: Schema.Types.ObjectId,
     ref: "Community",

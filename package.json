@@ -20,6 +20,7 @@
     "ethers": "^6.13.4",
     "grammy": "^1.32.0",
     "mongoose": "^8.8.3",
+    "pinata-web3": "^0.5.2",
     "winston": "^3.17.0"
   }
 }
