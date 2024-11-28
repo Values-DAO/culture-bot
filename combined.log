@@ -1,0 +1,223 @@
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-27T14:31:05.398Z"}
+{"level":"info","message":"Database seeded successfully","timestamp":"2024-11-27T14:31:05.434Z"}
+{"level":"info","message":"Disconnected from MongoDB","timestamp":"2024-11-27T14:31:05.437Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:27:34.318Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:28:04.690Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:28:10.626Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:28:23.191Z"}
+{"api":{"config":{},"raw":{},"token":"7619343658:AAEpwQyWrdNZBocxEcvRtud_uyexejfZJkY"},"level":"info","match":"","me":{"can_connect_to_business":false,"can_join_groups":true,"can_read_all_group_messages":false,"first_name":"culture_bot","has_main_web_app":false,"id":7619343658,"is_bot":true,"supports_inline_queries":false,"username":"valuesdao_culture_bot"},"message":"Received /start command from user: [object Object]","timestamp":"2024-11-28T05:28:27.312Z","update":{"message":{"chat":{"first_name":"Rayvego","id":1110562767,"type":"private","username":"rayvego"},"date":1732771709,"entities":[{"length":6,"offset":0,"type":"bot_command"}],"from":{"first_name":"Rayvego","id":1110562767,"is_bot":false,"language_code":"en","username":"rayvego"},"message_id":7,"text":"/start"},"update_id":515691515}}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:29:18.908Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:29:21.844Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:29:25.771Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:29:38.872Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:29:43.504Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:29:55.367Z"}
+{"api":{"config":{},"raw":{},"token":"7619343658:AAEpwQyWrdNZBocxEcvRtud_uyexejfZJkY"},"level":"info","match":"","me":{"can_connect_to_business":false,"can_join_groups":true,"can_read_all_group_messages":false,"first_name":"culture_bot","has_main_web_app":false,"id":7619343658,"is_bot":true,"supports_inline_queries":false,"username":"valuesdao_culture_bot"},"message":"Received /start command from user: [object Object]","timestamp":"2024-11-28T05:29:59.624Z","update":{"message":{"chat":{"first_name":"Rayvego","id":1110562767,"type":"private","username":"rayvego"},"date":1732771801,"entities":[{"length":6,"offset":0,"type":"bot_command"}],"from":{"first_name":"Rayvego","id":1110562767,"is_bot":false,"language_code":"en","username":"rayvego"},"message_id":13,"text":"/start"},"update_id":515691518}}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:30:16.474Z"}
+{"level":"info","message":"Received /start command from user: [object Object]","timestamp":"2024-11-28T05:30:19.257Z","update_id":515691519}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:30:29.185Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:30:34.343Z"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:30:39.978Z","type":"private","username":"rayvego"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:30:49.314Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:30:51.328Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:30:58.633Z"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:31:00.227Z","type":"private","username":"rayvego"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:31:44.513Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:31:49.946Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:32:11.942Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:32:14.911Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:32:26.019Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:32:29.537Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:32:41.990Z"}
+{"api":{"config":{},"raw":{},"token":"7619343658:AAEpwQyWrdNZBocxEcvRtud_uyexejfZJkY"},"level":"info","match":"","me":{"can_connect_to_business":false,"can_join_groups":true,"can_read_all_group_messages":false,"first_name":"culture_bot","has_main_web_app":false,"id":7619343658,"is_bot":true,"supports_inline_queries":false,"username":"valuesdao_culture_bot"},"message":"Received /start command from user: [object Object]","timestamp":"2024-11-28T05:32:45.569Z","update":{"message":{"chat":{"first_name":"Rayvego","id":1110562767,"type":"private","username":"rayvego"},"date":1732771967,"entities":[{"length":6,"offset":0,"type":"bot_command"}],"from":{"first_name":"Rayvego","id":1110562767,"is_bot":false,"language_code":"en","username":"rayvego"},"message_id":30,"text":"/start"},"update_id":515691527}}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:33:03.749Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:33:06.446Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:33:14.718Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:34:08.660Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:34:13.933Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:34:25.413Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:35:02.684Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:35:17.015Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:35:43.977Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:36:03.595Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:36:20.207Z"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:20.985Z","type":"private","username":"rayvego"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:20.987Z","type":"private","username":"rayvego"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:20.987Z","type":"private","username":"rayvego"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:20.988Z","type":"private","username":"rayvego"}
+{"first_name":"Rayvego","id":1110562767,"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:20.989Z","type":"private","username":"rayvego"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:36:34.554Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:40.104Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:36:44.905Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:36:58.403Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:37:01.721Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:37:13.001Z"}
+{"level":"info","message":"Received /start command from user:","timestamp":"2024-11-28T05:37:16.778Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:37:56.016Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:37:58.510Z"}
+{"level":"info","message":"Received /start command from user: rayvego","timestamp":"2024-11-28T05:38:04.684Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:39:06.014Z"}
+{"level":"info","message":"Connected to MongoDB","timestamp":"2024-11-28T05:41:43.731Z"}
+2024-11-28 11:13:18 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 11:13:23 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 11:14:26 [[32minfo[39m]: Received /start command from user: rayvego
+2024-11-28 11:14:35 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 11:14:39 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 11:24:54 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 11:28:23 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:17:43 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:18:35 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:19:00 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:51:06 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:51:14 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:51:27 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:51:51 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:51:53 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:52:42 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:52:43 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:53:15 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:53:16 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:53:21 [[32minfo[39m]: Community rayvego connected to trust pool ValuesDAO.
+2024-11-28 12:53:53 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:53:54 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:56:27 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:56:29 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:56:34 [[32minfo[39m]: Community rayvego connected to trust pool ValuesDAO.
+2024-11-28 12:56:46 [[32minfo[39m]: Started watching community rayvego.
+2024-11-28 12:56:50 [[32minfo[39m]: Stored message from rayvego in community rayvego.
+2024-11-28 12:57:03 [[32minfo[39m]: Stored message from rayvego in community rayvego.
+2024-11-28 12:57:14 [[32minfo[39m]: Stored message from rayvego in community rayvego.
+2024-11-28 12:57:24 [[32minfo[39m]: Stored message from rayvego in community rayvego.
+2024-11-28 12:58:10 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 12:58:16 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 12:58:20 [[32minfo[39m]: Started watching community rayvego.
+2024-11-28 12:58:48 [[32minfo[39m]: Stopped watching community 1110562767.
+2024-11-28 13:01:22 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:01:34 [[32minfo[39m]: Community culture bot testing connected to trust pool ValuesDAO.
+2024-11-28 13:01:55 [[32minfo[39m]: Started watching community culture bot testing.
+2024-11-28 13:04:05 [[32minfo[39m]: Stored message from rayvego in community culture bot testing.
+2024-11-28 13:05:51 [[31merror[39m]: MongoDB connection error: Domain name not found
+2024-11-28 13:06:39 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:06:55 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:07:00 [[32minfo[39m]: Community culture bot testing connected to trust pool ValuesDAO.
+2024-11-28 13:07:07 [[32minfo[39m]: Started watching community culture bot testing.
+2024-11-28 13:07:23 [[32minfo[39m]: Stored message from rayvego in community culture bot testing.
+2024-11-28 13:07:41 [[32minfo[39m]: Stopped watching community -4681350898.
+2024-11-28 13:07:53 [[32minfo[39m]: Started watching community culture bot testing.
+2024-11-28 13:07:54 [[32minfo[39m]: Stored message from rayvego in community culture bot testing.
+2024-11-28 13:09:55 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:10:30 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:14:31 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:14:32 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:14:32 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:14:33 [[32minfo[39m]: Started watching community culture bot testing.
+2024-11-28 13:14:33 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:15:00 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:17:09 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:19:57 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:23:49 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:26:33 [[31merror[39m]: MongoDB connection error: Domain name not found
+2024-11-28 13:29:48 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:30:07 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:30:12 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:33:48 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:35:09 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:35:41 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:35:42 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:35:42 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:35:43 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:35:50 [[32minfo[39m]: Community culture bot testing 2 connected to trust pool ValuesDAO.
+2024-11-28 13:36:18 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 13:37:27 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:37:39 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 13:38:09 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:38:13 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 13:38:16 [[32minfo[39m]: Stopped watching community -4786359122.
+2024-11-28 13:38:23 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 13:38:37 [[32minfo[39m]: Received message from rayvego in community -4786359122.
+2024-11-28 13:38:37 [[32minfo[39m]: Stored message from rayvego in community culture bot testing 2.
+2024-11-28 13:38:46 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:38:48 [[32minfo[39m]: Stored message from rayvego in community culture bot testing 2.
+2024-11-28 13:39:02 [[32minfo[39m]: Stopped watching community -4786359122.
+2024-11-28 13:39:26 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 13:39:36 [[32minfo[39m]: Community culture bot testing connected to trust pool metacampers.
+2024-11-28 13:39:45 [[32minfo[39m]: Started watching community culture bot testing.
+2024-11-28 13:39:45 [[32minfo[39m]: Stored message from rayvego in community culture bot testing.
+2024-11-28 13:39:59 [[32minfo[39m]: Stored message from rayvego in community culture bot testing.
+2024-11-28 13:40:31 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:40:39 [[32minfo[39m]: Stopped watching community -4681350898.
+2024-11-28 13:40:44 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 13:40:45 [[32minfo[39m]: Stored message from rayvego in community culture bot testing 2.
+2024-11-28 13:40:47 [[32minfo[39m]: Stored message from rayvego in community culture bot testing 2.
+2024-11-28 13:40:52 [[32minfo[39m]: Started watching community culture bot testing.
+2024-11-28 13:40:53 [[32minfo[39m]: Stored message from rayvego in community culture bot testing.
+2024-11-28 13:41:30 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:42:51 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 13:44:33 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 14:54:58 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 14:56:51 [[32minfo[39m]: Stopped watching community -4681350898.
+2024-11-28 14:56:54 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
+2024-11-28 14:56:54 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
+2024-11-28 14:57:18 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
+2024-11-28 14:57:18 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
+2024-11-28 14:57:37 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 14:57:46 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
+2024-11-28 14:57:46 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
+2024-11-28 14:58:24 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 14:58:28 [[32minfo[39m]: Wallet created for community culture bot testing.
+2024-11-28 15:01:43 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:04:54 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:05:52 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:05:59 [[31merror[39m]: Error in handleBalance: unsupported protocol  (info={ "protocol": "" }, operation="request", code=UNSUPPORTED_OPERATION, version=6.13.4)
+2024-11-28 15:11:29 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:11:36 [[32minfo[39m]: Balance checked for community culture bot testing
+2024-11-28 15:12:27 [[32minfo[39m]: Wallets exported for user rayvego
+2024-11-28 15:12:48 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:13:10 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:13:22 [[32minfo[39m]: Wallets exported for user rayvego
+2024-11-28 15:13:34 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:13:43 [[32minfo[39m]: Balance checked for community culture bot testing
+2024-11-28 15:14:00 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:14:04 [[32minfo[39m]: Balance checked for community culture bot testing
+2024-11-28 15:16:35 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:30:49 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:30:56 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:31:53 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:31:54 [[32minfo[39m]: Stopped watching community -4786359122.
+2024-11-28 15:31:57 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 15:32:01 [[32minfo[39m]: Stopped watching community -4786359122.
+2024-11-28 15:32:03 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:32:41 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:32:43 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:33:18 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:34:49 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:36:58 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:37:26 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:37:28 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:37:41 [[32minfo[39m]: Started watching community culture bot testing 2.
+2024-11-28 15:37:49 [[32minfo[39m]: Wallet created for community culture bot testing 2.
+2024-11-28 15:38:04 [[32minfo[39m]: Stopped watching community -4786359122.
+2024-11-28 15:38:43 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:39:30 [[32minfo[39m]: Balance checked for community culture bot testing 2
+2024-11-28 15:40:10 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:40:14 [[32minfo[39m]: Balance checked for community culture bot testing 2
+2024-11-28 15:41:17 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:42:00 [[32minfo[39m]: Wallet created for community culture bot testing 2.
+2024-11-28 15:43:05 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:43:33 [[32minfo[39m]: Wallets exported for user rayvego
+2024-11-28 15:44:38 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:45:30 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:45:37 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:46:08 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:46:46 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:46:47 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:46:47 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:46:51 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:47:31 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:47:34 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:48:14 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:50:48 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:50:52 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:51:08 [[32minfo[39m]: Received /start command from rayvego
+2024-11-28 15:52:34 [[32minfo[39m]: Connected to MongoDB
+2024-11-28 15:52:49 [[32minfo[39m]: Received /start command from rayvego

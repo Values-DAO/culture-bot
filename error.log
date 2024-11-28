@@ -1,0 +1,9 @@
+2024-11-28 13:05:51 [[31merror[39m]: MongoDB connection error: Domain name not found
+2024-11-28 13:26:33 [[31merror[39m]: MongoDB connection error: Domain name not found
+2024-11-28 14:56:54 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
+2024-11-28 14:56:54 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
+2024-11-28 14:57:18 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
+2024-11-28 14:57:18 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
+2024-11-28 14:57:46 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
+2024-11-28 14:57:46 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
+2024-11-28 15:05:59 [[31merror[39m]: Error in handleBalance: unsupported protocol  (info={ "protocol": "" }, operation="request", code=UNSUPPORTED_OPERATION, version=6.13.4)
