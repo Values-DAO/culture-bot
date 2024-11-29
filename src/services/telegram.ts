@@ -60,17 +60,15 @@ export class TelegramService {
     const welcomeMessage = `
 🌟 Culture Bot 🚀
 
-I'm here to help you store and manage your community's culture onchain!
+I'm here to identify value-aligned content and post your community's lore/culture onchain in your Culture Book! 
 
 🛠️ To get started, use /trustpool <link> to link your community to a trust pool. Get the link from [ValuesDAO](https://app.valuesdao.io/trustpools).
    
-✅ You're all set! Your messages are being stored now.
-   
-💡 *Pro Tip:* Tag the bot in a message to store it onchain!
+I will summarise the most value-aligned content every Friday and post it onchain, tag members who are creating cultural content here.
 
-🤖 /commands to know all the commands this bot supports!
+You can also tag me in a message to add it to your Culture Book.
 
-Enjoy preserving your culture with Culture Bot! 🌍🔗
+Preserve your culture with Culture Bot!  🌍🔗
 `;
 
     await ctx.reply(welcomeMessage, { parse_mode: "Markdown" });
