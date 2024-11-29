@@ -29,13 +29,13 @@ export class TelegramService {
     this.bot.command("start", (ctx: Context) => this.handleStart(ctx));
     this.bot.command("commands", (ctx: Context) => this.handleCommands(ctx));
     this.bot.command("trustpool", (ctx: Context) => this.handleTrustPool(ctx));
-    this.bot.command("wallet", (ctx: Context) => this.handleWallet(ctx));
-    this.bot.command("balance", (ctx: Context) => this.handleBalance(ctx));
-    this.bot.command("exportwallet", (ctx: Context) => this.handleExportWallet(ctx));
-    this.bot.command("watch", (ctx: Context) => this.handleStartWatching(ctx));
-    this.bot.command("stopwatch", (ctx: Context) => this.handleStopWatching(ctx));
-    this.bot.command("details", (ctx: Context) => this.handleDetails(ctx));
-    this.bot.command("getmessage", (ctx: Context) => this.handleGetMessage(ctx));
+    // this.bot.command("wallet", (ctx: Context) => this.handleWallet(ctx));
+    // this.bot.command("balance", (ctx: Context) => this.handleBalance(ctx));
+    // this.bot.command("exportwallet", (ctx: Context) => this.handleExportWallet(ctx));
+    // this.bot.command("watch", (ctx: Context) => this.handleStartWatching(ctx));
+    // this.bot.command("stopwatch", (ctx: Context) => this.handleStopWatching(ctx));
+    // this.bot.command("details", (ctx: Context) => this.handleDetails(ctx));
+    // this.bot.command("getmessage", (ctx: Context) => this.handleGetMessage(ctx));
 
     this.bot.on("message", (ctx: Context) => this.handleMessage(ctx));
   }
@@ -81,15 +81,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
     logger.info(`Received /commands command from ${username}`);
     const message = `
 📚 *Culture Bot Commands* 🤖
-- /start: Start the bot and get instructions.
 - /trustpool <link>: Connect to a trust pool.
-- /wallet: Create a wallet for the community.
-- /balance: Check the community wallet balance.
-- /exportwallet: Export the wallet for the community.
-- /watch: Start watching messages in the community.
-- /stopwatch: Stop watching messages in the community.
-- /details: Get details of the community.
-- /getmessage <txHash>: Fetch a message using transaction hash.
 `;
 
     await ctx.reply(message, { parse_mode: "Markdown" });
@@ -157,227 +149,227 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
   // * SET WALLET COMMAND
   // * Creates a new wallet for the community.
-  private async handleWallet(ctx: Context) {
-    try {
-      const chatId = ctx.chat?.id;
-      if (!chatId) {
-        await ctx.reply("Error: Could not determine chat ID.");
-        return;
-      }
+  // private async handleWallet(ctx: Context) {
+  //   try {
+  //     const chatId = ctx.chat?.id;
+  //     if (!chatId) {
+  //       await ctx.reply("Error: Could not determine chat ID.");
+  //       return;
+  //     }
 
-      const community = await CultureBotCommunity.findOne({ chatId });
+  //     const community = await CultureBotCommunity.findOne({ chatId });
 
-      if (!community) {
-        await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <link>."
-        );
-        return;
-      }
+  //     if (!community) {
+  //       await ctx.reply(
+  //         "Error: Community not found. Please connect to a trust pool first using /trustpool <link>."
+  //       );
+  //       return;
+  //     }
 
-      if (community.privateKey) {
-        await ctx.reply(`💳 Your Wallet's Public key: ${community.publicKey}`);
-        return;
-      }
+  //     if (community.privateKey) {
+  //       await ctx.reply(`💳 Your Wallet's Public key: ${community.publicKey}`);
+  //       return;
+  //     }
 
-      // Generate a new wallet
-      const wallet = ethers.Wallet.createRandom();
+  //     // Generate a new wallet
+  //     const wallet = ethers.Wallet.createRandom();
 
-      const encryptedPrivateKey = CryptoUtils.encrypt(wallet.privateKey);
+  //     const encryptedPrivateKey = CryptoUtils.encrypt(wallet.privateKey);
 
-      community.privateKey = encryptedPrivateKey;
-      community.publicKey = wallet.address;
-      await community.save();
+  //     community.privateKey = encryptedPrivateKey;
+  //     community.publicKey = wallet.address;
+  //     await community.save();
 
-      await ctx.reply(
-        `✅ Wallet successfully created for the community: *${community.communityName}*.\n💳 *Public Key:* \`${wallet.address}\``
-      , {parse_mode: "Markdown"});
+  //     await ctx.reply(
+  //       `✅ Wallet successfully created for the community: *${community.communityName}*.\n💳 *Public Key:* \`${wallet.address}\``
+  //     , {parse_mode: "Markdown"});
       
-      logger.info(`Wallet created for community ${community.communityName}.`);
-    } catch (error) {
-      logger.error("Error handling /wallet command:", error);
-      await ctx.reply("Failed to create wallet. Please try again.");
-    }
-  }
+  //     logger.info(`Wallet created for community ${community.communityName}.`);
+  //   } catch (error) {
+  //     logger.error("Error handling /wallet command:", error);
+  //     await ctx.reply("Failed to create wallet. Please try again.");
+  //   }
+  // }
 
   // * BALANCE COMMAND
   // * Checks the balance of the community wallet.
-  private async handleBalance(ctx: Context) {
-    try {
-      const chatId = ctx.chat?.id;
-      if (!chatId) {
-        await ctx.reply("Error: Could not identify chat.");
-        return;
-      }
+//   private async handleBalance(ctx: Context) {
+//     try {
+//       const chatId = ctx.chat?.id;
+//       if (!chatId) {
+//         await ctx.reply("Error: Could not identify chat.");
+//         return;
+//       }
 
-      const community = await CultureBotCommunity.findOne({chatId});
-      if (!community) {
-        await ctx.reply("No trust pool connected. Please use /trustpool first.");
-        return;
-      }
+//       const community = await CultureBotCommunity.findOne({chatId});
+//       if (!community) {
+//         await ctx.reply("No trust pool connected. Please use /trustpool first.");
+//         return;
+//       }
 
-      if (!community.publicKey) {
-        await ctx.reply("No wallet created. Please use /wallet first.");
-        return;
-      }
+//       if (!community.publicKey) {
+//         await ctx.reply("No wallet created. Please use /wallet first.");
+//         return;
+//       }
       
-      await ctx.reply("Checking balance...");
+//       await ctx.reply("Checking balance...");
 
-      // Get balance from Base Sepolia
-      const balance = await this.provider.getBalance(community.publicKey);
-      const balanceInEth = ethers.formatEther(balance);
+//       // Get balance from Base Sepolia
+//       const balance = await this.provider.getBalance(community.publicKey);
+//       const balanceInEth = ethers.formatEther(balance);
 
-      // Update balance in database
-      community.balance = parseFloat(balanceInEth);
-      await community.save();
+//       // Update balance in database
+//       community.balance = parseFloat(balanceInEth);
+//       await community.save();
 
-      // Format the message
-      const balanceMessage = `
-💰 *Community Wallet Balance*
+//       // Format the message
+//       const balanceMessage = `
+// 💰 *Community Wallet Balance*
 
-🏠 *Community:* ${community.communityName}  
-🔗 *Trust Pool:* ${community.trustPoolName}  
-💼 *Address:* \`${community.publicKey}\`  
-💵 *Balance:* ${balanceInEth} ETH  
+// 🏠 *Community:* ${community.communityName}  
+// 🔗 *Trust Pool:* ${community.trustPoolName}  
+// 💼 *Address:* \`${community.publicKey}\`  
+// 💵 *Balance:* ${balanceInEth} ETH  
 
-🔍 [View on Explorer](https://sepolia.basescan.org/address/${community.publicKey})
-`;
+// 🔍 [View on Explorer](https://sepolia.basescan.org/address/${community.publicKey})
+// `;
 
-      await ctx.reply(balanceMessage, { parse_mode: "Markdown" });
-      logger.info(`Balance checked for community ${community.communityName}`);
-    } catch (error) {
-      logger.error("Error in handleBalance:", error);
-      await ctx.reply("Failed to fetch balance. Please try again.");
-    }
-  }
+//       await ctx.reply(balanceMessage, { parse_mode: "Markdown" });
+//       logger.info(`Balance checked for community ${community.communityName}`);
+//     } catch (error) {
+//       logger.error("Error in handleBalance:", error);
+//       await ctx.reply("Failed to fetch balance. Please try again.");
+//     }
+//   }
 
   // * EXPORT WALLET COMMAND
   // * Exports the wallet for the community
-  private async handleExportWallet(ctx: Context) {
-    try {
-      // Verify it's a private message to protect sensitive data
-      if (ctx.chat?.type !== "private") {
-        await ctx.reply(
-          "⚠️ For security reasons, wallet export is only available in private chat. Please message me directly."
-        );
-        return;
-      }
+//   private async handleExportWallet(ctx: Context) {
+//     try {
+//       // Verify it's a private message to protect sensitive data
+//       if (ctx.chat?.type !== "private") {
+//         await ctx.reply(
+//           "⚠️ For security reasons, wallet export is only available in private chat. Please message me directly."
+//         );
+//         return;
+//       }
 
-      const userId = ctx.from?.id;
-      if (!userId) {
-        await ctx.reply("Error: Could not identify user.");
-        return;
-      }
+//       const userId = ctx.from?.id;
+//       if (!userId) {
+//         await ctx.reply("Error: Could not identify user.");
+//         return;
+//       }
 
-      const communities = await CultureBotCommunity.find({ initiator: ctx.from?.username });
+//       const communities = await CultureBotCommunity.find({ initiator: ctx.from?.username });
 
-      if (communities.length === 0) {
-        await ctx.reply("You haven't initiated any communities.");
-        return;
-      }
+//       if (communities.length === 0) {
+//         await ctx.reply("You haven't initiated any communities.");
+//         return;
+//       }
 
-      for (const community of communities) {
-        if (!community.privateKey || !community.publicKey) {
-          continue;
-        }
+//       for (const community of communities) {
+//         if (!community.privateKey || !community.publicKey) {
+//           continue;
+//         }
 
-        try {
-          // Decrypt the private key
-          const decryptedPrivateKey = CryptoUtils.decrypt(community.privateKey);
+//         try {
+//           // Decrypt the private key
+//           const decryptedPrivateKey = CryptoUtils.decrypt(community.privateKey);
 
-          const walletInfo = `
-🔐 *Wallet Export for ${community.communityName}*
+//           const walletInfo = `
+// 🔐 *Wallet Export for ${community.communityName}*
 
-🔗 *Trust Pool:* ${community.trustPoolName}  
-💼 *Public Address:* \`${community.publicKey}\`  
-🔑 *Private Key:* \`${decryptedPrivateKey}\`
+// 🔗 *Trust Pool:* ${community.trustPoolName}  
+// 💼 *Public Address:* \`${community.publicKey}\`  
+// 🔑 *Private Key:* \`${decryptedPrivateKey}\`
 
-⚠️ *IMPORTANT:*
-- Keep this private key secure
-- Never share it with anyone
-- Store it safely offline
-- Delete this message after saving the key
+// ⚠️ *IMPORTANT:*
+// - Keep this private key secure
+// - Never share it with anyone
+// - Store it safely offline
+// - Delete this message after saving the key
 
-🔍 [View on Explorer](https://sepolia.basescan.org/address/${community.publicKey})
-`;
+// 🔍 [View on Explorer](https://sepolia.basescan.org/address/${community.publicKey})
+// `;
 
-          await ctx.reply(walletInfo, {parse_mode: "Markdown"});
+//           await ctx.reply(walletInfo, {parse_mode: "Markdown"});
 
-          await ctx.reply("⚠️ Please delete the above message after saving the private key securely.");
-        } catch (error) {
-          logger.error(`Error exporting wallet for community ${community.communityName}:`, error);
-          await ctx.reply(`Failed to export wallet for community ${community.communityName}`);
-        }
-      }
+//           await ctx.reply("⚠️ Please delete the above message after saving the private key securely.");
+//         } catch (error) {
+//           logger.error(`Error exporting wallet for community ${community.communityName}:`, error);
+//           await ctx.reply(`Failed to export wallet for community ${community.communityName}`);
+//         }
+//       }
 
-      logger.info(`Wallets exported for user ${ctx.from?.username}`);
-    } catch (error) {
-      logger.error("Error in handleExportWallet:", error);
-      await ctx.reply("Failed to export wallet(s). Please try again.");
-    }
-  }
+//       logger.info(`Wallets exported for user ${ctx.from?.username}`);
+//     } catch (error) {
+//       logger.error("Error in handleExportWallet:", error);
+//       await ctx.reply("Failed to export wallet(s). Please try again.");
+//     }
+//   }
 
   // * START WATCHING COMMAND
   // * Starts watching a community.
-  private async handleStartWatching(ctx: Context) {
-    try {
-      const chatId = ctx.chat?.id;
-      if (!chatId) {
-        await ctx.reply("Error: Could not determine chat ID.");
-        return;
-      }
+  // private async handleStartWatching(ctx: Context) {
+  //   try {
+  //     const chatId = ctx.chat?.id;
+  //     if (!chatId) {
+  //       await ctx.reply("Error: Could not determine chat ID.");
+  //       return;
+  //     }
 
-      const community = await CultureBotCommunity.findOne({ chatId });
+  //     const community = await CultureBotCommunity.findOne({ chatId });
 
-      if (!community) {
-        await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <link>."
-        );
-        return;
-      }
+  //     if (!community) {
+  //       await ctx.reply(
+  //         "Error: Community not found. Please connect to a trust pool first using /trustpool <link>."
+  //       );
+  //       return;
+  //     }
 
-      community.isWatching = true;
-      await community.save();
-      await ctx.reply("Started watching community.");
-      logger.info(`Started watching community ${community.communityName}.`);
-    } catch (error) {
-      logger.error("Error handling /watch command:", error);
-      await ctx.reply("Failed to start watching community. Please try again.");
-    }
-  }
+  //     community.isWatching = true;
+  //     await community.save();
+  //     await ctx.reply("Started watching community.");
+  //     logger.info(`Started watching community ${community.communityName}.`);
+  //   } catch (error) {
+  //     logger.error("Error handling /watch command:", error);
+  //     await ctx.reply("Failed to start watching community. Please try again.");
+  //   }
+  // }
 
   // * STOP WATCHING COMMAND
   // * Stops watching a community.
-  private async handleStopWatching(ctx: Context) {
-    try {
-      const chatId = ctx.chat?.id;
-      if (!chatId) {
-        await ctx.reply("Error: Could not determine chat ID.");
-        return;
-      }
+  // private async handleStopWatching(ctx: Context) {
+  //   try {
+  //     const chatId = ctx.chat?.id;
+  //     if (!chatId) {
+  //       await ctx.reply("Error: Could not determine chat ID.");
+  //       return;
+  //     }
 
-      const community = await CultureBotCommunity.findOne({ chatId });
+  //     const community = await CultureBotCommunity.findOne({ chatId });
 
-      if (!community) {
-        await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <pool_id> <pool_name>."
-        );
-        return;
-      }
+  //     if (!community) {
+  //       await ctx.reply(
+  //         "Error: Community not found. Please connect to a trust pool first using /trustpool <pool_id> <pool_name>."
+  //       );
+  //       return;
+  //     }
 
-      if (community.isWatching === false) {
-        await ctx.reply("Error: Community is not being watched.");
-        return;
-      }
+  //     if (community.isWatching === false) {
+  //       await ctx.reply("Error: Community is not being watched.");
+  //       return;
+  //     }
 
-      community.isWatching = false;
-      await community.save();
-      await ctx.reply("Stopped watching community.");
-      logger.info(`Stopped watching community ${chatId}.`);
-    } catch (error) {
-      logger.error("Error handling /stopwatch command:", error);
-      await ctx.reply("Failed to stop watching community. Please try again.");
-    }
-  }
+  //     community.isWatching = false;
+  //     await community.save();
+  //     await ctx.reply("Stopped watching community.");
+  //     logger.info(`Stopped watching community ${chatId}.`);
+  //   } catch (error) {
+  //     logger.error("Error handling /stopwatch command:", error);
+  //     await ctx.reply("Failed to stop watching community. Please try again.");
+  //   }
+  // }
   
   private async storeMessageOnIpfs(message: string): Promise<IpfsResponse | undefined> {
     try {
@@ -397,8 +389,8 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
     }
   }
   
-  private async storeMessageOnChain(privateKey: string, ipfsHash: string): Promise<string> {
-    const wallet = new ethers.Wallet(privateKey, this.provider);
+  private async storeMessageOnChain(ipfsHash: string): Promise<string> {
+    const wallet = new ethers.Wallet(config.privateKey, this.provider);
     const abiCoder = ethers.AbiCoder.defaultAbiCoder();
     
     // Encode message data with IPFS hash
@@ -465,11 +457,6 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
           const processingMsg = await ctx.reply("📝 Processing message...");
           
           try {
-            // check if privateKey is set
-            if (!community.privateKey) {
-              await ctx.reply("Error: Wallet not created. Please use /wallet to create a wallet.");
-              return;
-            }
             // Upload the message to pinata ipfs
             const response = await this.storeMessageOnIpfs(text);
             
@@ -478,8 +465,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
               return;
             }
           
-            const privateKey = CryptoUtils.decrypt(community.privateKey);
-            const txHash = await this.storeMessageOnChain(privateKey, response.IpfsHash);
+            const txHash = await this.storeMessageOnChain(response.IpfsHash);
             
             message.transactionHash = txHash;
             message.ipfsHash = response.IpfsHash;
@@ -505,92 +491,92 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
   
   // * GET MESSAGE COMMAND
   // * Fetches the message given the transaction hash
-  private async handleGetMessage(ctx: Context) {
-    const chatId = ctx.chat?.id;
-    if (!chatId) {
-      await ctx.reply("Error: Could not determine chat ID.");
-      return;
-    }
+  // private async handleGetMessage(ctx: Context) {
+  //   const chatId = ctx.chat?.id;
+  //   if (!chatId) {
+  //     await ctx.reply("Error: Could not determine chat ID.");
+  //     return;
+  //   }
     
-    const args = ctx.message?.text?.split(" ").slice(1);
+  //   const args = ctx.message?.text?.split(" ").slice(1);
     
-    if (!args || args.length < 1) {
-      await ctx.reply("Error: Please use format: /trustpool <link>");
-      return;
-    }
+  //   if (!args || args.length < 1) {
+  //     await ctx.reply("Error: Please use format: /trustpool <link>");
+  //     return;
+  //   }
     
-    const [txHash] = args;
+  //   const [txHash] = args;
         
-    // Fetch the message from base sepolia using transaction hash
-    const tx = await this.provider.getTransaction(txHash);
-    if (!tx) {
-      await ctx.reply("Error: Transaction not found.");
-      return;
-    }
+  //   // Fetch the message from base sepolia using transaction hash
+  //   const tx = await this.provider.getTransaction(txHash);
+  //   if (!tx) {
+  //     await ctx.reply("Error: Transaction not found.");
+  //     return;
+  //   }
     
-    const abiCoder = ethers.AbiCoder.defaultAbiCoder();
-    const decodedData = abiCoder.decode(["string"], tx.data);
-    const ipfsHash = decodedData[0];
+  //   const abiCoder = ethers.AbiCoder.defaultAbiCoder();
+  //   const decodedData = abiCoder.decode(["string"], tx.data);
+  //   const ipfsHash = decodedData[0];
     
-    // Fetch the message from IPFS using IPFS hash
-    const pinata = new PinataSDK({
-      pinataJwt: config.pinataJwt,
-      pinataGateway: config.pinataGateway,
-    });
+  //   // Fetch the message from IPFS using IPFS hash
+  //   const pinata = new PinataSDK({
+  //     pinataJwt: config.pinataJwt,
+  //     pinataGateway: config.pinataGateway,
+  //   });
     
-    const data = await pinata.gateways.get(ipfsHash);
-    if (!data) {
-      await ctx.reply("Error: IPFS data not found.");
-      return;
-    }
+  //   const data = await pinata.gateways.get(ipfsHash);
+  //   if (!data) {
+  //     await ctx.reply("Error: IPFS data not found.");
+  //     return;
+  //   }
     
-    const messageText = data.data?.toString();
-    await ctx.reply(`📜 Message 📜\n\n${messageText}`);
+  //   const messageText = data.data?.toString();
+  //   await ctx.reply(`📜 Message 📜\n\n${messageText}`);
     
-    logger.info(`Fetched message from IPFS for community ${chatId}.`);
+  //   logger.info(`Fetched message from IPFS for community ${chatId}.`);
     
-    if (!txHash || !ipfsHash) {
-      await ctx.reply("Error: Please use format: /getmessage <txHash> <ipfsHash>");
-      return;
-    }
-  }
+  //   if (!txHash || !ipfsHash) {
+  //     await ctx.reply("Error: Please use format: /getmessage <txHash> <ipfsHash>");
+  //     return;
+  //   }
+  // }
   
   // * DETAILS COMMAND
   // * Shows details of the community.
-  private async handleDetails(ctx: Context) {
-    try {
-      const chatId = ctx.chat?.id;
-      if (!chatId) {
-        await ctx.reply("Error: Could not determine chat ID.");
-        return;
-      }
+//   private async handleDetails(ctx: Context) {
+//     try {
+//       const chatId = ctx.chat?.id;
+//       if (!chatId) {
+//         await ctx.reply("Error: Could not determine chat ID.");
+//         return;
+//       }
 
-      const community = await CultureBotCommunity.findOne({ chatId });
+//       const community = await CultureBotCommunity.findOne({ chatId });
 
-      if (!community) {
-        await ctx.reply("Community not found.");
-        return;
-      }
+//       if (!community) {
+//         await ctx.reply("Community not found.");
+//         return;
+//       }
 
-      const communityDetailsMessage = `
-🌐 *Community Details* 📋
+//       const communityDetailsMessage = `
+// 🌐 *Community Details* 📋
 
-🔹 *Trust Pool Link:* https://app.valuesdao.io/trustpools/${community.trustPoolId}
-🔹 *Trust Pool Name:* ${community.trustPoolName}
-🔹 *Community Name:* ${community.communityName}
-🔹 *Initiator:* ${community.initiator}
-🔹 *Watching Messages:* ${community.isWatching ? "✅ Enabled" : "❌ Disabled"}
-🔹 *Public Key:* \`${community.publicKey || "Not set"}\`
+// 🔹 *Trust Pool Link:* https://app.valuesdao.io/trustpools/${community.trustPoolId}
+// 🔹 *Trust Pool Name:* ${community.trustPoolName}
+// 🔹 *Community Name:* ${community.communityName}
+// 🔹 *Initiator:* ${community.initiator}
+// 🔹 *Watching Messages:* ${community.isWatching ? "✅ Enabled" : "❌ Disabled"}
+// 🔹 *Public Key:* \`${community.publicKey || "Not set"}\`
 
-💡 Use /watch to start capturing messages or /stopwatch to stop.
-`;
+// 💡 Use /watch to start capturing messages or /stopwatch to stop.
+// `;
       
-      await ctx.reply(communityDetailsMessage, { parse_mode: "Markdown" });
-    } catch (error) {
-      logger.error("Error handling /details command:", error);
-      await ctx.reply("Failed to fetch community details. Please try again.");
-    }
-  }
+//       await ctx.reply(communityDetailsMessage, { parse_mode: "Markdown" });
+//     } catch (error) {
+//       logger.error("Error handling /details command:", error);
+//       await ctx.reply("Failed to fetch community details. Please try again.");
+//     }
+//   }
 
   async start() {
     try {
