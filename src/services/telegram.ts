@@ -492,7 +492,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
             );
           } catch (error) {
             logger.error("Storage failed:", error);
-            await ctx.reply("❌ Storage failed. Please try again.");
+            await ctx.reply("❌ Storage failed. Please try again. Make sure the wallet is funded.");
           }
         }
 
@@ -545,7 +545,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
     }
     
     const messageText = data.data?.toString();
-    await ctx.reply(`📜 *Message* 📜\n\n${messageText}`, { parse_mode: "Markdown" });
+    await ctx.reply(`📜 Message 📜\n\n${messageText}`);
     
     logger.info(`Fetched message from IPFS for community ${chatId}.`);
     
