@@ -27,6 +27,7 @@ export class TelegramService {
 
   private setupHandlers() {
     this.bot.command("start", (ctx: Context) => this.handleStart(ctx));
+    this.bot.command("commands", (ctx: Context) => this.handleCommands(ctx));
     this.bot.command("trustpool", (ctx: Context) => this.handleTrustPool(ctx));
     this.bot.command("wallet", (ctx: Context) => this.handleWallet(ctx));
     this.bot.command("balance", (ctx: Context) => this.handleBalance(ctx));
@@ -59,41 +60,45 @@ export class TelegramService {
     const welcomeMessage = `
 🌟 Welcome to Culture Bot by ValuesDAO! 🚀
 
-I'm here to help you store and manage your community's culture onchain! 📜✨
+I'm here to help you store and manage your community's culture onchain!
 
 🛠️ *Getting Started:*
-0️⃣ Make sure to give the bot permission to read messages in this chat. 📚 🔐
+1️⃣ Make sure to give the bot permission to read messages in this chat.
 
-1️⃣ *Set Trust Pool:*  
-   Use /trustpool <poolId> <poolName> to link your community to a trust pool 🔗🏦
+2️⃣ *Set Trust Pool:*  
+   Use /trustpool <poolId> <poolName> to link your community to a trust pool.
 
-2️⃣ *Create a Wallet:*  
-   Use /wallet to generate a community wallet 🪙💼
+3️⃣ *Create a Wallet:*  
+   Use /wallet to generate a community wallet.
 
-3️⃣ *Check Balance:*  
-   Use /balance to see your community wallet balance 📊💰
+4️⃣ *Start Watching Messages:*  
+   Use /watch to start storing messages from this community chat.
 
-4️⃣ *Export Wallet:*  
-   Use /exportwallet to export wallet details securely 📄🔒
-
-5️⃣ *Start Watching Messages:*  
-   Use /watch to start storing messages from this community chat 👀📝
-
-6️⃣ *Stop Watching Messages:*  
-   Use /stopwatch to stop capturing messages ⛔🛑
-   
-7️⃣ *Stop Watching Messages:*  
-   Use /details to know the details of the community 📋🔍
-   
-8️⃣ *Get Message:*
-   Use /getmessage <txHash> to fetch the message from chain 📜🔗
-
-💡 *Pro Tip:* Tag the bot in a message to store it onchain! 🏛️🌐
+💡 *Pro Tip:* Tag the bot in a message to store it onchain!
 
 Enjoy preserving your culture with Culture Bot! 🌍🔗
 `;
 
     await ctx.reply(welcomeMessage, { parse_mode: "Markdown" });
+  }
+  
+  private async handleCommands(ctx: Context) {
+    const username = ctx.from?.username || "unknown";
+    logger.info(`Received /commands command from ${username}`);
+    const message = `
+📚 *Culture Bot Commands* 🤖
+- /start: Start the bot and get instructions.
+- /trustpool <link> <name>: Connect to a trust pool.
+- /wallet: Create a wallet for the community.
+- /balance: Check the community wallet balance.
+- /exportwallet: Export the wallet for the community.
+- /watch: Start watching messages in the community.
+- /stopwatch: Stop watching messages in the community.
+- /details: Get details of the community.
+- /getmessage <txHash>: Fetch a message using transaction hash.
+`;
+
+    await ctx.reply(message, { parse_mode: "Markdown" });
   }
 
   // * SET TRUST POOL COMMAND
@@ -291,10 +296,10 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 🔑 *Private Key:* \`${decryptedPrivateKey}\`
 
 ⚠️ *IMPORTANT:*
-- Keep this private key secure 🔒
-- Never share it with anyone 🚫
-- Store it safely offline 💾
-- Delete this message after saving the key 🗑️
+- Keep this private key secure
+- Never share it with anyone
+- Store it safely offline
+- Delete this message after saving the key
 
 🔍 [View on Explorer](https://sepolia.basescan.org/address/${community.publicKey})
 `;
@@ -336,7 +341,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       community.isWatching = true;
       await community.save();
-      await ctx.reply("Started watching community 👀🫡.");
+      await ctx.reply("Started watching community.");
       logger.info(`Started watching community ${community.communityName}.`);
     } catch (error) {
       logger.error("Error handling /watch command:", error);
@@ -370,7 +375,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       community.isWatching = false;
       await community.save();
-      await ctx.reply("Stopped watching community 🙈.");
+      await ctx.reply("Stopped watching community.");
       logger.info(`Stopped watching community ${chatId}.`);
     } catch (error) {
       logger.error("Error handling /stopwatch command:", error);
@@ -466,14 +471,14 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
           try {
             // check if privateKey is set
             if (!community.privateKey) {
-              await ctx.reply("Error: Wallet not created. Please use /wallet to create a wallet. 🪙💼");
+              await ctx.reply("Error: Wallet not created. Please use /wallet to create a wallet.");
               return;
             }
             // Upload the message to pinata ipfs
             const response = await this.storeMessageOnIpfs(text);
             
             if (!response) {
-              await ctx.reply("Error storing message on IPFS. Please try again. 🚫");
+              await ctx.reply("Error storing message on IPFS. Please try again.");
               return;
             }
           
@@ -496,9 +501,6 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
         }
 
         logger.info(`Stored message from ${senderUsername} in community ${community.communityName}.`);
-
-        // add a reaction of thumbs up to the user's message once stored
-        await ctx.reply("🫡");
       }
     } catch (error) {
       logger.error("Error handling message:", error);
