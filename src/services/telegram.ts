@@ -63,15 +63,13 @@ export class TelegramService {
 I'm here to help you store and manage your community's culture onchain!
 
 🛠️ *Getting Started:*
-1️⃣ Make sure to give the bot permission to read messages in this chat.
-
-2️⃣ *Set Trust Pool:*  
+1. *Set Trust Pool:*  
    Use /trustpool <poolId> <poolName> to link your community to a trust pool.
 
-3️⃣ *Create a Wallet:*  
+2. *Create a Wallet:*  
    Use /wallet to generate a community wallet.
 
-4️⃣ *Start Watching Messages:*  
+3. *Start Watching Messages:*  
    Use /watch to start storing messages from this community chat.
 
 💡 *Pro Tip:* Tag the bot in a message to store it onchain!
