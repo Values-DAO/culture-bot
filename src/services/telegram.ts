@@ -62,7 +62,7 @@ export class TelegramService {
 
 I'm here to help you store and manage your community's culture onchain!
 
-🛠️ To get started, use /trustpool <link> <poolName> to link your community to a trust pool. Get the link from [ValuesDAO](https://app.valuesdao.io/trustpools).
+🛠️ To get started, use /trustpool <link> to link your community to a trust pool. Get the link from [ValuesDAO](https://app.valuesdao.io/trustpools).
    
 ✅ You're all set! Your messages are being stored now.
    
@@ -82,7 +82,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
     const message = `
 📚 *Culture Bot Commands* 🤖
 - /start: Start the bot and get instructions.
-- /trustpool <link> <name>: Connect to a trust pool.
+- /trustpool <link>: Connect to a trust pool.
 - /wallet: Create a wallet for the community.
 - /balance: Check the community wallet balance.
 - /exportwallet: Export the wallet for the community.
@@ -110,16 +110,16 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
       }
 
       const args = ctx.message?.text?.split(" ").slice(1);
-      if (!args || args.length < 2) {
-        await ctx.reply("Error: Please use format: /trustpool <link> <name>");
+      if (!args || args.length < 1) {
+        await ctx.reply("Error: Please use format: /trustpool <link>");
         return;
       }
 
-      const [trustPoolLink, trustPoolName] = args;
+      const [trustPoolLink] = args;
       
       const trustPoolId = trustPoolLink.split("/").pop();
 
-      ctx.reply(`Connecting to trust pool ${trustPoolName}...`);
+      ctx.reply(`Connecting to trust pool...`);
 
       // Check if community already exists
       const existingCommunity = await CultureBotCommunity.findOne({ trustPoolId });
@@ -135,6 +135,8 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
         await ctx.reply("Error: Trust pool not found.");
         return;
       }
+      
+      const trustPoolName = trustPool.name;
 
       const community = await CultureBotCommunity.create({
         trustPoolId,
@@ -167,7 +169,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       if (!community) {
         await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <link> <name>."
+          "Error: Community not found. Please connect to a trust pool first using /trustpool <link>."
         );
         return;
       }
@@ -328,7 +330,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
 
       if (!community) {
         await ctx.reply(
-          "Error: Community not found. Please connect to a trust pool first using /trustpool <link> <name>."
+          "Error: Community not found. Please connect to a trust pool first using /trustpool <link>."
         );
         return;
       }
@@ -513,7 +515,7 @@ Enjoy preserving your culture with Culture Bot! 🌍🔗
     const args = ctx.message?.text?.split(" ").slice(1);
     
     if (!args || args.length < 1) {
-      await ctx.reply("Error: Please use format: /trustpool <link> <name>");
+      await ctx.reply("Error: Please use format: /trustpool <link>");
       return;
     }
     
