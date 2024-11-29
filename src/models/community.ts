@@ -28,7 +28,7 @@ export const cultureBotCommunitySchema = new Schema({
   },
   isWatching: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   privateKey: {
     type: String,

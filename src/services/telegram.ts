@@ -64,14 +64,16 @@ I'm here to help you store and manage your community's culture onchain!
 
 🛠️ *Getting Started:*
 1. *Set Trust Pool:*  
-   Use /trustpool <poolId> <poolName> to link your community to a trust pool.
+   Use /trustpool <link> <poolName> to link your community to a trust pool. Get the link from [ValuesDAO](https://app.valuesdao.io/trustpools).
 
 2. *Create a Wallet:*  
    Use /wallet to generate a community wallet.
 
 3. *Start Watching Messages:*  
    Use /watch to start storing messages from this community chat.
-
+   
+✅ You're all set! Your messages are being stored now.
+   
 💡 *Pro Tip:* Tag the bot in a message to store it onchain!
 
 💡 /commands to know all the commands this bot supports!
