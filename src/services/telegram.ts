@@ -58,7 +58,7 @@ export class TelegramService {
     const username = ctx.from?.username || "unknown";
     logger.info(`Received /start command from ${username}`);
     const welcomeMessage = `
-🌟 Welcome to Culture Bot by ValuesDAO! 🚀
+🌟 Culture Bot 🚀
 
 I'm here to help you store and manage your community's culture onchain!
 
@@ -75,6 +75,8 @@ I'm here to help you store and manage your community's culture onchain!
    Use /watch to start storing messages from this community chat.
 
 💡 *Pro Tip:* Tag the bot in a message to store it onchain!
+
+💡 /commands to know all the commands this bot supports!
 
 Enjoy preserving your culture with Culture Bot! 🌍🔗
 `;
