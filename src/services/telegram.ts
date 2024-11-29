@@ -68,7 +68,7 @@ I'm here to help you store and manage your community's culture onchain!
    
 💡 *Pro Tip:* Tag the bot in a message to store it onchain!
 
-💡 /commands to know all the commands this bot supports!
+🤖 /commands to know all the commands this bot supports!
 
 Enjoy preserving your culture with Culture Bot! 🌍🔗
 `;
