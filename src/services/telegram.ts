@@ -5,15 +5,11 @@ import { CultureBotCommunity } from "../models/community";
 import { TrustPools } from "../models/trustpool";
 import { CultureBotMessage } from "../models/message";
 import { ethers } from "ethers";
-import { CryptoUtils } from "../utils/cryptoUtils";
 import { PinataSDK } from "pinata-web3";
 
-// TODO: Only the admins can trigger the bot.
 // TODO: Change trustpool functionality.
-// TODO: Flexibility for other bots to run in the same chat. Specialize the bot trigger.
-// TODO: New wallet creation.
-// TODO: Handle tagging.
-// TODO: Different types of messages.
+// TODO: Flexibility for other bots to run in the sa  me chat. Specialize the bot trigger.
+// TODO: Support for different types of messages.
 
 export class TelegramService {
   private bot: Bot;
@@ -448,7 +444,7 @@ Preserve your culture with Culture Bot!  🌍🔗
         const mentionsBot = ctx.message?.entities?.some(
           (entity) =>
             entity.type === "mention" &&
-            ctx.message?.text?.slice(entity.offset, entity.offset + entity.length) === "@valuesdao_culture_bot"
+            ctx.message?.text?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
         );
         
         if (mentionsBot) {
