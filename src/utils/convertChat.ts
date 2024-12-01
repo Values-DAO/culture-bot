@@ -3,7 +3,6 @@ import * as fs from "fs";
 // Define the output message interface
 interface ConvertedMessage {
   text: string;
-  isTagged: boolean;
   senderUsername: string;
   senderTgId: string;
   community: string;
@@ -35,7 +34,6 @@ function convertTelegramExport(inputFile: string, outputFile: string): void {
 
       return {
         text: fullText.trim(),
-        isTagged: false,
         senderUsername: msg.from || "Unknown",
         senderTgId: msg.from_id || "Unknown",
         community: communityName,

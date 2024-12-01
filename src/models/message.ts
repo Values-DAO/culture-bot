@@ -5,10 +5,6 @@ const cultureBotMessageSchema = new Schema({
     type: String,
     required: true
   },
-  isTagged: {
-    type: Boolean,
-    default: false
-  },
   senderUsername: {
     type: String,
     required: true,
