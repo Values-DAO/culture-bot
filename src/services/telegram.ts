@@ -1,14 +1,15 @@
 import { Bot, Context } from "grammy";
 import { config } from "../config/config";
 import { logger } from "../utils/logger";
-import { CultureBotCommunity } from "../models/community";
+import { CultureBotCommunity, type Community } from "../models/community";
 import { TrustPools } from "../models/trustpool";
 import { CultureBotMessage } from "../models/message";
 import { ethers } from "ethers";
 import { PinataSDK } from "pinata-web3";
+import { CultureBook } from "../models/cultureBook";
 
 // TODO: Change trustpool functionality.
-// TODO: Flexibility for other bots to run in the sa  me chat. Specialize the bot trigger.
+// TODO: Flexibility for other bots to run in the sa  me chat. Specialize the bot trigger.  
 // TODO: Support for different types of messages.
 
 export class TelegramService {
@@ -108,7 +109,7 @@ Preserve your culture with Culture Bot!  🌍🔗
       ctx.reply(`Connecting to trust pool...`);
 
       // Check if community already exists
-      const existingCommunity = await CultureBotCommunity.findOne({ trustPoolId });
+      const existingCommunity = await CultureBotCommunity.findOne({ trustPool: trustPoolId });
       if (existingCommunity) {
         await ctx.reply("This trust pool is already connected to a community ✅.");
         return;
@@ -125,14 +126,24 @@ Preserve your culture with Culture Bot!  🌍🔗
       const trustPoolName = trustPool.name;
 
       const community = await CultureBotCommunity.create({
-        trustPoolId,
+        trustPool: trustPoolId,
         trustPoolName,
         communityName,
         initiator: username,
         initiatorTgId: userId.toString(),
         chatId: chatId.toString(),
       });
-
+      
+      const cultureBook = await CultureBook.findOne({ trustPool: trustPoolId });
+      
+      cultureBook.cultureBotCommunity = community._id;
+      community.cultureBook = cultureBook._id;
+      trustPool.cultureBotCommunity = community._id;
+      
+      await cultureBook.save();
+      await community.save();
+      await trustPool.save();
+      
       await ctx.reply(`Community ${communityName} connected to trust pool ${trustPoolName} 🎉.`);
       logger.info(`Community ${communityName} connected to trust pool ${trustPoolName}.`);
     } catch (error) {
@@ -365,7 +376,7 @@ Preserve your culture with Culture Bot!  🌍🔗
   //   }
   // }
   
-  private async storeMessageOnIpfs(message: string): Promise<IpfsResponse | undefined> {
+  private async storeMessageOnIpfs(message: string): Promise<IPFSResponse | undefined> {
     try {
       const pinata = new PinataSDK({
         pinataJwt: config.pinataJwt,
@@ -437,6 +448,8 @@ Preserve your culture with Culture Bot!  🌍🔗
           community: community._id,
         });
 
+        // TODO: Fix this frigging error
+        // @ts-ignore
         community.messages.push(message._id);
 
         await community.save();

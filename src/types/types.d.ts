@@ -1,4 +1,4 @@
-interface IpfsResponse {
+interface IPFSResponse {
   IpfsHash: string;
   PinSize: number;
   Timestamp: string;

@@ -5,7 +5,6 @@ interface ConvertedMessage {
   text: string;
   senderUsername: string;
   senderTgId: string;
-  community: string;
 }
 
 // Function to convert Telegram chat export
@@ -14,8 +13,6 @@ function convertTelegramExport(inputFile: string, outputFile: string): void {
   const rawData = fs.readFileSync(inputFile, "utf-8");
   const chatData = JSON.parse(rawData);
 
-  // Extract community name from the first line
-  const communityName = chatData.name || "Unknown Community";
 
   // Convert messages
   const convertedMessages: ConvertedMessage[] = chatData.messages
@@ -36,9 +33,9 @@ function convertTelegramExport(inputFile: string, outputFile: string): void {
         text: fullText.trim(),
         senderUsername: msg.from || "Unknown",
         senderTgId: msg.from_id || "Unknown",
-        community: communityName,
       };
-    });
+    })
+    .filter((msg: any) => msg.text.length > 0);
 
   // Write converted messages to output file
   fs.writeFileSync(outputFile, JSON.stringify(convertedMessages, null, 2));
@@ -48,7 +45,7 @@ function convertTelegramExport(inputFile: string, outputFile: string): void {
 
 // Usage example
 try {
-  convertTelegramExport("src/utils/result.json", "converted_messages.json");
+  convertTelegramExport("result.json", "converted_messages.json");
 } catch (error) {
   console.error("Conversion failed:", error);
 }

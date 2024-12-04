@@ -1,29 +1,32 @@
-import {Schema, model} from 'mongoose';
+import { Schema, model, models } from "mongoose";
 
-const cultureBotMessageSchema = new Schema({
-  text: {
-    type: String,
-    required: true
+const cultureBotMessageSchema = new Schema(
+  {
+    text: {
+      type: String,
+      required: true,
+    },
+    senderUsername: {
+      type: String,
+      required: true,
+    },
+    senderTgId: {
+      type: String,
+      required: true,
+    },
+    transactionHash: {
+      type: String,
+    },
+    ipfsHash: {
+      type: String,
+    },
+    community: {
+      type: Schema.Types.ObjectId,
+      ref: "CultureBotCommunity",
+      required: true,
+    },
   },
-  senderUsername: {
-    type: String,
-    required: true,
-  },
-  senderTgId: {
-    type: String,
-    required: true,
-  },
-  transactionHash: {
-    type: String,
-  },
-  ipfsHash: {
-    type: String,
-  },
-  community: {
-    type: Schema.Types.ObjectId,
-    ref: "Community",
-    required: true,
-  }
-}, {timestamps: true});
+  { timestamps: true }
+);
 
-export const CultureBotMessage = model("CultureBotMessage", cultureBotMessageSchema);
+export const CultureBotMessage = models.CultureBotMessage || model("CultureBotMessage", cultureBotMessageSchema);
