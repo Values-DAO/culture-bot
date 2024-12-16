@@ -11,5 +11,5 @@ export const config = {
   IV_LENGTH: 16,
   pinataJwt: process.env.PINATA_JWT!,
   pinataGateway: process.env.PINATA_GATEWAY!,
-  backendUrl: process.env.NODE_ENV === 'production' ? process.env.BACKEND_URL : 'http://localhost:3000',
+  backendUrl: process.env.ENV === 'prod' ? "https://api.valuesdao.io": process.env.ENV === 'staging' ? 'https://staging-api.valuesdao.io' : 'http://localhost:3000',
 };
