@@ -183,14 +183,14 @@ Preserve your culture with Culture Bot!  🌍🔗
         }
         
         // call the backend api
-        // const response = await axios.post(`${config.backendUrl}/cultureBook/generate`, {
-        //   trustPoolId: trustpool._id,
-        // })
+        const response = await axios.post(`${config.backendUrl}/cultureBook/generate`, {
+          trustPoolId: trustpool._id,
+        })
         
-        // if (response.status !== 200) {
-        //   logger.error("Error generating culture book for community:", community.communityName);
-        //   return false;
-        // }
+        if (response.status !== 200) {
+          logger.error("Error generating culture book for community:", community.communityName);
+          return false;
+        }
         
         trustpool = await TrustPools.findById(community.trustPool).populate("cultureBook");
 
