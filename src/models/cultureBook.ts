@@ -1,5 +1,4 @@
 import { model, models, Schema } from "mongoose";
-import { CultureBotCommunity } from "./community";
 
 const cultureBookSchema = new Schema({
   // * Trust Pool
@@ -37,14 +36,6 @@ const cultureBookSchema = new Schema({
         timestamp: { type: Date, required: true },
         title: { type: String, required: true },
         source: { type: String, enum: ["Twitter", "Youtube", "Farcaster", "Telegram"], required: true },
-      },
-      default: [],
-    },
-  ],
-  top_posters: [
-    {
-      type: {
-        username: { type: String, required: true },
       },
       default: [],
     },

@@ -17,7 +17,7 @@ async function seedDB() {
   try {
     await connectDB();
 
-    const community = await CultureBotCommunity.findOne({ communityName: "culture bot demo" });
+    const community = await CultureBotCommunity.findOne({ communityName: "DEVTEST: ValuesDAO" });
 
     if (!community) {
       logger.error("Community not found");
@@ -25,7 +25,7 @@ async function seedDB() {
     }
 
     // Properly import JSON using path.resolve
-    const messagesData: MessageData[] = require(path.resolve(__dirname, "./converted_messages.json"));
+    const messagesData: MessageData[] = require(path.resolve(__dirname, "../../converted_messages.json"));
 
     // First, insert the messages and get their IDs
     const insertedMessages = await CultureBotMessage.insertMany(

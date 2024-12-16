@@ -3,8 +3,8 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "start": "bun run src/index.ts",
-    "build": "bun build src/index.ts --outdir dist",
+    "start": "bun run dist/index.js",
+    "build": "bun build src/index.ts --outdir dist --target node",
     "dev": "bun run --watch src/index.ts"
   },
   "devDependencies": {
@@ -14,12 +14,15 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@types/express": "^5.0.0",
     "axios": "^1.7.8",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.4",
+    "express": "^4.21.1",
     "grammy": "^1.32.0",
     "mongoose": "^8.8.3",
+    "path-browserify": "^1.0.1",
     "pinata-web3": "^0.5.2",
     "winston": "^3.17.0"
   }
