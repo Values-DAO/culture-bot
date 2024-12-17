@@ -192,45 +192,42 @@ Preserve your culture with Culture Bot!  🌍🔗
           return false;
         }
         
-        trustpool = await TrustPools.findById(community.trustPool).populate("cultureBook");
-
-        if (!trustpool || !trustpool.cultureBook || !trustpool.cultureBook.value_aligned_posts) {
-          logger.error("Culture book or value_aligned_posts not found for community:", community.communityName);
-          continue;
-        }
-
-        const posts = trustpool.cultureBook.value_aligned_posts;
-
-        const topContributors = posts
-          .filter((post) => post.onchain === false && post.eligibleForVoting === true)
-          .map((post) => ({
-            posterUsername: post.posterUsername,
-          }));
-
-        if (topContributors.length === 0) {
-          logger.info("No top contributors found.");
-        } else {
-          logger.info(`Top contributors: ${topContributors.join(", ")}`);
-        }
+        // Get the top contributors
+        const posts = await axios.get(`${config.backendUrl}/cultureBook/pre-onchain/get?trustPoolId=${trustpool._id}`);
+        
+        let topContributors = posts.data.data.posts.map((post: any) => post.posterUsername);
+        
+        // remove duplicates from top contributors
+        topContributors = [...new Set(topContributors)];
         
         logger.info(`Top contributors: ${topContributors.join(", ")}`);
           
-        const message = `Hey guys, the culture book for this week's content is ready! 📚🌟
-        \n\n
-        Check it out here: [Culture Book](https://staging.valuesdao.io/trustpools/${trustpool._id}/curate)
-        \n\n
-        This week's top contributors are:
-        \n\n
-        ${topContributors.join("\n")}
-        \n\n
-        All the community members are requested to check the curate tab and upvote the content that they think is value-aligned.
-        \n\n
-        The voting will end in 24 hours! 🕒
-        After that, the top contributors will be rewarded with $CULTURE tokens and these posts will go onchain! 🎉
+        const message = `
+        🌟 Culture Book Update 📚
+
+Hey everyone! This week’s Culture Book is ready.
+
+👉 Check it out here: [Culture Book](https://staging.valuesdao.io/trustpools/${trustpool._id}/curate)
+
+📝 Top Contributors for this week are:
+${topContributors.map((contributor: string, i: number) => `${i + 1}. ${contributor}`).join("\n")}
+
+🔔 What to do next?
+1️⃣ Head to the Curate tab.
+2️⃣ Upvote the content that you believe aligns with our values.
+
+⏳ Voting Deadline: 24 hours from now!
+
+🎁 Rewards:
+	- Top contributors will receive $CULTURE tokens.
+  - Voters will also receive $CULTURE tokens.
+	- The selected posts will go onchain! 🎉
+
+Let’s celebrate and reward value-aligned contributions. 🚀
         `;
 
         // send the message to the community
-        await this.bot.api.sendMessage(chatId, message);
+        await this.bot.api.sendMessage(chatId, message, { parse_mode: "Markdown" });
       }
       
       return true;
