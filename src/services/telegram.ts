@@ -516,94 +516,123 @@ Let’s celebrate and reward value-aligned contributions. 🚀
       if (!chatId || !text || !senderUsername || !senderTgId) {
         return;
       }
-      
+
       const community = await CultureBotCommunity.findOne({ chatId });
-      if (!community) {
+      if (!community || !community.isWatching) {
         return;
       }
 
-      if (community.isWatching === true) {
-        // Store the message in the database
-        const message = await CultureBotMessage.create({
-          text,
-          senderUsername,
-          senderTgId: senderTgId.toString(),
-          community: community._id,
-        });
+      const repliedMessage = ctx.message?.reply_to_message;
+      const currentMessage = ctx.message;
 
-        // TODO: Fix this frigging error
-        // @ts-ignore
-        community.messages.push(message._id);
+      const messageToProcess = repliedMessage || currentMessage;
+      if (!messageToProcess?.text) {
+        return;
+      }
 
-        await community.save();
+      // Check for bot mention in the current message
+      const mentionsBot = currentMessage?.entities?.some(
+        (entity) =>
+          entity.type === "mention" &&
+          currentMessage?.text?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
+      );
 
-        const mentionsBot = ctx.message?.entities?.some(
-          (entity) =>
-            entity.type === "mention" &&
-            ctx.message?.text?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
-        );
+      if (!mentionsBot) {
+        // If there's no bot mention, just store the message normally
+        await this.storeMessageInDB(messageToProcess, community);
+        return;
+      }
+      
+      // Store the message that should be processed (either replied or current)
+      const message = await this.storeMessageInDB(messageToProcess, community);
 
-        if (mentionsBot) {
-          // Upload to culture book and store onchain
-          const processingMsg = await ctx.reply("📝 Processing message...");
+      // Process the message for storage on chain
+      const processingMsg = await ctx.reply("📝 Processing message...");
 
-          try {
-            // storing message on culturebook
-            const stored = await CultureBook.findOneAndUpdate(
-              { trustPool: community.trustPool },
-              {
-                $push: {
-                  value_aligned_posts: {
-                    id: message._id,
-                    posterUsername: message.senderUsername,
-                    content: message.text,
-                    timestamp: new Date(),
-                    title: "From Telegram Community",
-                    source: "Telegram",
-                    onchain: true,
-                    eligibleForVoting: false,
-                  },
-                },
-              },
-              { new: true }
-            );
-            
-            if (!stored) {
-              await ctx.reply("❌ Storage failed. Please try again.");
-              return;
-            }
-            
-            // Upload the message to pinata ipfs
-            const response = await this.storeMessageOnIpfs(text);
-
-            if (!response) {
-              await ctx.reply("Error storing message on IPFS. Please try again.");
-              return;
-            }
-
-            const txHash = await this.storeMessageOnChain(response.IpfsHash);
-
-            message.transactionHash = txHash;
-            message.ipfsHash = response.IpfsHash;
-            await message.save();
-
-            await ctx.api.editMessageText(
-              chatId,
-              processingMsg.message_id,
-              `✅ Message stored!\n\nChain: https://sepolia.basescan.org/tx/${txHash}\nIPFS: https://gateway.pinata.cloud/ipfs/${response.IpfsHash}\n✅ Message stored in Culture Book.`
-            );
-          } catch (error) {
-            logger.error("Storage failed:", error);
-            await ctx.reply("❌ Storage failed. Please try again. Make sure the wallet is funded.");
-          }
+      try {
+        // Store in culture book
+        const stored = await this.storeToCultureBook(message, community);
+        if (!stored) {
+          await ctx.reply("❌ Storage failed. Please try again.");
+          return;
         }
 
-        logger.info(`Stored message from ${senderUsername} in community ${community.communityName}.`);
+        // Upload to IPFS and store on chain
+        const response = await this.storeMessageOnIpfs(messageToProcess.text);
+        if (!response) {
+          await ctx.reply("Error storing message on IPFS. Please try again.");
+          return;
+        }
+
+        const txHash = await this.storeMessageOnChain(response.IpfsHash);
+
+        // Update message with transaction details
+        message.transactionHash = txHash;
+        message.ipfsHash = response.IpfsHash;
+        await message.save();
+
+        await ctx.api.editMessageText(
+          chatId,
+          processingMsg.message_id,
+          `✅ Message stored!\n\nChain: https://sepolia.basescan.org/tx/${txHash}\nIPFS: https://gateway.pinata.cloud/ipfs/${response.IpfsHash}\n✅ Message stored in Culture Book.`
+        );
+
+      } catch (error) {
+        logger.error("Storage failed:", error);
+        await ctx.reply("❌ Storage failed. Please try again.");
       }
     } catch (error) {
       logger.error("Error handling message:", error);
     }
   }
+  
+  private async storeMessageInDB(
+    message: any,
+    community: any
+  ): Promise<any> {
+    const storedMessage = await CultureBotMessage.create({
+      text: message.text,
+      senderUsername: message.from?.username || "unknown",
+      senderTgId: message.from?.id.toString(),
+      community: community._id,
+    });
+
+    // TODO: Fix this frigging error
+    // @ts-ignore
+    community.messages.push(storedMessage._id);
+    await community.save();
+
+    logger.info(`Stored message in database. Community: ${community.communityName} from ${message.from?.username}`);
+    
+    return storedMessage;
+  }
+
+  // Helper method to store message in culture book
+  private async storeToCultureBook(
+    message: any,
+    community: any
+  ): Promise<any> {
+    return await CultureBook.findOneAndUpdate(
+      { trustPool: community.trustPool },
+      {
+        $push: {
+          value_aligned_posts: {
+            id: message._id,
+            posterUsername: message.senderUsername,
+            content: message.text,
+            timestamp: new Date(),
+            title: "From Telegram Community",
+            source: "Telegram",
+            onchain: true,
+            eligibleForVoting: false,
+          },
+        },
+      },
+      { new: true }
+    );
+  }
+
+      
 
   // * GET MESSAGE COMMAND
   // * Fetches the message given the transaction hash
