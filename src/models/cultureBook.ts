@@ -9,7 +9,12 @@ const cultureBookSchema = new Schema({
   // * Culture Bot Community
   cultureBotCommunity: {
     type: Schema.Types.ObjectId,
-    ref: "CultureBotCommunity",
+    ref: "CultureBotCommunity"
+  },
+  // * Culture Token
+  cultureToken: {
+    type: Schema.Types.ObjectId,
+    ref: "CultureToken",
   },
   // * Content for the Culture Book
   core_values: {
@@ -30,12 +35,39 @@ const cultureBookSchema = new Schema({
   value_aligned_posts: [
     {
       type: {
-        id: { type: String, required: true },
         posterUsername: { type: String, required: true },
         content: { type: String, required: true },
         timestamp: { type: Date, required: true },
         title: { type: String, required: true },
         source: { type: String, enum: ["Twitter", "Youtube", "Farcaster", "Telegram"], required: true },
+        onchain: { type: Boolean, default: false },
+        eligibleForVoting: { type: Boolean, default: true },
+        votes: { 
+          type: {
+            count: { type: Number },
+            alignedUsers: [
+              {
+                type: {
+                  userId: { type: String, required: true },
+                },
+              },
+            ],
+            notAlignedUsers: [
+              {
+                type: {
+                  userId: { type: String, required: true },
+                },
+              },
+            ],
+          },
+          default: {
+            count: 0,
+            alignedUsers: [],
+            notAlignedUsers: [],
+          },
+        },
+        transactionHash: { type: String },
+        ipfsHash: { type: String },
       },
       default: [],
     },

@@ -544,9 +544,35 @@ Let’s celebrate and reward value-aligned contributions. 🚀
         );
 
         if (mentionsBot) {
+          // Upload to culture book and store onchain
           const processingMsg = await ctx.reply("📝 Processing message...");
 
           try {
+            // storing message on culturebook
+            const stored = await CultureBook.findOneAndUpdate(
+              { trustPool: community.trustPool },
+              {
+                $push: {
+                  value_aligned_posts: {
+                    id: message._id,
+                    posterUsername: message.senderUsername,
+                    content: message.text,
+                    timestamp: new Date(),
+                    title: "From Telegram Community",
+                    source: "Telegram",
+                    onchain: true,
+                    eligibleForVoting: false,
+                  },
+                },
+              },
+              { new: true }
+            );
+            
+            if (!stored) {
+              await ctx.reply("❌ Storage failed. Please try again.");
+              return;
+            }
+            
             // Upload the message to pinata ipfs
             const response = await this.storeMessageOnIpfs(text);
 
@@ -564,7 +590,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
             await ctx.api.editMessageText(
               chatId,
               processingMsg.message_id,
-              `✅ Message stored!\n\nChain: https://sepolia.basescan.org/tx/${txHash}\nIPFS: https://gateway.pinata.cloud/ipfs/${response.IpfsHash}`
+              `✅ Message stored!\n\nChain: https://sepolia.basescan.org/tx/${txHash}\nIPFS: https://gateway.pinata.cloud/ipfs/${response.IpfsHash}\n✅ Message stored in Culture Book.`
             );
           } catch (error) {
             logger.error("Storage failed:", error);
