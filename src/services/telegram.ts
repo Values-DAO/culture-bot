@@ -105,7 +105,8 @@ Preserve your culture with Culture Bot!  🌍🔗
 
       const [trustPoolLink] = args;
 
-      const trustPoolId = trustPoolLink.split("/").pop();
+      
+      const trustPoolId = trustPoolLink.split("/")[4];
       
       ctx.reply(`Connecting to trust pool...`);
 
