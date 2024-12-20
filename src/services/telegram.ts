@@ -496,6 +496,9 @@ Let’s celebrate and reward value-aligned contributions. 🚀
 
     const receipt = await tx.wait();
     if (!receipt?.hash) throw new Error("Transaction failed");
+    
+    logger.info(`Stored message onchain with transaction hash: ${receipt.hash}`);
+    
     return receipt.hash;
   }
 
@@ -574,7 +577,8 @@ Let’s celebrate and reward value-aligned contributions. 🚀
         await ctx.api.editMessageText(
           chatId,
           processingMsg.message_id,
-          `✅ Message stored!\n\nChain: https://sepolia.basescan.org/tx/${txHash}\nIPFS: https://gateway.pinata.cloud/ipfs/${response.IpfsHash}\n✅ Message stored in Culture Book.`
+          `This message has been added to ${community.communityName} Culture Book onchain\n\nCheck it out [here](https://app.valuesdao.io/trustpools/${community.trustPool}/culture).\n\nI’m like an elder listening to this amazing community and storing the Lore onchain so next generations can visit it forever!`,
+          { parse_mode: "Markdown" }
         );
 
       } catch (error) {
@@ -591,7 +595,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
     community: any
   ): Promise<any> {
     const storedMessage = await CultureBotMessage.create({
-      text: message.text,
+      text: message.text.replace(/@culturepadbot/g, "").trim(),
       senderUsername: message.from?.username || "unknown",
       senderTgId: message.from?.id.toString(),
       community: community._id,
@@ -619,7 +623,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           value_aligned_posts: {
             id: message._id,
             posterUsername: message.senderUsername,
-            content: message.text,
+            content: message.text.replace(/@culturepadbot/g, "").trim(),
             timestamp: new Date(),
             title: "From Telegram Community",
             source: "Telegram",
