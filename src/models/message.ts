@@ -4,7 +4,6 @@ const cultureBotMessageSchema = new Schema(
   {
     text: {
       type: String,
-      required: true,
     },
     senderUsername: {
       type: String,
@@ -25,6 +24,12 @@ const cultureBotMessageSchema = new Schema(
       ref: "CultureBotCommunity",
       required: true,
     },
+    hasPhoto: {
+      type: Boolean,
+      default: false,
+    },
+    photoUrl: String, // IPFS Pinata URL
+    photoFileId: String, // Telegram File ID to refetch the image when needed
   },
   { timestamps: true }
 );

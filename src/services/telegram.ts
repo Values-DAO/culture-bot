@@ -35,6 +35,11 @@ export class TelegramService {
     // this.bot.command("details", (ctx: Context) => this.handleDetails(ctx));
     // this.bot.command("getmessage", (ctx: Context) => this.handleGetMessage(ctx));
 
+    // this.bot.on("message:photo", async (ctx: Context) => {
+    //   const photo = ctx.message?.photo;
+    //   await ctx.reply("Photo received!");
+    // });
+    this.bot.on("message:photo", async (ctx: Context) => this.handleMessage(ctx));
     this.bot.on("message", (ctx: Context) => this.handleMessage(ctx));
   }
 
@@ -105,9 +110,8 @@ Preserve your culture with Culture Bot!  🌍🔗
 
       const [trustPoolLink] = args;
 
-      
       const trustPoolId = trustPoolLink.split("/")[4];
-      
+
       ctx.reply(`Connecting to trust pool...`);
 
       // Check if community already exists
@@ -117,7 +121,7 @@ Preserve your culture with Culture Bot!  🌍🔗
         await ctx.reply("This trust pool is already connected to a community ✅.");
         return;
       }
-      
+
       // Create new community
       // Check if the trust pool exists or not
       // This is working fine
@@ -126,10 +130,10 @@ Preserve your culture with Culture Bot!  🌍🔗
         await ctx.reply("Error: Trust pool not found.");
         return;
       }
-      
+
       const trustPoolName = trustPool.name;
       logger.info(`Received /trustpool for ${trustPool._id}: ${trustPoolName} from ${username}`);
-      
+
       const community = await CultureBotCommunity.create({
         trustPool: trustPool._id,
         trustPoolName,
@@ -138,9 +142,9 @@ Preserve your culture with Culture Bot!  🌍🔗
         initiatorTgId: userId.toString(),
         chatId: chatId.toString(),
       });
-      
+
       const cultureBook = await CultureBook.findOne({ trustPool: trustPool._id });
-      
+
       cultureBook.cultureBotCommunity = community._id;
       community.cultureBook = cultureBook._id;
       trustPool.cultureBotCommunity = community._id;
@@ -162,47 +166,47 @@ Preserve your culture with Culture Bot!  🌍🔗
   public async cronJobResponder() {
     try {
       // In all the communities that the bot is in, send a message to the community
-      
+
       // Find all communities
       const communities = await CultureBotCommunity.find();
 
       for (const community of communities) {
         const chatId = community.chatId;
-        
+
         logger.info(`Processing messages for community: ${community.communityName}`);
-        
+
         // If no messages in the community, skip
         if (community.messages.length === 0) {
           logger.info("No messages to process in community:", community.communityName);
           continue;
         }
-        
+
         let trustpool = await TrustPools.findById(community.trustPool);
         if (!trustpool) {
           logger.error("Trust pool not found for community:", community.communityName);
           continue;
         }
-        
+
         // call the backend api
         const response = await axios.post(`${config.backendUrl}/cultureBook/generate`, {
           trustPoolId: trustpool._id,
-        })
-        
+        });
+
         if (response.status !== 200) {
           logger.error("Error generating culture book for community:", community.communityName);
           return false;
         }
-        
+
         // Get the top contributors
         const posts = await axios.get(`${config.backendUrl}/cultureBook/pre-onchain/get?trustPoolId=${trustpool._id}`);
-        
+
         let topContributors = posts.data.data.posts.map((post: any) => post.posterUsername);
-        
+
         // remove duplicates from top contributors
         topContributors = [...new Set(topContributors)];
-        
+
         logger.info(`Top contributors: ${topContributors.join(", ")}`);
-          
+
         const message = `
         🌟 Culture Book Update 📚
 
@@ -230,7 +234,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
         // send the message to the community
         await this.bot.api.sendMessage(chatId, message, { parse_mode: "Markdown" });
       }
-      
+
       return true;
     } catch (error) {
       logger.error("Error in cronJobResponder:", error);
@@ -462,23 +466,85 @@ Let’s celebrate and reward value-aligned contributions. 🚀
   //   }
   // }
 
-  // @ts-ignore
-  private async storeMessageOnIpfs(message: string): Promise<IPFSResponse | undefined> {
+  private async storeMessageOnIpfs(content: string | { text: string; photo: any }): Promise<IPFSResponse | undefined> {
     try {
       const pinata = new PinataSDK({
         pinataJwt: config.pinataJwt,
         pinataGateway: config.pinataGateway,
       });
 
-      const file = new File([message], "message.txt", { type: "text/plain" });
-      const upload = await pinata.upload.file(file);
-      logger.info("Uploaded message to IPFS (console logged by normal command!):");
-      console.log(upload);
-      return upload;
+      if (typeof content === "string") {
+        const file = new File([content], "message.txt", { type: "text/plain" });
+        const upload = await pinata.upload.file(file);
+        logger.info("Uploaded text message to IPFS:");
+        console.log(upload);
+        return upload;
+      } else {
+        // If it's a photo message, we need to:
+        // 1. Download the image from Telegram
+        // 2. Upload the image to IPFS
+        // 3. Create a JSON with the text and IPFS image hash
+
+        if (content.photo?.url) {
+          try {
+            // Download image from Telegram
+            const imageBuffer = await this.downloadImage(content.photo.url);
+
+            // Upload image to IPFS first
+            const imageFile = new File([imageBuffer], "image.jpg", { type: "image/jpeg" });
+            const imageUpload = await pinata.upload.file(imageFile);
+
+            // Create final content object with image IPFS hash
+            const finalContent = {
+              text: content.text,
+              image: {
+                ipfsHash: imageUpload.IpfsHash,
+                // TODO: Can do this for normal messages too
+                gateway_url: `https://gateway.pinata.cloud/ipfs/${imageUpload.IpfsHash}`,
+              },
+            };
+
+            // Upload the metadata JSON
+            const metadataFile = new File([JSON.stringify(finalContent)], "message.json", { type: "application/json" });
+
+            const metadataUpload = await pinata.upload.file(metadataFile);
+            logger.info("Uploaded photo message to IPFS:");
+            console.log(metadataUpload);
+            // @ts-ignore
+            metadataUpload.gateway_url = finalContent.image.gateway_url;
+            return metadataUpload;
+          } catch (error) {
+            logger.error("Error processing image:", error);
+            throw error;
+          }
+        }
+
+        // Fallback to just text if no photo
+        const file = new File([content.text], "message.txt", { type: "text/plain" });
+        return await pinata.upload.file(file);
+      }
     } catch (error) {
       logger.error("Error storing message on IPFS:", error);
       return;
     }
+  }
+
+  private async getPhotoUrl(photo: any): Promise<string | undefined> {
+    try {
+      // Get the highest quality photo (last in array)
+      const photoObj = Array.isArray(photo) ? photo[photo.length - 1] : photo;
+      const file = await this.bot.api.getFile(photoObj.file_id);
+      return `https://api.telegram.org/file/bot${config.telegramToken}/${file.file_path}`;
+    } catch (error) {
+      logger.error(`Error getting photo URL: ${error}`);
+      return undefined;
+    }
+  }
+
+  private async downloadImage(url: string): Promise<Buffer> {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to download image");
+    return Buffer.from(await response.arrayBuffer());
   }
 
   private async storeMessageOnChain(ipfsHash: string): Promise<string> {
@@ -497,27 +563,25 @@ Let’s celebrate and reward value-aligned contributions. 🚀
 
     const receipt = await tx.wait();
     if (!receipt?.hash) throw new Error("Transaction failed");
-    
+
     logger.info(`Stored message onchain with transaction hash: ${receipt.hash}`);
-    
+
     return receipt.hash;
   }
 
   // * HANDLE MESSAGE
   // * Handles incoming messages from the community.
   private async handleMessage(ctx: Context) {
-    // if message starts with "/", it is a command
     if (ctx.message?.text?.startsWith("/")) {
       return;
     }
-    
+
     try {
       const chatId = ctx.chat?.id;
-      const text = ctx.message?.text;
       const senderUsername = ctx.from?.username || "unknown";
       const senderTgId = ctx.from?.id;
 
-      if (!chatId || !text || !senderUsername || !senderTgId) {
+      if (!chatId || !senderUsername || !senderTgId) {
         return;
       }
 
@@ -529,42 +593,77 @@ Let’s celebrate and reward value-aligned contributions. 🚀
       const repliedMessage = ctx.message?.reply_to_message;
       const currentMessage = ctx.message;
 
-      const messageToProcess = repliedMessage || currentMessage;
-      if (!messageToProcess?.text) {
-        return;
-      }
-
-      // Check for bot mention in the current message
-      const mentionsBot = currentMessage?.entities?.some(
-        (entity) =>
-          entity.type === "mention" &&
-          currentMessage?.text?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
-      );
+      // Check for bot mention
+      const mentionsBot =
+        currentMessage?.entities?.some(
+          (entity) =>
+            entity.type === "mention" &&
+            currentMessage?.text?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
+        ) ||
+        currentMessage?.caption_entities?.some(
+          (entity) =>
+            entity.type === "mention" &&
+            currentMessage?.caption?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
+        );
 
       if (!mentionsBot) {
-        // If there's no bot mention, just store the message normally
-        await this.storeMessageInDB(messageToProcess, community);
+        // Store normal message in DB
+        if (currentMessage?.photo && !currentMessage.caption) {
+          // If not tagged bot and there is no caption, ignore photo messages
+          logger.info("Ignoring photo message without caption.");
+          return;
+        }
+        await this.storeMessageInDB(currentMessage, community);
         return;
       }
-      
-      // Store the message that should be processed (either replied or current)
-      const message = await this.storeMessageInDB(messageToProcess, community);
 
-      // Process the message for storage on chain
+      // Determine which message to process
+      const messageToProcess = repliedMessage || currentMessage;
+      logger.info("Message to process:")
+      console.log(messageToProcess);
+      if (!messageToProcess) return;
+
+      // Process the message for storage
       const processingMsg = await ctx.reply("📝 Processing message...");
 
       try {
+        // Handle photo messages
+        let messageContent: any = {
+          text: messageToProcess.text || messageToProcess.caption || "",
+        };
+
+        // Get photo if present
+        if (messageToProcess.photo) {
+          const photoUrl = await this.getPhotoUrl(messageToProcess.photo);
+          if (photoUrl) {
+            messageContent.photo = {
+              url: photoUrl,
+              file_id: messageToProcess.photo[messageToProcess.photo.length - 1].file_id,
+            };
+          }
+        }
+
+        // Upload to IPFS first to get the image hash
+        const response = await this.storeMessageOnIpfs(messageContent);
+        if (!response) {
+          await ctx.reply("Error storing message on IPFS. Please try again.");
+          return;
+        }
+        
+        if (response.gateway_url) {
+          messageContent.photo.url = response.gateway_url;
+        }
+
+        // Store in database with IPFS info
+        const message = await this.storeMessageInDB(messageToProcess, community, {
+          ...messageContent,
+          ipfsHash: response.IpfsHash,
+        });
+
         // Store in culture book
         const stored = await this.storeToCultureBook(message, community);
         if (!stored) {
           await ctx.reply("❌ Storage failed. Please try again.");
-          return;
-        }
-
-        // Upload to IPFS and store on chain
-        const response = await this.storeMessageOnIpfs(messageToProcess.text);
-        if (!response) {
-          await ctx.reply("Error storing message on IPFS. Please try again.");
           return;
         }
 
@@ -578,10 +677,9 @@ Let’s celebrate and reward value-aligned contributions. 🚀
         await ctx.api.editMessageText(
           chatId,
           processingMsg.message_id,
-          `This message has been added to ${community.communityName} Culture Book onchain\n\nCheck it out [here](https://app.valuesdao.io/trustpools/${community.trustPool}/culture).\n\nI’m like an elder listening to this amazing community and storing the Lore onchain so next generations can visit it forever!`,
+          `This message has been added to ${community.communityName} Culture Book onchain\n\nCheck it out [here](https://app.valuesdao.io/trustpools/${community.trustPool}/culture).\n\nI'm like an elder listening to this amazing community and storing the Lore onchain so next generations can visit it forever!`,
           { parse_mode: "Markdown" }
         );
-
       } catch (error) {
         logger.error("Storage failed:", error);
         await ctx.reply("❌ Storage failed. Please try again.");
@@ -590,16 +688,18 @@ Let’s celebrate and reward value-aligned contributions. 🚀
       logger.error("Error handling message:", error);
     }
   }
-  
-  private async storeMessageInDB(
-    message: any,
-    community: any
-  ): Promise<any> {
+
+  private async storeMessageInDB(message: any, community: any, messageContent?: any): Promise<any> {
+    const text = message.text || message.caption || "";
+
     const storedMessage = await CultureBotMessage.create({
-      text: message.text.replace(/@culturepadbot/g, "").trim(),
+      text: text.replace(/@culturepadbot/g, "").trim(),
       senderUsername: message.from?.username || "unknown",
       senderTgId: message.from?.id.toString(),
       community: community._id,
+      hasPhoto: !!message.photo,
+      photoUrl: messageContent?.photo?.url,
+      photoFileId: messageContent?.photo?.file_id,
     });
 
     // TODO: Fix this frigging error
@@ -608,15 +708,14 @@ Let’s celebrate and reward value-aligned contributions. 🚀
     await community.save();
 
     logger.info(`Stored message in database. Community: ${community.communityName} from ${message.from?.username}`);
-    
+
     return storedMessage;
   }
 
-  // Helper method to store message in culture book
-  private async storeToCultureBook(
-    message: any,
-    community: any
-  ): Promise<any> {
+  private async storeToCultureBook(message: any, community: any): Promise<any> {
+    // const content = message.hasPhoto ? `${message.text}\n\n[Photo](${message.photoUrl})` : message.text;
+    const content = message.text;
+
     return await CultureBook.findOneAndUpdate(
       { trustPool: community.trustPool },
       {
@@ -624,20 +723,20 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           value_aligned_posts: {
             id: message._id,
             posterUsername: message.senderUsername,
-            content: message.text.replace(/@culturepadbot/g, "").trim(),
+            content: content.replace(/@culturepadbot/g, "").trim(),
             timestamp: new Date(),
             title: "From Telegram Community",
             source: "Telegram",
             onchain: true,
             eligibleForVoting: false,
+            hasPhoto: message.hasPhoto,
+            photoUrl: message.photoUrl,
           },
         },
       },
       { new: true }
     );
   }
-
-      
 
   // * GET MESSAGE COMMAND
   // * Fetches the message given the transaction hash
