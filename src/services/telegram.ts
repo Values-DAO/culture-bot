@@ -500,7 +500,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
               image: {
                 ipfsHash: imageUpload.IpfsHash,
                 // TODO: Can do this for normal messages too
-                gateway_url: `https://violet-many-felidae-752.mypinata.cloud//ipfs/${imageUpload.IpfsHash}`,
+                gateway_url: `https://violet-many-felidae-752.mypinata.cloud/ipfs/${imageUpload.IpfsHash}`,
               },
             };
 
