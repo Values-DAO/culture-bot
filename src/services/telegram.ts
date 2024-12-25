@@ -662,6 +662,8 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           ipfsHash: response.IpfsHash,
           transactionHash: txHash,
         });
+        
+        message.timestamp = new Date(messageToProcess.date * 1000);
 
         // Store in culture book
         const stored = await this.storeToCultureBook(message, community);
@@ -721,7 +723,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
             id: message._id,
             posterUsername: message.senderUsername,
             content: content.replace(/@culturepadbot/g, "").trim(),
-            timestamp: new Date(),
+            timestamp: message.timestamp,
             title: "From Telegram Community",
             source: "Telegram",
             onchain: true,
