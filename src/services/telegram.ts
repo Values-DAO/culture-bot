@@ -619,7 +619,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
 
       // Determine which message to process
       const messageToProcess = repliedMessage || currentMessage;
-      logger.info("Message to process:")
+      logger.info("Message to process:");
       console.log(messageToProcess);
       if (!messageToProcess) return;
 
@@ -650,6 +650,8 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           return;
         }
         
+        const txHash = await this.storeMessageOnChain(response.IpfsHash);
+
         if (response.gateway_url) {
           messageContent.photo.url = response.gateway_url;
         }
@@ -658,6 +660,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
         const message = await this.storeMessageInDB(messageToProcess, community, {
           ...messageContent,
           ipfsHash: response.IpfsHash,
+          transactionHash: txHash,
         });
 
         // Store in culture book
@@ -666,13 +669,6 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           await ctx.reply("❌ Storage failed. Please try again.");
           return;
         }
-
-        const txHash = await this.storeMessageOnChain(response.IpfsHash);
-
-        // Update message with transaction details
-        message.transactionHash = txHash;
-        message.ipfsHash = response.IpfsHash;
-        await message.save();
 
         await ctx.api.editMessageText(
           chatId,
@@ -700,6 +696,8 @@ Let’s celebrate and reward value-aligned contributions. 🚀
       hasPhoto: !!message.photo,
       photoUrl: messageContent?.photo?.url,
       photoFileId: messageContent?.photo?.file_id,
+      transactionHash: messageContent?.transactionHash,
+      ipfsHash: messageContent?.ipfsHash,
     });
 
     // TODO: Fix this frigging error
@@ -713,7 +711,6 @@ Let’s celebrate and reward value-aligned contributions. 🚀
   }
 
   private async storeToCultureBook(message: any, community: any): Promise<any> {
-    // const content = message.hasPhoto ? `${message.text}\n\n[Photo](${message.photoUrl})` : message.text;
     const content = message.text;
 
     return await CultureBook.findOneAndUpdate(
@@ -731,6 +728,9 @@ Let’s celebrate and reward value-aligned contributions. 🚀
             eligibleForVoting: false,
             hasPhoto: message.hasPhoto,
             photoUrl: message.photoUrl,
+            // Add these fields:
+            transactionHash: message.transactionHash,
+            ipfsHash: message.ipfsHash,
           },
         },
       },
