@@ -172,13 +172,13 @@ Preserve your culture with Culture Bot!  🌍🔗
         logger.info(`Processing messages for community: ${community.communityName}`);
 
         if (community.messages.length === 0) {
-          logger.info("No messages to process in community:", community.communityName);
+          logger.info(`No messages to process in community ${community.communityName}`);
           continue;
         }
 
         let trustpool = await TrustPools.findById(community.trustPool);
         if (!trustpool) {
-          logger.error("Trust pool not found for community:", community.communityName);
+          logger.error(`Trust pool not found for community: ${community.communityName}`);
           continue;
         }
 
@@ -187,7 +187,7 @@ Preserve your culture with Culture Bot!  🌍🔗
         });
 
         if (response.status !== 200) {
-          logger.error("Error generating culture book for community:", community.communityName);
+          logger.error(`Error generating culture book for community ${community.communityName}`);
           return false;
         }
 
@@ -210,7 +210,7 @@ Preserve your culture with Culture Bot!  🌍🔗
         const topContributors = Object.keys(postsByContributor);
 
         if (topContributors.length === 0) {
-          logger.info("No top contributors found for community:", community.communityName);
+          logger.info(`No top contributors found for community: ${community.communityName}`);
           const message = `
 🌟 Culture Book Update 📚
 
@@ -253,7 +253,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       }
       return true;
     } catch (error) {
-      logger.error("Error in cronJobResponder:", error);
+      logger.error(`Error in cronJobResponder: ${error}`);
       return false;
     }
   }
