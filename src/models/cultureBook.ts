@@ -36,7 +36,7 @@ const cultureBookSchema = new Schema({
     {
       type: {
         posterUsername: { type: String, required: true },
-        content: { type: String, required: true },
+        content: { type: String },
         timestamp: { type: Date, required: true },
         title: { type: String, required: true },
         source: { type: String, enum: ["Twitter", "Youtube", "Farcaster", "Telegram"], required: true },

@@ -165,17 +165,12 @@ Preserve your culture with Culture Bot!  🌍🔗
   // * API will hit this endpoint and this function will run
   public async cronJobResponder() {
     try {
-      // In all the communities that the bot is in, send a message to the community
-
-      // Find all communities
       const communities = await CultureBotCommunity.find();
 
       for (const community of communities) {
         const chatId = community.chatId;
-
         logger.info(`Processing messages for community: ${community.communityName}`);
 
-        // If no messages in the community, skip
         if (community.messages.length === 0) {
           logger.info("No messages to process in community:", community.communityName);
           continue;
@@ -187,7 +182,6 @@ Preserve your culture with Culture Bot!  🌍🔗
           continue;
         }
 
-        // call the backend api
         const response = await axios.post(`${config.backendUrl}/cultureBook/generate`, {
           trustPoolId: trustpool._id,
         });
@@ -197,44 +191,66 @@ Preserve your culture with Culture Bot!  🌍🔗
           return false;
         }
 
-        // Get the top contributors
         const posts = await axios.get(`${config.backendUrl}/cultureBook/pre-onchain/get?trustPoolId=${trustpool._id}`);
 
-        let topContributors = posts.data.data.posts.map((post: any) => post.posterUsername);
+        // Group posts by contributor and remove duplicates
+        const postsByContributor = posts.data.data.posts.reduce((acc: any, post: any) => {
+          if (!acc[post.posterUsername]) {
+            acc[post.posterUsername] = new Set();
+          }
+          acc[post.posterUsername].add(post.content);
+          return acc;
+        }, {});
 
-        // remove duplicates from top contributors
-        topContributors = [...new Set(topContributors)];
+        // Convert Sets back to arrays
+        for (const username in postsByContributor) {
+          postsByContributor[username] = Array.from(postsByContributor[username]);
+        }
+
+        const topContributors = Object.keys(postsByContributor);
+
+        if (topContributors.length === 0) {
+          logger.info("No top contributors found for community:", community.communityName);
+          const message = `
+🌟 Culture Book Update 📚
+
+Hey everyone! Seems like this community has been quiet this week. No top contributors found. 🤷‍♂️
+
+Try sharing some value-aligned content next week to preserve your culture onchains for generations to come!
+
+📝 You can tag me in a message to add it to your Culture Book.
+`;
+          await this.bot.api.sendMessage(chatId, message, { parse_mode: "Markdown" });
+          continue;
+        }
 
         logger.info(`Top contributors: ${topContributors.join(", ")}`);
 
+        // Create formatted message with grouped posts (no duplicates)
+        let contributorSection = topContributors
+          .map((username: string, index: number) => {
+            const posts = postsByContributor[username];
+            const numberedPosts = posts.map((post: string, i: number) => `   ${i + 1}. ${post}`).join("\n\n");
+            return `${index + 1}. @${username} (${posts.length} posts):\n\n${numberedPosts}`;
+          })
+          .join("\n\n");
+
         const message = `
-        🌟 Culture Book Update 📚
+🌟 Culture Book Update 📚
 
-Hey everyone! This week’s Culture Book is ready.
+Hey everyone! This week's Culture Book is ready.
 
-👉 Check it out here: [Culture Book](https://staging.valuesdao.io/trustpools/${trustpool._id}/curate)
+👉 Check it out here: [Culture Book](https://app.valuesdao.io/trustpools/${trustpool._id}/culture)
 
-📝 Top Contributors for this week are:
-${topContributors.map((contributor: string, i: number) => `${i + 1}. ${contributor}`).join("\n")}
+📝 Top Contributors and Their Posts:
 
-🔔 What to do next?
-1️⃣ Head to the Curate tab.
-2️⃣ Upvote the content that you believe aligns with our values.
+${contributorSection}
 
-⏳ Voting Deadline: 24 hours from now!
+Tip: You can also tag me in a message to add it to your Culture Book.
+`;
 
-🎁 Rewards:
-	- Top contributors will receive $CULTURE tokens.
-  - Voters will also receive $CULTURE tokens.
-	- The selected posts will go onchain! 🎉
-
-Let’s celebrate and reward value-aligned contributions. 🚀
-        `;
-
-        // send the message to the community
         await this.bot.api.sendMessage(chatId, message, { parse_mode: "Markdown" });
       }
-
       return true;
     } catch (error) {
       logger.error("Error in cronJobResponder:", error);
@@ -649,7 +665,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           await ctx.reply("Error storing message on IPFS. Please try again.");
           return;
         }
-        
+
         const txHash = await this.storeMessageOnChain(response.IpfsHash);
 
         if (response.gateway_url) {
@@ -662,7 +678,7 @@ Let’s celebrate and reward value-aligned contributions. 🚀
           ipfsHash: response.IpfsHash,
           transactionHash: txHash,
         });
-        
+
         message.timestamp = new Date(messageToProcess.date * 1000);
 
         // Store in culture book
@@ -730,7 +746,6 @@ Let’s celebrate and reward value-aligned contributions. 🚀
             eligibleForVoting: false,
             hasPhoto: message.hasPhoto,
             photoUrl: message.photoUrl,
-            // Add these fields:
             transactionHash: message.transactionHash,
             ipfsHash: message.ipfsHash,
           },
