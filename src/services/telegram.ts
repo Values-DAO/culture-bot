@@ -282,6 +282,8 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         for (const post of value_aligned_posts) {
           // Stop the poll and process the messages
           try {
+            // TODO: This code is sh1t, if the message processing fails later on then the poll is stopped but doesn't get processed
+            // TODO: and in future, you cannot stop the poll again, it gives error so there's no way to get the results as well.
             const result = await this.bot.api.stopPoll(cultureBook.cultureBotCommunity.chatId, post.pollId);
             const yesVotes = result.options[0].voter_count;
             const noVotes = result.options[1].voter_count;
@@ -290,7 +292,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
               const response = await this.completeMessageProcessing(cultureBook, post, result);
               if (!response) {
                 logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
-                return false;
+                continue;
               } else {
                 logger.info(
                   `Message ${post._id} processed for community ${cultureBook.cultureBotCommunity.communityName}`
@@ -309,18 +311,20 @@ Tip: You can also tag me in a message to add it to your Culture Book.
 
             // reply to the community
             const message =
-              yesVotes >= noVotes ? `🎉 Message approved and added to the Culture Book!` : "❌ Message rejected.";
+              yesVotes >= noVotes
+                ? `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) 🚀✨`
+                : "❌ The community has decided this message doesn’t align with our values. Keep sharing, and let’s continue building our story together!";
 
             await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, {
               reply_to_message_id: post.pollId,
+              parse_mode: "Markdown",
             });
           } catch (error) {
-            logger.error(`Error stopping poll for message ${post._id} in culture book ${cultureBook._id}`);
+            logger.error(`Error processing message ${post._id} in culture book ${cultureBook._id} for community ${cultureBook.cultureBotCommunity.communityName}:`, error);
             continue
           }
         }
       }
-      
       return true;
     } catch (error) {
       logger.error(`Error in pollDatabase: ${error}`);
@@ -808,7 +812,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         await ctx.api.editMessageText(
           chatId,
           processingMsg.message_id,
-          `Poll started for message. Vote in the next 24 hours to decide if this message is value-aligned with our community.`,
+          `🚨 A new message has been tagged for evaluation. Please vote in the poll below to decide if it aligns with our community's values. \n\n⏳ The poll is open for the next 24 hours, so don’t miss your chance to contribute. \n\nThe majority vote will determine if it gets added onchain. Let’s preserve our culture together!`,
           { parse_mode: "Markdown" }
         );
       } catch (error) {
