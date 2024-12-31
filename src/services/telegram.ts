@@ -268,43 +268,56 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity");
 
       for (const cultureBook of cultureBooks) {
-        logger.info(`Processing messages for culture book: ${cultureBook._id}`);
-        
+        // @ts-ignore
         const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
         // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
         
         if (value_aligned_posts.length === 0) {
-          logger.info(`No messages to process for culture book ${cultureBook._id}`);
+          logger.info(`No messages to process for culture book ${cultureBook._id} in community ${cultureBook.cultureBotCommunity.communityName}`);
           continue;
+        } else {
+          logger.info(`Processing ${value_aligned_posts.length} messages for community ${cultureBook.cultureBotCommunity.communityName}`);
         }
         
         for (const post of value_aligned_posts) {
-          // Stop the poll and process the message
-          const result = await this.bot.api.stopPoll(cultureBook.cultureBotCommunity.chatId, post.pollId);
-          
-          const yesVotes = result.options[0].voter_count;
-          const noVotes = result.options[1].voter_count;
-          
-          if (yesVotes >= noVotes) {
-            const response = await this.completeMessageProcessing(cultureBook, post, result);
-            if (!response) {
-              logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
-              return false;
+          // Stop the poll and process the messages
+          try {
+            const result = await this.bot.api.stopPoll(cultureBook.cultureBotCommunity.chatId, post.pollId);
+            const yesVotes = result.options[0].voter_count;
+            const noVotes = result.options[1].voter_count;
+
+            if (yesVotes >= noVotes) {
+              const response = await this.completeMessageProcessing(cultureBook, post, result);
+              if (!response) {
+                logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
+                return false;
+              } else {
+                logger.info(
+                  `Message ${post._id} processed for community ${cultureBook.cultureBotCommunity.communityName}`
+                );
+              }
             } else {
-              logger.info(`Message ${post._id} processed for culture book ${cultureBook._id}`);
+              post.status = "rejected";
+              post.votes.count = yesVotes - noVotes;
+              post.eligibleForVoting = false;
+              await cultureBook.save();
+
+              logger.info(
+                `Message ${post._id} rejected for community ${cultureBook.cultureBotCommunity.communityName}`
+              );
             }
-          } else {
-            post.status = "rejected";
-            post.votes.count = yesVotes - noVotes;
-            post.eligibleForVoting = false;
-            await cultureBook.save();
-            logger.info(`Message ${post._id} rejected for culture book ${cultureBook._id}`);    
+
+            // reply to the community
+            const message =
+              yesVotes >= noVotes ? `🎉 Message approved and added to the Culture Book!` : "❌ Message rejected.";
+
+            await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, {
+              reply_to_message_id: post.pollId,
+            });
+          } catch (error) {
+            logger.error(`Error stopping poll for message ${post._id} in culture book ${cultureBook._id}`);
+            continue
           }
-          
-          // reply to the community
-          const message = yesVotes >= noVotes ? "🎉 Message approved and added to the Culture Book!" : "❌ Message rejected.";
-          // reply to that poll
-          await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, { reply_to_message_id: post.pollId });
         }
       }
       
@@ -544,7 +557,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
   private async completeMessageProcessing(cultureBook: any, post: any, result: any) {
     try {
       // Get photo if present
-      let messageContent = post;
+      let messageContent: any = {text: post.content};
       if (post.hasPhoto) {
         const photoUrl = await this.getPhotoUrl(post.photoFileId);
         if (photoUrl) {
@@ -580,15 +593,15 @@ Tip: You can also tag me in a message to add it to your Culture Book.
     }
   }
 
-  private async storeMessageOnIpfs(content: string | { text: string; photo: any }): Promise<IPFSResponse | undefined> {
+  private async storeMessageOnIpfs(content: { text: string; photo: any }): Promise<IPFSResponse | undefined> {
     try {
       const pinata = new PinataSDK({
         pinataJwt: config.pinataJwt,
         pinataGateway: config.pinataGateway,
       });
 
-      if (typeof content === "string") {
-        const file = new File([content], "message.txt", { type: "text/plain" });
+      if (content.text && !content.photo) {
+        const file = new File([content.text], "message.txt", { type: "text/plain" });
         const upload = await pinata.upload.file(file);
         logger.info("Uploaded text message to IPFS:");
         console.log(upload);
