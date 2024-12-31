@@ -8,6 +8,7 @@ import { ethers } from "ethers";
 import { PinataSDK } from "pinata-web3";
 import { CultureBook } from "../models/cultureBook";
 import axios from "axios";
+import { connectDB } from "./database";
 
 // TODO: Change trustpool functionality.
 // TODO: Flexibility for other bots to run in the sa  me chat. Specialize the bot trigger.  
@@ -258,6 +259,62 @@ Tip: You can also tag me in a message to add it to your Culture Book.
     }
   }
 
+  // * CRON JOB POLL DATABASE
+  // * This route is for the cron job to poll the database for new messages to be processed
+  public async pollDatabase() {
+    try {
+      await connectDB();
+
+      const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity");
+
+      for (const cultureBook of cultureBooks) {
+        logger.info(`Processing messages for culture book: ${cultureBook._id}`);
+        
+        const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
+        // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
+        
+        if (value_aligned_posts.length === 0) {
+          logger.info(`No messages to process for culture book ${cultureBook._id}`);
+          continue;
+        }
+        
+        for (const post of value_aligned_posts) {
+          // Stop the poll and process the message
+          const result = await this.bot.api.stopPoll(cultureBook.cultureBotCommunity.chatId, post.pollId);
+          
+          const yesVotes = result.options[0].voter_count;
+          const noVotes = result.options[1].voter_count;
+          
+          if (yesVotes >= noVotes) {
+            const response = await this.completeMessageProcessing(cultureBook, post, result);
+            if (!response) {
+              logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
+              return false;
+            } else {
+              logger.info(`Message ${post._id} processed for culture book ${cultureBook._id}`);
+            }
+          } else {
+            post.status = "rejected";
+            post.votes.count = yesVotes - noVotes;
+            post.eligibleForVoting = false;
+            await cultureBook.save();
+            logger.info(`Message ${post._id} rejected for culture book ${cultureBook._id}`);    
+          }
+          
+          // reply to the community
+          const message = yesVotes >= noVotes ? "🎉 Message approved and added to the Culture Book!" : "❌ Message rejected.";
+          // reply to that poll
+          await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, { reply_to_message_id: post.pollId });
+        }
+      }
+      
+      return true;
+    } catch (error) {
+      logger.error(`Error in pollDatabase: ${error}`);
+      return false;
+    }
+  }
+
   // * SET WALLET COMMAND
   // * Creates a new wallet for the community.
   // private async handleWallet(ctx: Context) {
@@ -482,6 +539,47 @@ Tip: You can also tag me in a message to add it to your Culture Book.
   //   }
   // }
 
+  // This function is for processing individual messages when they are due
+
+  private async completeMessageProcessing(cultureBook: any, post: any, result: any) {
+    try {
+      // Get photo if present
+      let messageContent = post;
+      if (post.hasPhoto) {
+        const photoUrl = await this.getPhotoUrl(post.photoFileId);
+        if (photoUrl) {
+          messageContent.photo = {
+            url: photoUrl,
+            file_id: post.photoFileId,
+          };
+        }
+      }
+    
+      // Upload the message and photo to IPFS
+      const response = await this.storeMessageOnIpfs(messageContent);
+      if (!response) {
+        throw new Error("Error storing message on IPFS");
+      }
+      
+      // Upload the IPFS CID onchain
+      const transactionHash = await this.storeMessageOnChain(response.IpfsHash);
+      
+      // Update value_aligned_posts array in culture book with transaction hash, IPFS hash, photo URL and status
+      post.transactionHash = transactionHash;
+      post.ipfsHash = response.IpfsHash;
+      post.photoUrl = response?.gateway_url;
+      post.status = "approved";
+      post.eligibleForVoting = false;
+      post.votes.count = result.options[0].voter_count - result.options[1].voter_count;
+      
+      await cultureBook.save();
+      return true;
+    } catch (error) {
+      logger.error("Error completing message processing:", error);
+      return false;
+    }
+  }
+
   private async storeMessageOnIpfs(content: string | { text: string; photo: any }): Promise<IPFSResponse | undefined> {
     try {
       const pinata = new PinataSDK({
@@ -545,11 +643,10 @@ Tip: You can also tag me in a message to add it to your Culture Book.
     }
   }
 
-  private async getPhotoUrl(photo: any): Promise<string | undefined> {
+  private async getPhotoUrl(photoFileId: string): Promise<string | undefined> {
     try {
-      // Get the highest quality photo (last in array)
-      const photoObj = Array.isArray(photo) ? photo[photo.length - 1] : photo;
-      const file = await this.bot.api.getFile(photoObj.file_id);
+      // This URL is temporary and will expire, however, we can use the file_id to get the photo URL anytime
+      const file = await this.bot.api.getFile(photoFileId);
       return `https://api.telegram.org/file/bot${config.telegramToken}/${file.file_path}`;
     } catch (error) {
       logger.error(`Error getting photo URL: ${error}`);
@@ -623,7 +720,8 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         );
 
       if (!mentionsBot) {
-        // Store normal message in DB
+        // If no mention, then store the current message in db
+        // Ignore photo messages without caption
         if (currentMessage?.photo && !currentMessage.caption) {
           // If not tagged bot and there is no caption, ignore photo messages
           logger.info("Ignoring photo message without caption.");
@@ -633,7 +731,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         return;
       }
 
-      // Determine which message to process
+      // Determine which message to process --> Now that we have a mention, we will process the replied message if it exists
       const messageToProcess = repliedMessage || currentMessage;
       logger.info("Message to process:");
       console.log(messageToProcess);
@@ -645,43 +743,49 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       try {
         // Handle photo messages
         let messageContent: any = {
-          text: messageToProcess.text || messageToProcess.caption || "",
+          text: messageToProcess.text || messageToProcess.caption || "", // text or caption or none (for photo messages)
         };
 
-        // Get photo if present
         if (messageToProcess.photo) {
-          const photoUrl = await this.getPhotoUrl(messageToProcess.photo);
-          if (photoUrl) {
-            messageContent.photo = {
-              url: photoUrl,
-              file_id: messageToProcess.photo[messageToProcess.photo.length - 1].file_id,
-            };
-          }
+          messageContent.photo = {
+            file_id: messageToProcess.photo[messageToProcess.photo.length - 1].file_id, // Last photo in the array for highest resolution
+          };
         }
 
-        // Upload to IPFS first to get the image hash
-        const response = await this.storeMessageOnIpfs(messageContent);
-        if (!response) {
-          await ctx.reply("Error storing message on IPFS. Please try again.");
-          return;
-        }
-
-        const txHash = await this.storeMessageOnChain(response.IpfsHash);
-
-        if (response.gateway_url) {
-          messageContent.photo.url = response.gateway_url;
-        }
-
-        // Store in database with IPFS info
+        // Store in message database
         const message = await this.storeMessageInDB(messageToProcess, community, {
           ...messageContent,
-          ipfsHash: response.IpfsHash,
-          transactionHash: txHash,
         });
 
-        message.timestamp = new Date(messageToProcess.date * 1000);
+        // Flow:
+        // Store all fields (text, hasPhoto, photoFileId) in message database and value_aligned_posts array in culture book
+        // Then the voting starts
+        // Once the voting is over, message (transactionHash, ipfsHash, photoUrl) and value_aligned_posts (transactionHash, ipfsHash, photoUrl, status) array are updated with the voting results
+        // All set.
 
-        // Store in culture book
+        // Launch the poll to start voting
+        const poll = await ctx.api.sendPoll(
+          ctx.chat?.id.toString()!,
+          "Is this message value-aligned with our community?",
+          [{ text: "Yes" }, { text: "No" }],
+          {
+            is_anonymous: true,
+            allows_multiple_answers: false,
+            reply_to_message_id: messageToProcess.message_id,
+          }
+        );
+
+        const pollId = poll.message_id;
+        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
+
+        message.timestamp = new Date(messageToProcess.date * 1000);
+        message.votingEndsAt = votingEndsAt;
+        message.pollId = pollId;
+
+        logger.info(
+          `Poll started for message sent by ${senderUsername} in community ${community.communityName}. Voting ends at ${votingEndsAt}`
+        );
+
         const stored = await this.storeToCultureBook(message, community);
         if (!stored) {
           await ctx.reply("❌ Storage failed. Please try again.");
@@ -691,7 +795,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         await ctx.api.editMessageText(
           chatId,
           processingMsg.message_id,
-          `This message has been added to ${community.communityName} Culture Book onchain\n\nCheck it out [here](https://app.valuesdao.io/trustpools/${community.trustPool}/culture).\n\nI'm like an elder listening to this amazing community and storing the Lore onchain so next generations can visit it forever!`,
+          `Poll started for message. Vote in the next 24 hours to decide if this message is value-aligned with our community.`,
           { parse_mode: "Markdown" }
         );
       } catch (error) {
@@ -712,10 +816,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       senderTgId: message.from?.id.toString(),
       community: community._id,
       hasPhoto: !!message.photo,
-      photoUrl: messageContent?.photo?.url,
       photoFileId: messageContent?.photo?.file_id,
-      transactionHash: messageContent?.transactionHash,
-      ipfsHash: messageContent?.ipfsHash,
     });
 
     // TODO: Fix this frigging error
@@ -742,12 +843,13 @@ Tip: You can also tag me in a message to add it to your Culture Book.
             timestamp: message.timestamp,
             title: "From Telegram Community",
             source: "Telegram",
-            onchain: true,
-            eligibleForVoting: false,
+            onchain: false,
+            eligibleForVoting: true,
             hasPhoto: message.hasPhoto,
-            photoUrl: message.photoUrl,
-            transactionHash: message.transactionHash,
-            ipfsHash: message.ipfsHash,
+            photoFileId: message.photoFileId,
+            status: "pending",
+            votingEndsAt: message.votingEndsAt,
+            pollId: message.pollId,
           },
         },
       },

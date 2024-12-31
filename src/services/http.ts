@@ -42,6 +42,23 @@ export class HttpServer {
         res.status(500).json({ error: "Internal server error" });
       }
     });
+    
+    this.app.post("/api/poll-database", async (req, res) => {
+      logger.info("Received request at /api/poll-database");
+      
+      try {
+        const response = await this.telegramService.pollDatabase();
+        if (response) {
+          logger.info("Database polled successfully");
+          res.status(200).json({ message: "Database polled successfully" });
+        } else {
+          throw new Error("pollDatabase failed");
+        }
+      } catch (error) {
+        logger.info(`Error polling database: ${error}`);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    });
 
     // Health check endpoint
     this.app.get("/health", (req, res) => {

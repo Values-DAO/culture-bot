@@ -28,8 +28,13 @@ const cultureBotMessageSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    photoUrl: String, // IPFS Pinata URL
-    photoFileId: String, // Telegram File ID to refetch the image when needed
+    photoUrl: { // IPFS Pinata URL
+      type: String,
+    }, 
+    photoFileId: { // Telegram File ID to refetch the image when needed
+      type: String,
+    }, 
+    
   },
   { timestamps: true }
 );
