@@ -17,6 +17,7 @@ export class HttpServer {
   private setupMiddleware() {
     this.app.use(express.json());
     // Basic API key authentication middleware
+    // @ts-ignore
     this.app.use((req, res, next) => {
       const apiKey = req.headers["x-api-key"];
       if (apiKey !== process.env.CRON_API_KEY) {

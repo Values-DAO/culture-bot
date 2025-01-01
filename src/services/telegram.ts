@@ -9,6 +9,9 @@ import { PinataSDK } from "pinata-web3";
 import { CultureBook } from "../models/cultureBook";
 import axios from "axios";
 import { connectDB } from "./database";
+import { CryptoUtils } from "../utils/cryptoUtils";
+import { Wallet } from "../models/wallet";
+import { Alchemy, Network } from "alchemy-sdk";
 
 // TODO: Change trustpool functionality.
 // TODO: Flexibility for other bots to run in the sa  me chat. Specialize the bot trigger.  
@@ -28,9 +31,9 @@ export class TelegramService {
     this.bot.command("start", (ctx: Context) => this.handleStart(ctx));
     this.bot.command("commands", (ctx: Context) => this.handleCommands(ctx));
     this.bot.command("trustpool", (ctx: Context) => this.handleTrustPool(ctx));
-    // this.bot.command("wallet", (ctx: Context) => this.handleWallet(ctx));
+    this.bot.command("wallet", (ctx: Context) => this.getWalletDetails(ctx));
     // this.bot.command("balance", (ctx: Context) => this.handleBalance(ctx));
-    // this.bot.command("exportwallet", (ctx: Context) => this.handleExportWallet(ctx));
+    this.bot.command("exportwallet", (ctx: Context) => this.handleExportWallet(ctx));
     // this.bot.command("watch", (ctx: Context) => this.handleStartWatching(ctx));
     // this.bot.command("stopwatch", (ctx: Context) => this.handleStopWatching(ctx));
     // this.bot.command("details", (ctx: Context) => this.handleDetails(ctx));
@@ -271,14 +274,18 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         // @ts-ignore
         const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
         // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
-        
+
         if (value_aligned_posts.length === 0) {
-          logger.info(`No messages to process for culture book ${cultureBook._id} in community ${cultureBook.cultureBotCommunity.communityName}`);
+          logger.info(
+            `No messages to process for culture book ${cultureBook._id} in community ${cultureBook.cultureBotCommunity.communityName}`
+          );
           continue;
         } else {
-          logger.info(`Processing ${value_aligned_posts.length} messages for community ${cultureBook.cultureBotCommunity.communityName}`);
+          logger.info(
+            `Processing ${value_aligned_posts.length} messages for community ${cultureBook.cultureBotCommunity.communityName}`
+          );
         }
-        
+
         for (const post of value_aligned_posts) {
           // Stop the poll and process the messages
           try {
@@ -297,6 +304,17 @@ Tip: You can also tag me in a message to add it to your Culture Book.
                 logger.info(
                   `Message ${post._id} processed for community ${cultureBook.cultureBotCommunity.communityName}`
                 );
+                logger.info(
+                  `Creating wallet for user ${post.posterTgId}::${post.posterUsername} for posting message ${post._id} in community ${cultureBook.cultureBotCommunity.communityName}...`
+                );
+                const wallet = await this.createWallet(post.posterTgId, post.posterUsername);
+                // const res = await depositRewards(wallet.publicKey, rewardAmount);
+                if (!wallet) {
+                  logger.error(
+                    `Error creating wallet for user ${post.posterUsername} for posting message ${post._id} in community ${cultureBook.cultureBotCommunity.communityName}`
+                  );
+                  continue;
+                } 
               }
             } else {
               post.status = "rejected";
@@ -312,7 +330,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
             // reply to the community
             const message =
               yesVotes >= noVotes
-                ? `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) 🚀✨`
+                ? `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨`
                 : "❌ The community has decided this message doesn’t align with our values. Keep sharing, and let’s continue building our story together!";
 
             await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, {
@@ -320,8 +338,11 @@ Tip: You can also tag me in a message to add it to your Culture Book.
               parse_mode: "Markdown",
             });
           } catch (error) {
-            logger.error(`Error processing message ${post._id} in culture book ${cultureBook._id} for community ${cultureBook.cultureBotCommunity.communityName}:`, error);
-            continue
+            logger.error(
+              `Error processing message ${post._id} in culture book ${cultureBook._id} for community ${cultureBook.cultureBotCommunity.communityName}:`,
+              error
+            );
+            continue;
           }
         }
       }
@@ -329,6 +350,166 @@ Tip: You can also tag me in a message to add it to your Culture Book.
     } catch (error) {
       logger.error(`Error in pollDatabase: ${error}`);
       return false;
+    }
+  }
+
+  // * CREATE WALLET
+  // * Creates a wallet for the user who posted the message that went onchain
+  private async createWallet(posterTgId: string, posterUsername: string) {
+    try {
+      // skip if wallet already exists
+      const existingWallet = await Wallet.findOne({ telegramId: posterTgId });
+      if (existingWallet) {
+        logger.info(`Wallet already exists for user ${posterTgId}::${posterUsername}`);
+        return existingWallet
+      }
+      
+      const wallet = ethers.Wallet.createRandom();
+      const encryptedPrivateKey = CryptoUtils.encrypt(wallet.privateKey);
+
+      const userWallet = await Wallet.create({
+        telegramId: posterTgId,
+        telegramUsername: posterUsername,
+        publicKey: wallet.address,
+        privateKey: encryptedPrivateKey,
+      });
+      
+      logger.info(`Wallet created for user ${posterTgId}::${posterUsername}`);
+
+      return userWallet;
+    } catch (error) {
+      logger.error(`Error creating wallet for user ${posterTgId}::${posterUsername}: ${error}`);
+      return false;
+    }
+  }
+
+  private async getWalletDetails(ctx: Context) {
+    try {
+      // allow this command only in private chat
+      if (ctx.chat?.type !== "private") {
+        await ctx.reply(
+          "⚠️ For security reasons, wallet details are only available in private chat. Please message me directly."
+        );
+        return;
+      }
+
+      const userId = ctx.from?.id;
+      if (!userId) {
+        await ctx.reply("Error: Could not identify user.");
+        return;
+      }
+
+      const wallet = await Wallet.findOne({ telegramId: userId });
+      if (!wallet) {
+        await ctx.reply("No wallet found for user.");
+        return;
+      }
+
+      // Fetch ETH balance
+      const balance = await this.provider.getBalance(wallet.publicKey);
+      const balanceInEth = ethers.formatEther(balance);
+
+      const settings = {
+        apiKey: config.alchemyKey,
+        network: Network.BASE_MAINNET,
+      };
+      const alchemy = new Alchemy(settings);
+
+      // Fetch ERC-20 token balances using Alchemy
+      const tokenBalancesResponse = await alchemy.core.getTokenBalances(wallet.publicKey);
+
+      // Prepare a concise response for token balances
+      let tokensMessage = "";
+      if (tokenBalancesResponse.tokenBalances.length > 0) {
+        for (const token of tokenBalancesResponse.tokenBalances) {
+          const { contractAddress, tokenBalance } = token;
+
+          // Skip if token balance is null or undefined
+          if (!tokenBalance) continue;
+
+          // Fetch token metadata
+          const metadata = await alchemy.core.getTokenMetadata(contractAddress);
+
+          // Convert token balance to a readable format using ethers.js BigInt
+          const balance = BigInt(tokenBalance);
+          const readableBalance =
+            metadata.decimals && metadata.decimals > 0 ? ethers.formatUnits(balance, metadata.decimals) : balance.toString();
+
+          // Only show tokens with non-zero balance
+          if (readableBalance !== "0" && readableBalance !== "0.0") {
+            tokensMessage += `• ${metadata.name || "Unknown Token"} (${
+              metadata.symbol || "N/A"
+            }): ${readableBalance}\n`;
+          }
+        }
+      }
+
+      if (!tokensMessage) {
+        tokensMessage = "No ERC-20 tokens found in this wallet.";
+      }
+
+      // Construct the final message
+      const message = `
+💳 Your Wallet's Public Key: \`${wallet.publicKey}\`
+
+💰 Balance: ${balanceInEth} ETH
+
+💸 Tokens:
+${tokensMessage}`;
+
+      // Send the reply
+      await ctx.reply(message, { parse_mode: "Markdown" });
+    } catch (error) {
+      logger.error(`Error getting wallet details: ${error}`);
+      await ctx.reply("Failed to get wallet details. Please try again.");
+    }
+  }
+  
+  // * EXPORT WALLET
+  private async handleExportWallet(ctx: Context) {
+    try {
+      // Verify it's a private message to protect sensitive data
+      if (ctx.chat?.type !== "private") {
+        await ctx.reply(
+          "⚠️ For security reasons, wallet export is only available in private chat. Please message me directly."
+        );
+        return;
+      }
+
+      const userId = ctx.from?.id;
+      if (!userId) {
+        await ctx.reply("Error: Could not identify user.");
+        return;
+      }
+
+      const wallet = await Wallet.findOne({ telegramId: userId });
+      if (!wallet) {
+        await ctx.reply("No wallet found for user.");
+        return;
+      }
+
+      // Decrypt the private key
+      const decryptedPrivateKey = CryptoUtils.decrypt(wallet.privateKey);
+      
+      const message = `
+🔐 *Wallet Export for ${wallet.telegramUsername}*
+
+💼 *Public Address:* \`${wallet.publicKey}\`
+
+🔑 *Private Key:* \`${decryptedPrivateKey}\`
+
+⚠️ *IMPORTANT:*
+- Keep this private key secure
+- Never share it with anyone
+- Store it safely offline
+- Delete this message after saving the key
+      `;
+      
+      
+      await ctx.reply(message, { parse_mode: "Markdown" });
+    } catch (error) {
+      logger.error(`Error exporting wallet: ${error}`);
+      await ctx.reply("Failed to export wallet. Please try again.");
     }
   }
 
@@ -561,7 +742,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
   private async completeMessageProcessing(cultureBook: any, post: any, result: any) {
     try {
       // Get photo if present
-      let messageContent: any = {text: post.content};
+      let messageContent: any = { text: post.content };
       if (post.hasPhoto) {
         const photoUrl = await this.getPhotoUrl(post.photoFileId);
         if (photoUrl) {
@@ -571,24 +752,25 @@ Tip: You can also tag me in a message to add it to your Culture Book.
           };
         }
       }
-    
+
       // Upload the message and photo to IPFS
       const response = await this.storeMessageOnIpfs(messageContent);
       if (!response) {
         throw new Error("Error storing message on IPFS");
       }
-      
+
       // Upload the IPFS CID onchain
       const transactionHash = await this.storeMessageOnChain(response.IpfsHash);
-      
+
       // Update value_aligned_posts array in culture book with transaction hash, IPFS hash, photo URL and status
       post.transactionHash = transactionHash;
       post.ipfsHash = response.IpfsHash;
       post.photoUrl = response?.gateway_url;
       post.status = "approved";
       post.eligibleForVoting = false;
+      post.onchain = true;
       post.votes.count = result.options[0].voter_count - result.options[1].voter_count;
-      
+
       await cultureBook.save();
       return true;
     } catch (error) {
@@ -856,6 +1038,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
           value_aligned_posts: {
             id: message._id,
             posterUsername: message.senderUsername,
+            posterTgId: message.senderTgId,
             content: content.replace(/@culturepadbot/g, "").trim(),
             timestamp: message.timestamp,
             title: "From Telegram Community",

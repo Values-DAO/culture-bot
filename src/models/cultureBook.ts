@@ -36,6 +36,7 @@ const cultureBookSchema = new Schema({
     {
       type: {
         posterUsername: { type: String, required: true },
+        posterTgId: { type: String },
         content: { type: String },
         timestamp: { type: Date, required: true },
         title: { type: String, required: true },

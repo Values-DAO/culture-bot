@@ -12,4 +12,5 @@ export const config = {
   pinataJwt: process.env.PINATA_JWT!,
   pinataGateway: process.env.PINATA_GATEWAY!,
   backendUrl: process.env.ENV === 'prod' ? "https://api.valuesdao.io": process.env.ENV === 'staging' ? 'https://staging-api.valuesdao.io' : 'http://localhost:3000',
+  alchemyKey: process.env.ALCHEMY_KEY!,
 };
