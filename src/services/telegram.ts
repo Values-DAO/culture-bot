@@ -87,6 +87,8 @@ Preserve your culture with Culture Bot!  🌍🔗
     const message = `
 📚 *Culture Bot Commands* 🤖
 - /trustpool <link>: Connect to a trust pool.
+- /wallet: Get your wallet details (Only in private chat).
+- /exportwallet: Export your wallet (Only in private chat).
 `;
 
     await ctx.reply(message, { parse_mode: "Markdown" });
@@ -272,8 +274,8 @@ Tip: You can also tag me in a message to add it to your Culture Book.
 
       for (const cultureBook of cultureBooks) {
         // @ts-ignore
-        const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
-        // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
+        // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
+        const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
 
         if (value_aligned_posts.length === 0) {
           logger.info(
