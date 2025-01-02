@@ -273,10 +273,15 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity");
 
       for (const cultureBook of cultureBooks) {
+        // skip if cultureBook has no community
+        if (!cultureBook.cultureBotCommunity) {
+          continue
+        }
+        
         // @ts-ignore
         // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
         const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
-
+        
         if (value_aligned_posts.length === 0) {
           logger.info(
             `No messages to process for culture book ${cultureBook._id} in community ${cultureBook.cultureBotCommunity.communityName}`
