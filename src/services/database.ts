@@ -1,6 +1,11 @@
 import { config } from "../config/config";
 import mongoose from 'mongoose';
 import { logger } from "../utils/logger";
+import { CultureBook } from "../models/cultureBook";
+import { CultureBotCommunity } from "../models/community";
+import { TrustPools } from "../models/trustpool";
+import { Wallet } from "../models/wallet";
+import { CultureBotMessage } from "../models/message";
 
 export async function connectDB() {
   try {

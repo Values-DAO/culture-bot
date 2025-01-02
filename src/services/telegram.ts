@@ -1,7 +1,7 @@
 import { Bot, Context } from "grammy";
 import { config } from "../config/config";
 import { logger } from "../utils/logger";
-import { CultureBotCommunity, type Community } from "../models/community";
+import { CultureBotCommunity } from "../models/community";
 import { TrustPools } from "../models/trustpool";
 import { CultureBotMessage } from "../models/message";
 import { ethers } from "ethers";
