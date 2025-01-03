@@ -178,7 +178,7 @@ Preserve your culture with Culture Bot!  🌍🔗
         logger.info(`Processing messages for community: ${community.communityName}`);
 
         if (community.messages.length === 0) {
-          logger.info(`No messages to process in community ${community.communityName}`);
+          logger.info(`No total messages to process in community ${community.communityName}`);
           continue;
         }
 
@@ -222,7 +222,7 @@ Preserve your culture with Culture Bot!  🌍🔗
 
 Hey everyone! Seems like this community has been quiet this week. No top contributors found. 🤷‍♂️
 
-Try sharing some value-aligned content next week to preserve your culture onchains for generations to come!
+Try sharing some value-aligned content next week to preserve your culture onchain for generations to come!
 
 📝 You can tag me in a message to add it to your Culture Book.
 `;
@@ -237,9 +237,11 @@ Try sharing some value-aligned content next week to preserve your culture onchai
           .map((username: string, index: number) => {
             const posts = postsByContributor[username];
             const numberedPosts = posts.map((post: string, i: number) => `   ${i + 1}. ${post}`).join("\n\n");
-            return `${index + 1}. @${username} (${posts.length} posts):\n\n${numberedPosts}`;
+            return `${index + 1}. @${username} (${posts.length} post(s)):\n\n${numberedPosts}`;
           })
           .join("\n\n");
+          
+        
 
         const message = `
 🌟 Culture Book Update 📚
@@ -982,7 +984,10 @@ ${tokensMessage}`;
         );
 
         const pollId = poll.message_id;
-        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
+        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
+        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 1); // 1 minute for testing
+        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 2); // 2 minutes for testing
+        // const votingEndsAt = new Date(Date.now() + 1000 * 20); // 20 seconds for testing
 
         message.timestamp = new Date(messageToProcess.date * 1000);
         message.votingEndsAt = votingEndsAt;
