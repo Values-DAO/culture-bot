@@ -87,8 +87,6 @@ Preserve your culture with Culture Bot!  🌍🔗
     const message = `
 📚 *Culture Bot Commands* 🤖
 - /trustpool <link>: Connect to a trust pool.
-- /wallet: Get your wallet details (Only in private chat).
-- /exportwallet: Export your wallet (Only in private chat).
 `;
 
     await ctx.reply(message, { parse_mode: "Markdown" });
@@ -305,6 +303,28 @@ Tip: You can also tag me in a message to add it to your Culture Book.
             const noVotes = result.options[1].voter_count;
 
             if (yesVotes >= noVotes) {
+              // now the message is eligible for posting onchain
+              // need to avoid duplication, so if the post already exists onchain, skip it
+              // onchain posts have onchain field set to true
+              // check messages by messageTgId
+              const existingPost = cultureBook.value_aligned_posts.find(
+                (p) => p?.messageTgId && p?.messageTgId === post?.messageTgId && p.onchain
+              );
+              
+              if (existingPost) {
+                console.log(`Post ${post._id} already exists onchain. Skipping...`);
+                post.eligibleForVoting = false;
+                post.onchain = false;
+                post.votes.count = yesVotes - noVotes;
+                await cultureBook.save();
+                
+                await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, 
+                  "🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨",
+                  { reply_to_message_id: post.pollId, parse_mode: "Markdown" }
+                )
+                continue;
+              }
+              
               const response = await this.completeMessageProcessing(cultureBook, post, result);
               if (!response) {
                 logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
@@ -747,7 +767,6 @@ ${tokensMessage}`;
   // }
 
   // This function is for processing individual messages when they are due
-
   private async completeMessageProcessing(cultureBook: any, post: any, result: any) {
     try {
       // Get photo if present
@@ -985,9 +1004,9 @@ ${tokensMessage}`;
 
         const pollId = poll.message_id;
         // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
-        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 1); // 1 minute for testing
+        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 1); // 1 minute for testing
         // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 2); // 2 minutes for testing
-        // const votingEndsAt = new Date(Date.now() + 1000 * 20); // 20 seconds for testing
+        const votingEndsAt = new Date(Date.now() + 1000 * 20); // 20 seconds for testing
 
         message.timestamp = new Date(messageToProcess.date * 1000);
         message.votingEndsAt = votingEndsAt;
@@ -1025,6 +1044,7 @@ ${tokensMessage}`;
       text: text.replace(/@culturepadbot/g, "").trim(),
       senderUsername: message.from?.username || "unknown",
       senderTgId: message.from?.id.toString(),
+      messageTgId: message.message_id,
       community: community._id,
       hasPhoto: !!message.photo,
       photoFileId: messageContent?.photo?.file_id,
@@ -1051,6 +1071,7 @@ ${tokensMessage}`;
             id: message._id,
             posterUsername: message.senderUsername,
             posterTgId: message.senderTgId,
+            messageTgId: message.messageTgId,
             content: content.replace(/@culturepadbot/g, "").trim(),
             timestamp: message.timestamp,
             title: "From Telegram Community",

@@ -13,6 +13,9 @@ const cultureBotMessageSchema = new Schema(
       type: String,
       required: true,
     },
+    messageTgId: {
+      type: String,
+    },
     transactionHash: {
       type: String,
     },
