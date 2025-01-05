@@ -318,8 +318,8 @@ Tip: You can also tag me in a message to add it to your Culture Book.
                 await cultureBook.save();
                 
                 await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, 
-                  "🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨",
-                  { reply_to_message_id: post.pollId, parse_mode: "Markdown" }
+                  `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨`,
+                  { reply_to_message_id: post.messageTgId , parse_mode: "Markdown" }
                 )
                 continue;
               }
@@ -362,7 +362,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
                 : "❌ The community has decided this message doesn’t align with our values. Keep sharing, and let’s continue building our story together!";
 
             await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, {
-              reply_to_message_id: post.pollId,
+              reply_to_message_id: post.messageTgId,
               parse_mode: "Markdown",
             });
           } catch (error) {
