@@ -224,7 +224,7 @@ Try sharing some value-aligned content next week to preserve your culture onchai
 
 📝 You can tag me in a message to add it to your Culture Book.
 `;
-          await this.bot.api.sendMessage(chatId, message, { parse_mode: "Markdown" });
+          await this.bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
           continue;
         }
 
@@ -255,7 +255,7 @@ ${contributorSection}
 Tip: You can also tag me in a message to add it to your Culture Book.
 `;
 
-        await this.bot.api.sendMessage(chatId, message, { parse_mode: "Markdown" });
+        await this.bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
       }
       return true;
     } catch (error) {
