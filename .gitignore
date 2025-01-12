@@ -4,6 +4,8 @@
 
 logs
 _.log
+combined.log
+error.log
 npm-debug.log_
 yarn-debug.log*
 yarn-error.log*

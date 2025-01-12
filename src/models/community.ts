@@ -1,5 +1,6 @@
-import { Schema, model, Document, models } from "mongoose";
+import { Schema, model, type Document, models } from "mongoose";
 
+// TODO: Replace all these extra interfaces with ICultureBotCommunity
 // Define the Message interface
 interface Message extends Document {
   text: string;
@@ -37,8 +38,23 @@ interface PopulatedCommunity extends Omit<Community, "messages"> {
   messages: Message[];
 }
 
+export interface ICultureBotCommunity extends Document {
+  trustPool: Schema.Types.ObjectId;
+  trustPoolName: string;
+  communityName: string;
+  chatId: string;
+  initiator: string;
+  initiatorTgId: string;
+  isWatching: boolean;
+  privateKey?: string;
+  publicKey?: string;
+  balance: number;
+  messages: Schema.Types.ObjectId[] | Message[];
+  cultureBook?: Schema.Types.ObjectId;
+}
+
 // Define the schema for the Community
-const cultureBotCommunitySchema = new Schema<Community>(
+const cultureBotCommunitySchema = new Schema<ICultureBotCommunity>(
   {
     // * Trust Pool
     trustPoolName: {
@@ -78,7 +94,7 @@ const cultureBotCommunitySchema = new Schema<Community>(
       type: Boolean,
       default: true,
     },
-    // ? Remove the below 3 fields?
+    // TODO: Remove these fields
     privateKey: {
       type: String,
     },
@@ -89,17 +105,20 @@ const cultureBotCommunitySchema = new Schema<Community>(
       type: Number,
       default: 0,
     },
-    messages: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "CultureBotMessage",
-      },
-    ],
+    messages: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "CultureBotMessage",
+        },
+      ],
+      default: [],
+    },
   },
   { timestamps: true }
 );
 
 export const CultureBotCommunity =
-  models.CultureBotCommunity || model<Community>("CultureBotCommunity", cultureBotCommunitySchema);
+  models.CultureBotCommunity || model<ICultureBotCommunity>("CultureBotCommunity", cultureBotCommunitySchema);
 
 export type { Community, PopulatedCommunity, Message };

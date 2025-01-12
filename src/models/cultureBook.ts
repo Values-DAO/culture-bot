@@ -1,4 +1,49 @@
-import { model, models, Schema } from "mongoose";
+import { model, models, Schema, type Document } from "mongoose";
+
+export interface ICultureBook extends Document {
+  _id: string;
+  trustPool?: Schema.Types.ObjectId;
+  cultureBotCommunity?: Schema.Types.ObjectId;
+  cultureToken?: Schema.Types.ObjectId;
+  core_values: Map<string, number>;
+  spectrum: Array<{
+    name: string;
+    description: string;
+    score: number;
+  }>;
+  value_aligned_posts: Array<{
+    posterUsername: string;
+    posterTgId?: string;
+    messageTgId?: string;
+    content?: string;
+    timestamp: Date;
+    title: string;
+    source: "Twitter" | "Youtube" | "Farcaster" | "Telegram";
+    onchain: boolean;
+    eligibleForVoting: boolean;
+    votes: {
+      count: number;
+      alignedUsers: Array<{
+        userId: string;
+      }>;
+      notAlignedUsers: Array<{
+        userId: string;
+      }>;
+    };
+    transactionHash?: string;
+    ipfsHash?: string;
+    hasPhoto: boolean;
+    photoUrl?: string;
+    photoFileId?: string;
+    status: "pending" | "approved" | "rejected" | "processing";
+    votingEndsAt?: Date;
+    pollId?: string;
+  }>;
+  updateDescription: {
+    content: string;
+    timestamp: Date;
+  };
+}
 
 const cultureBookSchema = new Schema({
   // * Trust Pool
@@ -80,6 +125,7 @@ const cultureBookSchema = new Schema({
       default: [],
     },
   ],
+  // TODO: Remove this
   updateDescription: {
     type: {
       content: { type: String, required: true },
@@ -88,4 +134,4 @@ const cultureBookSchema = new Schema({
   },
 });
 
-export const CultureBook = models.CultureBook || model("CultureBook", cultureBookSchema);
+export const CultureBook = models.CultureBook || model<ICultureBook>("CultureBook", cultureBookSchema);

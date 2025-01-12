@@ -1,4 +1,20 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, type Document } from "mongoose";
+
+export interface ICultureBotMessage extends Document {
+  _id: string;
+  text?: string;
+  senderUsername: string;
+  senderTgId?: string;
+  messageTgId?: string;
+  transactionHash?: string;
+  ipfsHash?: string;
+  community: Schema.Types.ObjectId;
+  hasPhoto: boolean;
+  photoUrl?: string;
+  photoFileId?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const cultureBotMessageSchema = new Schema(
   {
@@ -42,4 +58,4 @@ const cultureBotMessageSchema = new Schema(
   { timestamps: true }
 );
 
-export const CultureBotMessage = models.CultureBotMessage || model("CultureBotMessage", cultureBotMessageSchema);
+export const CultureBotMessage = models.CultureBotMessage || model<ICultureBotMessage>("CultureBotMessage", cultureBotMessageSchema);

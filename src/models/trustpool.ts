@@ -1,4 +1,23 @@
-import { model, models, Schema } from "mongoose";
+import { model, models, Schema, type Document } from "mongoose";
+
+export interface ITrustPool extends Document {
+  _id: string;
+  name: string;
+  description?: string;
+  logo?: string;
+  communityLink?: string;
+  twitterHandle?: string;
+  farcasterHandle?: string;
+  organizerTwitterHandle?: string;
+  owners: Schema.Types.ObjectId[];
+  members: Schema.Types.ObjectId[];
+  ipfsHash: string;
+  communityId: string;
+  cultureBotCommunity?: Schema.Types.ObjectId;
+  cultureBook?: Schema.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const trustPoolSchema = new Schema(
   {
@@ -63,4 +82,4 @@ const trustPoolSchema = new Schema(
   { timestamps: true }
 ); // remove this and uncomment the above code if error occurs
 
-export const TrustPools = models.TrustPools || model("TrustPools", trustPoolSchema);
+export const TrustPools = models.TrustPools || model<ITrustPool>("TrustPools", trustPoolSchema);

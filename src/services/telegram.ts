@@ -14,6 +14,9 @@ import { Wallet } from "../models/wallet";
 import { Alchemy, Network } from "alchemy-sdk";
 import { isDefined } from "../actions/sanity/validateInputs";
 import { COMMANDS_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
+import { type Schema } from "mongoose";
+import { createCultureBotCommunity, findCultureBook, findTrustPool } from "../actions/database/queries";
+import type { IPFSResponse } from "../types/types";
 
 // TODO: Change trustpool functionality.
 
@@ -71,72 +74,46 @@ export class TelegramService {
   // * Sets the trust pool for the community.
   private async handleTrustPool(ctx: Context) {
     try {
-      const username = ctx.from?.username || "unknown";
+      const username = ctx.from?.username;
       const userId = ctx.from?.id;
       const chatId = ctx.chat?.id;
-      const communityName = ctx.chat?.title || username;
+      const communityName = ctx.chat?.title;
 
-      if (!userId || !chatId || !username) {
-        await ctx.reply("Error: Could not determine username or chat ID.");
+      if(!isDefined(username, userId, chatId, communityName)) {
+        logger.warn("[BOT]: Received /trustpool command with missing parameters.");
+        await ctx.reply("❌ Please provide all required parameters.");
         return;
       }
+      
+      logger.info(`[BOT]: Received /trustpool command from username: ${username} in community: ${communityName}`);
 
-      const args = ctx.message?.text?.split(" ").slice(1);
-      if (!args || args.length < 1) {
-        await ctx.reply("Error: Please use format: /trustpool <link>");
-        return;
-      }
-
-      const [trustPoolLink] = args;
-
-      const trustPoolId = trustPoolLink.split("/")[4];
-
-      ctx.reply(`Connecting to trust pool...`);
-
-      // Check if community already exists
-      // This is working fine
-      const existingCommunity = await CultureBotCommunity.findOne({ trustPool: trustPoolId });
-      if (existingCommunity) {
-        await ctx.reply("This trust pool is already connected to a community ✅.");
-        return;
-      }
-
-      // Create new community
-      // Check if the trust pool exists or not
-      // This is working fine
-      const trustPool = await TrustPools.findById(trustPoolId);
-      if (!trustPool) {
-        await ctx.reply("Error: Trust pool not found.");
-        return;
-      }
-
-      const trustPoolName = trustPool.name;
-      logger.info(`Received /trustpool for ${trustPool._id}: ${trustPoolName} from ${username}`);
-
-      const community = await CultureBotCommunity.create({
-        trustPool: trustPool._id,
-        trustPoolName,
-        communityName,
-        initiator: username,
-        initiatorTgId: userId.toString(),
-        chatId: chatId.toString(),
+      const trustPool = await findTrustPool(ctx);
+      if (!trustPool) return
+      
+      const community = await createCultureBotCommunity({
+        trustPool,
+        username: username!,
+        userId: userId!.toString(),
+        chatId: chatId!.toString(),
+        communityName: communityName!,
       });
 
-      const cultureBook = await CultureBook.findOne({ trustPool: trustPool._id });
+      const cultureBook = await findCultureBook(trustPool._id);
+      if (!cultureBook) throw new Error("Culture book not found for trust pool");
 
-      cultureBook.cultureBotCommunity = community._id;
-      community.cultureBook = cultureBook._id;
-      trustPool.cultureBotCommunity = community._id;
+      cultureBook.cultureBotCommunity = community._id as Schema.Types.ObjectId;
+      community.cultureBook = cultureBook._id as unknown as Schema.Types.ObjectId;
+      trustPool.cultureBotCommunity = community._id as Schema.Types.ObjectId; 
 
-      await cultureBook.save();
-      await community.save();
-      await trustPool.save();
+      await Promise.all([cultureBook.save(), community.save(), trustPool.save()]);
 
-      await ctx.reply(`Community ${communityName} connected to trust pool ${trustPoolName} 🎉.`);
-      logger.info(`Community ${communityName} connected to trust pool ${trustPoolName}.`);
+      logger.info(
+        `[BOT]: Community name: ${communityName} connected to Trust Pool name: ${trustPool.name} and ID: ${trustPool._id}.`
+      );
+      await ctx.reply(`🎉 Community ${communityName} connected to Trust Pool ${trustPool.name}.`);
     } catch (error) {
       logger.error("Error handling /trustpool command:", error);
-      await ctx.reply("Failed to connect to trust pool. Please try again.");
+      await ctx.reply("❌ Failed to connect to trust pool. Please try again later.");
     }
   }
 
