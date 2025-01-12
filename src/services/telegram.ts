@@ -13,7 +13,7 @@ import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
 import { Alchemy, Network } from "alchemy-sdk";
 import { isDefined } from "../actions/sanity/validateInputs";
-import { WELCOME_MESSAGE } from "../constants/messages";
+import { COMMANDS_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 
 // TODO: Change trustpool functionality.
 
@@ -52,15 +52,19 @@ export class TelegramService {
     }
   }
 
+  // * COMMANDS COMMAND: Replies with a list of available commands
   private async handleCommands(ctx: Context) {
-    const username = ctx.from?.username || "unknown";
-    logger.info(`Received /commands command from ${username}`);
-    const message = `
-📚 *Culture Bot Commands* 🤖
-- /trustpool <link>: Connect to a trust pool.
-`;
-
-    await ctx.reply(message, { parse_mode: "Markdown" });
+    const username = ctx.from?.username;
+    if (!isDefined(username)) {
+      logger.warn("[BOT]: Received /commands command with missing username.");
+      return;
+    }
+    logger.info(`[BOT]: Received /commands command from username: ${username}`);
+    try {
+      await ctx.reply(COMMANDS_MESSAGE, { parse_mode: "Markdown" });
+    } catch (error) {
+      logger.error(`[BOT]: Error sending commands message: ${error}`);
+    }
   }
 
   // * SET TRUST POOL COMMAND
