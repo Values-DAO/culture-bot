@@ -12,6 +12,8 @@ import { connectDB } from "./database";
 import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
 import { Alchemy, Network } from "alchemy-sdk";
+import { isDefined } from "../actions/sanity/validateInputs";
+import { WELCOME_MESSAGE } from "../constants/messages";
 
 // TODO: Change trustpool functionality.
 
@@ -35,26 +37,19 @@ export class TelegramService {
     this.bot.on("message", (ctx: Context) => this.handleMessage(ctx));
   }
 
-  // * START COMMAND
-  // * Provides a welcome message, bot functionality and instructions on how to set up the bot.
+  // * START COMMAND: Replies with a welcome message
   private async handleStart(ctx: Context) {
-    const username = ctx.from?.username || "unknown";
-    logger.info(`Received /start command from ${username}`);
-    const welcomeMessage = `
-🌟 Culture Bot 🚀
-
-I'm here to identify value-aligned content and post your community's lore/culture onchain in your Culture Book! 
-
-🛠️ To get started, use /trustpool <link> to link your community to a trust pool. Get the link from [ValuesDAO](https://app.valuesdao.io/trustpools).
-   
-I will summarise the most value-aligned content every Friday and post it onchain, tag members who are creating cultural content here.
-
-You can also tag me in a message to add it to your Culture Book.
-
-Preserve your culture with Culture Bot!  🌍🔗
-`;
-
-    await ctx.reply(welcomeMessage, { parse_mode: "Markdown" });
+    const username = ctx.from?.username;
+    if (!isDefined(username)) {
+      logger.warn("[BOT]: Received /start command with missing username.");
+      return;
+    }
+    logger.info(`[BOT]: Received /start command from username: ${username}`);
+    try {
+      await ctx.reply(WELCOME_MESSAGE, { parse_mode: "Markdown" });
+    } catch (error) {
+      logger.error(`[BOT]: Error sending welcome message: ${error}`);
+    }
   }
 
   private async handleCommands(ctx: Context) {
@@ -214,8 +209,6 @@ Try sharing some value-aligned content next week to preserve your culture onchai
             return `${index + 1}. @${username} (${posts.length} post(s)):\n\n${numberedPosts}`;
           })
           .join("\n\n");
-          
-        
 
         const message = `
 🌟 Culture Book Update 📚
@@ -251,13 +244,16 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       for (const cultureBook of cultureBooks) {
         // skip if cultureBook has no community
         if (!cultureBook.cultureBotCommunity) {
-          continue
+          continue;
         }
-        
+
         // @ts-ignore
         // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
-        const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.votingEndsAt < new Date()).filter((post) => post.eligibleForVoting);
-        
+        const value_aligned_posts = cultureBook.value_aligned_posts
+          .filter((post) => post.status === "pending")
+          .filter((post) => post.votingEndsAt < new Date())
+          .filter((post) => post.eligibleForVoting);
+
         if (value_aligned_posts.length === 0) {
           logger.info(
             `No messages to process for culture book ${cultureBook._id} in community ${cultureBook.cultureBotCommunity.communityName}`
@@ -284,22 +280,25 @@ Tip: You can also tag me in a message to add it to your Culture Book.
               // onchain posts have onchain field set to true
               // check messages by messageTgId
               // @ts-ignore
-              const existingPost = cultureBook.value_aligned_posts.find((p) => p?.messageTgId && p?.messageTgId === post?.messageTgId && p.onchain);
-              
+              const existingPost = cultureBook.value_aligned_posts.find(
+                (p) => p?.messageTgId && p?.messageTgId === post?.messageTgId && p.onchain
+              );
+
               if (existingPost) {
                 console.log(`Post ${post._id} already exists onchain. Skipping...`);
                 post.eligibleForVoting = false;
                 post.onchain = false;
                 post.votes.count = yesVotes - noVotes;
                 await cultureBook.save();
-                
-                await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, 
+
+                await this.bot.api.sendMessage(
+                  cultureBook.cultureBotCommunity.chatId,
                   `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨`,
-                  { reply_to_message_id: post.messageTgId , parse_mode: "Markdown" }
-                )
+                  { reply_to_message_id: post.messageTgId, parse_mode: "Markdown" }
+                );
                 continue;
               }
-              
+
               const response = await this.completeMessageProcessing(cultureBook, post, result);
               if (!response) {
                 logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
@@ -318,7 +317,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
                     `Error creating wallet for user ${post.posterUsername} for posting message ${post._id} in community ${cultureBook.cultureBotCommunity.communityName}`
                   );
                   continue;
-                } 
+                }
               }
             } else {
               post.status = "rejected";
@@ -365,9 +364,9 @@ Tip: You can also tag me in a message to add it to your Culture Book.
       const existingWallet = await Wallet.findOne({ telegramId: posterTgId });
       if (existingWallet) {
         logger.info(`Wallet already exists for user ${posterTgId}::${posterUsername}`);
-        return existingWallet
+        return existingWallet;
       }
-      
+
       const wallet = ethers.Wallet.createRandom();
       const encryptedPrivateKey = CryptoUtils.encrypt(wallet.privateKey);
 
@@ -377,7 +376,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
         publicKey: wallet.address,
         privateKey: encryptedPrivateKey,
       });
-      
+
       logger.info(`Wallet created for user ${posterTgId}::${posterUsername}`);
 
       return userWallet;
@@ -437,7 +436,9 @@ Tip: You can also tag me in a message to add it to your Culture Book.
           // Convert token balance to a readable format using ethers.js BigInt
           const balance = BigInt(tokenBalance);
           const readableBalance =
-            metadata.decimals && metadata.decimals > 0 ? ethers.formatUnits(balance, metadata.decimals) : balance.toString();
+            metadata.decimals && metadata.decimals > 0
+              ? ethers.formatUnits(balance, metadata.decimals)
+              : balance.toString();
 
           // Only show tokens with non-zero balance
           if (readableBalance !== "0" && readableBalance !== "0.0") {
@@ -468,7 +469,7 @@ ${tokensMessage}`;
       await ctx.reply("Failed to get wallet details. Please try again.");
     }
   }
-  
+
   // * EXPORT WALLET
   private async handleExportWallet(ctx: Context) {
     try {
@@ -494,7 +495,7 @@ ${tokensMessage}`;
 
       // Decrypt the private key
       const decryptedPrivateKey = CryptoUtils.decrypt(wallet.privateKey);
-      
+
       const message = `
 🔐 *Wallet Export for ${wallet.telegramUsername}*
 
@@ -508,8 +509,7 @@ ${tokensMessage}`;
 - Store it safely offline
 - Delete this message after saving the key
       `;
-      
-      
+
       await ctx.reply(message, { parse_mode: "Markdown" });
     } catch (error) {
       logger.error(`Error exporting wallet: ${error}`);

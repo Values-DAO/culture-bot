@@ -1,6 +1,6 @@
-import { TrustPools } from '../models/trustpool';
-import { CultureBook } from '../models/culturebook';
-import { connectDB } from '../services/database';
+import { CultureBook } from "../../../models/cultureBook";
+import { TrustPools } from "../../../models/trustpool";
+import { connectDB } from "../../../services/database";
 
 const migrate = async () => {
   await connectDB()

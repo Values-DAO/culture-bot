@@ -10,17 +10,17 @@ import { CultureBotMessage } from "../models/message";
 export async function connectDB() {
   try {
     await mongoose.connect(config.mongoUri)
-    logger.info("Connected to MongoDB");
+    logger.info("[SYSTEM]: Connected to MongoDB");
   } catch (error) {
-    logger.error("MongoDB connection error:", error);
+    logger.error("[SYSTEM]: MongoDB connection error:", error);
   }
 }
 
 export async function disconnectDB() {
   try {
     await mongoose.disconnect();
-    logger.info("Disconnected from MongoDB");
+    logger.info("[SYSTEM]: Disconnected from MongoDB");
   } catch (error) {
-    logger.error("Error disconnecting from MongoDB:", error);
+    logger.error("[SYSTEM]: Error disconnecting from MongoDB:", error);
   }
 }

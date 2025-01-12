@@ -25,15 +25,15 @@ export class HttpServer {
 
   private setupRoutes() {
     this.app.use("/api/process-messages", processMessagesRouter(this.telegramService)); // Process messages endpoint
-    // TODO: Add rewards endpoint
     this.app.use("/api/poll-database", pollDatabaseRouter(this.telegramService)); // Poll database endpoint
     this.app.use("/health", healthRouter()); // Health check endpoint
+    // TODO: Add rewards endpoint
   }
 
   public start(port: number = 3000) {
     return new Promise((resolve) => {
       this.app.listen(port, () => {
-        logger.info(`HTTP server listening on port ${port}`);
+        logger.info(`[SYSTEM]: HTTP server listening on port ${port}`);
         resolve(true);
       });
     });

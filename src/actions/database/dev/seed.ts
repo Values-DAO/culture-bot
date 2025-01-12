@@ -1,9 +1,9 @@
 import path from "path";
 import { Types } from "mongoose";
-import { connectDB, disconnectDB } from "../services/database";
-import { CultureBotMessage } from "../models/message";
-import { logger } from "./logger";
-import { CultureBotCommunity } from "../models/community";
+import { connectDB, disconnectDB } from "../../../services/database";
+import { CultureBotMessage } from "../../../models/message";
+import { logger } from "../../../utils/logger";
+import { CultureBotCommunity } from "../../../models/community";
 
 // Define the interface for your message data
 interface MessageData {
