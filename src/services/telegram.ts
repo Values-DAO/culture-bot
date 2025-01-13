@@ -16,7 +16,7 @@ import { COMMANDS_MESSAGE, POLL_MESSAGE, WELCOME_MESSAGE } from "../constants/me
 import { type Schema } from "mongoose";
 import { createCultureBotCommunity, findCultureBookByTrustPoolId, findCultureBotCommunityByChatId, findTrustPool, storeMessageInDB, storeToCultureBook } from "../actions/database/queries";
 import type { IPFSResponse } from "../types/types";
-import { checkBotMention, createAndLaunchPoll, handleMessageWithoutMention } from "../actions/telegram/utils";
+import { checkBotMention, createAndLaunchPoll, downloadImage, handleMessageWithoutMention } from "../actions/telegram/utils";
 
 // TODO: Change trustpool functionality.
 
@@ -560,7 +560,7 @@ ${tokensMessage}`;
         if (content.photo?.url) {
           try {
             // Download image from Telegram
-            const imageBuffer = await this.downloadImage(content.photo.url);
+            const imageBuffer = await downloadImage(content.photo.url);
 
             // Upload image to IPFS first
             const imageFile = new File([imageBuffer], "image.jpg", { type: "image/jpeg" });
@@ -611,14 +611,6 @@ ${tokensMessage}`;
       logger.error(`Error getting photo URL: ${error}`);
       return undefined;
     }
-  }
-
-  private async downloadImage(url: string): Promise<Buffer> {
-    console.log("URL: ", url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error("Failed to download image");
-    console.log("Response: ", response);
-    return Buffer.from(await response.arrayBuffer());
   }
 
   private async storeMessageOnChain(ipfsHash: string): Promise<string> {
