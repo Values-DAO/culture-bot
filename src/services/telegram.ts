@@ -3,7 +3,6 @@ import { config } from "../config/config";
 import { logger } from "../utils/logger";
 import { CultureBotCommunity } from "../models/community";
 import { TrustPools } from "../models/trustpool";
-import { CultureBotMessage } from "../models/message";
 import { ethers } from "ethers";
 import { PinataSDK } from "pinata-web3";
 import { CultureBook } from "../models/cultureBook";
@@ -13,10 +12,11 @@ import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
 import { Alchemy, Network } from "alchemy-sdk";
 import { isDefined } from "../actions/sanity/validateInputs";
-import { COMMANDS_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
+import { COMMANDS_MESSAGE, POLL_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import { type Schema } from "mongoose";
-import { createCultureBotCommunity, findCultureBook, findTrustPool } from "../actions/database/queries";
+import { createCultureBotCommunity, findCultureBookByTrustPoolId, findCultureBotCommunityByChatId, findTrustPool, storeMessageInDB, storeToCultureBook } from "../actions/database/queries";
 import type { IPFSResponse } from "../types/types";
+import { checkBotMention, createAndLaunchPoll, handleMessageWithoutMention } from "../actions/telegram/utils";
 
 // TODO: Change trustpool functionality.
 
@@ -70,8 +70,7 @@ export class TelegramService {
     }
   }
 
-  // * SET TRUST POOL COMMAND
-  // * Sets the trust pool for the community.
+  // * SET TRUST POOL COMMAND: Connects a community to a trust pool
   private async handleTrustPool(ctx: Context) {
     try {
       const username = ctx.from?.username;
@@ -98,7 +97,7 @@ export class TelegramService {
         communityName: communityName!,
       });
 
-      const cultureBook = await findCultureBook(trustPool._id);
+      const cultureBook = await findCultureBookByTrustPoolId(trustPool._id);
       if (!cultureBook) throw new Error("Culture book not found for trust pool");
 
       cultureBook.cultureBotCommunity = community._id as Schema.Types.ObjectId;
@@ -323,7 +322,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
             });
           } catch (error) {
             logger.error(
-              `Error processing message ${post._id} in culture book ${cultureBook._id} for community ${cultureBook.cultureBotCommunity.communityName}:`,
+              `Error processing post ${post._id} in culture book ${cultureBook._id} for community ${cultureBook.cultureBotCommunity.communityName}:`,
               error
             );
             continue;
@@ -605,6 +604,7 @@ ${tokensMessage}`;
   private async getPhotoUrl(photoFileId: string): Promise<string | undefined> {
     try {
       // This URL is temporary and will expire, however, we can use the file_id to get the photo URL anytime
+      console.log("Photo File Id: ", photoFileId);
       const file = await this.bot.api.getFile(photoFileId);
       return `https://api.telegram.org/file/bot${config.telegramToken}/${file.file_path}`;
     } catch (error) {
@@ -614,8 +614,10 @@ ${tokensMessage}`;
   }
 
   private async downloadImage(url: string): Promise<Buffer> {
+    console.log("URL: ", url);
     const response = await fetch(url);
     if (!response.ok) throw new Error("Failed to download image");
+    console.log("Response: ", response);
     return Buffer.from(await response.arrayBuffer());
   }
 
@@ -641,10 +643,10 @@ ${tokensMessage}`;
     return receipt.hash;
   }
 
-  // * HANDLE MESSAGE
-  // * Handles incoming messages from the community.
+  // * HANDLE MESSAGE: Handles tagged and normal text and photo messages from the community.
+  // TODO: Handle case when a photo greater than 20 mb is sent
   private async handleMessage(ctx: Context) {
-    if (ctx.message?.text?.startsWith("/")) {
+    if (ctx.message?.text?.startsWith("/")) { // Ignore commands
       return;
     }
 
@@ -653,173 +655,106 @@ ${tokensMessage}`;
       const senderUsername = ctx.from?.username || "unknown";
       const senderTgId = ctx.from?.id;
 
-      if (!chatId || !senderUsername || !senderTgId) {
+      if(!isDefined(chatId, senderUsername, senderTgId)) {
+        logger.warn("[BOT]: Received message with missing parameters.");
         return;
       }
 
-      const community = await CultureBotCommunity.findOne({ chatId });
-      if (!community || !community.isWatching) {
-        return;
+      const community = await findCultureBotCommunityByChatId(chatId!.toString());
+      if (!community) { 
+        // TODO: Upon adding the bot to the community, this gets triggered cause the community isn't initialized yet
+        logger.warn(`[BOT]: Community not found for chat ID: ${chatId} or maybe new community just got initiated!`);
+        return
       }
 
       const repliedMessage = ctx.message?.reply_to_message;
       const currentMessage = ctx.message;
 
       // Check for bot mention
-      const mentionsBot =
-        currentMessage?.entities?.some(
-          (entity) =>
-            entity.type === "mention" &&
-            currentMessage?.text?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
-        ) ||
-        currentMessage?.caption_entities?.some(
-          (entity) =>
-            entity.type === "mention" &&
-            currentMessage?.caption?.slice(entity.offset, entity.offset + entity.length) === "@culturepadbot"
-        );
+      const mentionsBot = checkBotMention(currentMessage);
 
-      if (!mentionsBot) {
-        // If no mention, then store the current message in db
-        // Ignore photo messages without caption
-        if (currentMessage?.photo && !currentMessage.caption) {
-          // If not tagged bot and there is no caption, ignore photo messages
-          logger.info("Ignoring photo message without caption.");
-          return;
-        }
-        await this.storeMessageInDB(currentMessage, community);
-        return;
-      }
-
-      // Determine which message to process --> Now that we have a mention, we will process the replied message if it exists
-      const messageToProcess = repliedMessage || currentMessage;
-      logger.info("Message to process:");
-      console.log(messageToProcess);
-      if (!messageToProcess) return;
-
-      // Process the message for storage
-      const processingMsg = await ctx.reply("📝 Processing message...");
+      // Process message without mention
+      if (!mentionsBot) return await handleMessageWithoutMention(currentMessage, community);
 
       try {
-        // Handle photo messages
+        // Now that we have a mention, we will process the replied message if it exists
+        const messageToProcess = repliedMessage || currentMessage;
+        if (!messageToProcess) return;
+        
+        const processingMsg = await ctx.reply("📝 Processing message...");
+        logger.info(`[BOT]: Processing message from ${senderUsername} in community ${community.communityName}`);
+
+        // Prepare messageContent for later use
         let messageContent: any = {
           text: messageToProcess.text || messageToProcess.caption || "", // text or caption or none (for photo messages)
         };
-
-        if (messageToProcess.photo) {
-          messageContent.photo = {
-            file_id: messageToProcess.photo[messageToProcess.photo.length - 1].file_id, // Last photo in the array for highest resolution
-          };
-        }
-
-        // Store in message database
-        const message = await this.storeMessageInDB(messageToProcess, community, {
-          ...messageContent,
-        });
-
-        // Flow:
-        // Store all fields (text, hasPhoto, photoFileId) in message database and value_aligned_posts array in culture book
-        // Then the voting starts
-        // Once the voting is over, message (transactionHash, ipfsHash, photoUrl) and value_aligned_posts (transactionHash, ipfsHash, photoUrl, status) array are updated with the voting results
-        // All set.
-
-        // Launch the poll to start voting
-        const poll = await ctx.api.sendPoll(
-          ctx.chat?.id.toString()!,
-          "Is this message value-aligned with our community?",
-          [{ text: "Yes" }, { text: "No" }],
-          {
-            is_anonymous: true,
-            allows_multiple_answers: false,
-            reply_to_message_id: messageToProcess.message_id,
-          }
-        );
-
-        const pollId = poll.message_id;
-        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
-        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 1); // 1 minute for testing
-        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 2); // 2 minutes for testing
-        // const votingEndsAt = new Date(Date.now() + 1000 * 20); // 20 seconds for testing
-
-        message.timestamp = new Date(messageToProcess.date * 1000);
-        message.votingEndsAt = votingEndsAt;
-        message.pollId = pollId;
-
-        logger.info(
-          `Poll started for message sent by ${senderUsername} in community ${community.communityName}. Voting ends at ${votingEndsAt}`
-        );
-
-        const stored = await this.storeToCultureBook(message, community);
-        if (!stored) {
-          await ctx.reply("❌ Storage failed. Please try again.");
+        
+        // Ignore messages that are just mentions without any text or photo or caption
+        if (
+          !messageToProcess.photo &&
+          messageToProcess.text?.replace(new RegExp((process.env.ENV === "prod" ? "@culturepadbot" : "@culturepadtestbot"), "g"), "").trim() === "" &&
+          !messageToProcess.caption
+        ) {
+          logger.info(
+            `[BOT]: Ignoring mentioned message without any text, caption or image in community ${community.communityName}`
+          );
+          await ctx.reply("❌ Message must contain text or a photo with a caption.");
           return;
         }
 
-        await ctx.api.editMessageText(
-          chatId,
-          processingMsg.message_id,
-          `🚨 A new message has been tagged for evaluation. Please vote in the poll below to decide if it aligns with our community's values. \n\n⏳ The poll is open for the next 24 hours, so don’t miss your chance to contribute. \n\nThe majority vote will determine if it gets added onchain. Let’s preserve our culture together!`,
-          { parse_mode: "Markdown" }
+        // Check for photo (compressed and non-compressed)
+        // Compressed
+        if (messageToProcess.photo) {
+          messageContent.photo = {
+            file_id: messageToProcess.photo[messageToProcess.photo.length - 1].file_id, // last photo in the array for highest resolution
+          };
+        }
+        
+        // Non-compressed
+        if (messageToProcess.document?.file_id) {
+          messageContent.photo = {
+            file_id: messageToProcess.document.file_id,
+          };
+        }
+
+        // Store the message in the database
+        const storedMessage = await storeMessageInDB(currentMessage, community, { ...messageContent });
+        if (!storedMessage) throw new Error("Error storing message in database");
+        
+        // Launch the poll for voting
+        const pollId = await createAndLaunchPoll(ctx, messageToProcess);
+        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
+        const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now // TODO: Change this to 24 hours after testing
+        
+        let message = {
+          text: messageContent.text.replace(/@culturepadbot/g, "").trim(),
+          senderUsername: messageToProcess.from?.username,
+          senderTgId: messageToProcess.from?.id.toString(),
+          messageTgId: messageToProcess.message_id,
+          community: community._id,
+          hasPhoto: !!messageContent.photo,
+          photoFileId: messageContent?.photo?.file_id,
+          timestamp: new Date(messageToProcess.date * 1000), // Convert UNIX timestamp to JS timestamp
+          votingEndsAt: votingEndsAt,
+          pollId: pollId,
+        };
+
+        logger.info(
+          `[BOT]: Poll started for message sent by ${senderUsername} in community ${community.communityName}. Voting ends at ${votingEndsAt}`
         );
+
+        // Store the message in the culture book
+        const storedInCultureBook = await storeToCultureBook(message, community);
+        if (!storedInCultureBook) throw new Error("Error storing message in culture book");
+
+        await ctx.api.editMessageText(chatId!, processingMsg.message_id, POLL_MESSAGE, { parse_mode: "Markdown" });
       } catch (error) {
-        logger.error("Storage failed:", error);
-        await ctx.reply("❌ Storage failed. Please try again.");
+        logger.error(`[BOT]: Error processing mentioned message in community ${community.communityName}: ${error}`);
+        await ctx.reply("❌ Message processing failed. Please try again later.");
       }
     } catch (error) {
-      logger.error("Error handling message:", error);
+      logger.error(`[BOT]: Error handling message: ${error}`);
     }
-  }
-
-  private async storeMessageInDB(message: any, community: any, messageContent?: any): Promise<any> {
-    const text = message.text || message.caption || "";
-
-    const storedMessage = await CultureBotMessage.create({
-      text: text.replace(/@culturepadbot/g, "").trim(),
-      senderUsername: message.from?.username || "unknown",
-      senderTgId: message.from?.id.toString(),
-      messageTgId: message.message_id,
-      community: community._id,
-      hasPhoto: !!message.photo,
-      photoFileId: messageContent?.photo?.file_id,
-    });
-
-    // TODO: Fix this frigging error
-    // @ts-ignore
-    community.messages.push(storedMessage._id);
-    await community.save();
-
-    logger.info(`Stored message in database. Community: ${community.communityName} from ${message.from?.username}`);
-
-    return storedMessage;
-  }
-
-  private async storeToCultureBook(message: any, community: any): Promise<any> {
-    const content = message.text;
-
-    return await CultureBook.findOneAndUpdate(
-      { trustPool: community.trustPool },
-      {
-        $push: {
-          value_aligned_posts: {
-            id: message._id,
-            posterUsername: message.senderUsername,
-            posterTgId: message.senderTgId,
-            messageTgId: message.messageTgId,
-            content: content.replace(/@culturepadbot/g, "").trim(),
-            timestamp: message.timestamp,
-            title: "From Telegram Community",
-            source: "Telegram",
-            onchain: false,
-            eligibleForVoting: true,
-            hasPhoto: message.hasPhoto,
-            photoFileId: message.photoFileId,
-            status: "pending",
-            votingEndsAt: message.votingEndsAt,
-            pollId: message.pollId,
-          },
-        },
-      },
-      { new: true }
-    );
   }
 
   async start() {
