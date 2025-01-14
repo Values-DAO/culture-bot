@@ -1,22 +1,22 @@
 import { Bot, Context } from "grammy";
 import { config } from "../config/config";
 import { logger } from "../utils/logger";
-import { CultureBotCommunity } from "../models/community";
-import { TrustPools } from "../models/trustpool";
 import { ethers } from "ethers";
 import { PinataSDK } from "pinata-web3";
 import { CultureBook } from "../models/cultureBook";
-import axios from "axios";
 import { connectDB } from "./database";
 import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
-import { Alchemy, Network } from "alchemy-sdk";
 import { isDefined } from "../actions/sanity/validateInputs";
-import { COMMANDS_MESSAGE, POLL_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
+import { COMMANDS_MESSAGE, POLL_MESSAGE, WALLET_DETAILS_MESSAGE, WALLET_EXPORT_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import { type Schema } from "mongoose";
-import { createCultureBotCommunity, findCultureBookByTrustPoolId, findCultureBotCommunityByChatId, findTrustPool, storeMessageInDB, storeToCultureBook } from "../actions/database/queries";
+import { createCultureBotCommunity, findCultureBookByTrustPoolId, findCultureBotCommunityByChatId, findTrustPool, getAllCultureBotCommunities, storeMessageInDB, storeToCultureBook } from "../actions/database/queries";
 import type { IPFSResponse } from "../types/types";
 import { checkBotMention, createAndLaunchPoll, downloadImage, handleMessageWithoutMention } from "../actions/telegram/utils";
+import { getOrCreateWallet } from "../actions/wallet/utils";
+import { getETHTokensBalance } from "../actions/blockchain/tokens";
+import { processCommunity } from "../actions/cron/analyzeCommunities";
+import { autoRetry } from "@grammyjs/auto-retry";
 
 // TODO: Change trustpool functionality.
 
@@ -25,7 +25,8 @@ export class TelegramService {
   private provider: ethers.JsonRpcProvider;
 
   constructor() {
-    this.bot = new Bot(config.telegramToken);
+    this.bot = new Bot(config.telegramToken, { client: { sensitiveLogs: true } });
+    this.bot.api.config.use(autoRetry());
     this.setupHandlers();
     this.provider = new ethers.JsonRpcProvider(config.baseSepoliaRpc);
   }
@@ -39,6 +40,8 @@ export class TelegramService {
     this.bot.on("message:photo", async (ctx: Context) => this.handleMessage(ctx));
     this.bot.on("message", (ctx: Context) => this.handleMessage(ctx));
   }
+
+  // ! COMMAND HANDLERS
 
   // * START COMMAND: Replies with a welcome message
   private async handleStart(ctx: Context) {
@@ -78,17 +81,17 @@ export class TelegramService {
       const chatId = ctx.chat?.id;
       const communityName = ctx.chat?.title;
 
-      if(!isDefined(username, userId, chatId, communityName)) {
+      if (!isDefined(username, userId, chatId, communityName)) {
         logger.warn("[BOT]: Received /trustpool command with missing parameters.");
         await ctx.reply("❌ Please provide all required parameters.");
         return;
       }
-      
+
       logger.info(`[BOT]: Received /trustpool command from username: ${username} in community: ${communityName}`);
 
       const trustPool = await findTrustPool(ctx);
-      if (!trustPool) return
-      
+      if (!trustPool) return;
+
       const community = await createCultureBotCommunity({
         trustPool,
         username: username!,
@@ -102,7 +105,7 @@ export class TelegramService {
 
       cultureBook.cultureBotCommunity = community._id as Schema.Types.ObjectId;
       community.cultureBook = cultureBook._id as unknown as Schema.Types.ObjectId;
-      trustPool.cultureBotCommunity = community._id as Schema.Types.ObjectId; 
+      trustPool.cultureBotCommunity = community._id as Schema.Types.ObjectId;
 
       await Promise.all([cultureBook.save(), community.save(), trustPool.save()]);
 
@@ -113,103 +116,6 @@ export class TelegramService {
     } catch (error) {
       logger.error("Error handling /trustpool command:", error);
       await ctx.reply("❌ Failed to connect to trust pool. Please try again later.");
-    }
-  }
-
-  // * CRON JOB API CALL
-  // * API will hit this endpoint and this function will run
-  public async cronJobResponder() {
-    try {
-      const communities = await CultureBotCommunity.find();
-
-      for (const community of communities) {
-        const chatId = community.chatId;
-        logger.info(`Processing messages for community: ${community.communityName}`);
-
-        if (community.messages.length === 0) {
-          logger.info(`No total messages to process in community ${community.communityName}`);
-          continue;
-        }
-
-        let trustpool = await TrustPools.findById(community.trustPool);
-        if (!trustpool) {
-          logger.error(`Trust pool not found for community: ${community.communityName}`);
-          continue;
-        }
-
-        const response = await axios.post(`${config.backendUrl}/cultureBook/generate`, {
-          trustPoolId: trustpool._id,
-        });
-
-        if (response.status !== 200) {
-          logger.error(`Error generating culture book for community ${community.communityName}`);
-          return false;
-        }
-
-        const posts = await axios.get(`${config.backendUrl}/cultureBook/pre-onchain/get?trustPoolId=${trustpool._id}`);
-
-        // Group posts by contributor and remove duplicates
-        const postsByContributor = posts.data.data.posts.reduce((acc: any, post: any) => {
-          if (!acc[post.posterUsername]) {
-            acc[post.posterUsername] = new Set();
-          }
-          acc[post.posterUsername].add(post.content);
-          return acc;
-        }, {});
-
-        // Convert Sets back to arrays
-        for (const username in postsByContributor) {
-          postsByContributor[username] = Array.from(postsByContributor[username]);
-        }
-
-        const topContributors = Object.keys(postsByContributor);
-
-        if (topContributors.length === 0) {
-          logger.info(`No top contributors found for community: ${community.communityName}`);
-          const message = `
-🌟 Culture Book Update 📚
-
-Hey everyone! Seems like this community has been quiet this week. No top contributors found. 🤷‍♂️
-
-Try sharing some value-aligned content next week to preserve your culture onchain for generations to come!
-
-📝 You can tag me in a message to add it to your Culture Book.
-`;
-          await this.bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
-          continue;
-        }
-
-        logger.info(`Top contributors: ${topContributors.join(", ")}`);
-
-        // Create formatted message with grouped posts (no duplicates)
-        let contributorSection = topContributors
-          .map((username: string, index: number) => {
-            const posts = postsByContributor[username];
-            const numberedPosts = posts.map((post: string, i: number) => `   ${i + 1}. ${post}`).join("\n\n");
-            return `${index + 1}. @${username} (${posts.length} post(s)):\n\n${numberedPosts}`;
-          })
-          .join("\n\n");
-
-        const message = `
-🌟 Culture Book Update 📚
-
-Hey everyone! This week's Culture Book is ready.
-
-👉 Check it out here: [Culture Book](https://app.valuesdao.io/trustpools/${trustpool._id}/culture)
-
-📝 Top Contributors and Their Posts:
-
-${contributorSection}
-
-Tip: You can also tag me in a message to add it to your Culture Book.
-`;
-
-        await this.bot.api.sendMessage(chatId, message, { parse_mode: "HTML" });
-      }
-      return true;
-    } catch (error) {
-      logger.error(`Error in cronJobResponder: ${error}`);
-      return false;
     }
   }
 
@@ -290,7 +196,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
                 logger.info(
                   `Creating wallet for user ${post.posterTgId}::${post.posterUsername} for posting message ${post._id} in community ${cultureBook.cultureBotCommunity.communityName}...`
                 );
-                const wallet = await this.createWallet(post.posterTgId, post.posterUsername);
+                const wallet = await getOrCreateWallet(post.posterTgId, post.posterUsername);
                 // const res = await depositRewards(wallet.publicKey, rewardAmount);
                 if (!wallet) {
                   logger.error(
@@ -336,36 +242,7 @@ Tip: You can also tag me in a message to add it to your Culture Book.
     }
   }
 
-  // * CREATE WALLET
-  // * Creates a wallet for the user who posted the message that went onchain
-  private async createWallet(posterTgId: string, posterUsername: string) {
-    try {
-      // skip if wallet already exists
-      const existingWallet = await Wallet.findOne({ telegramId: posterTgId });
-      if (existingWallet) {
-        logger.info(`Wallet already exists for user ${posterTgId}::${posterUsername}`);
-        return existingWallet;
-      }
-
-      const wallet = ethers.Wallet.createRandom();
-      const encryptedPrivateKey = CryptoUtils.encrypt(wallet.privateKey);
-
-      const userWallet = await Wallet.create({
-        telegramId: posterTgId,
-        telegramUsername: posterUsername,
-        publicKey: wallet.address,
-        privateKey: encryptedPrivateKey,
-      });
-
-      logger.info(`Wallet created for user ${posterTgId}::${posterUsername}`);
-
-      return userWallet;
-    } catch (error) {
-      logger.error(`Error creating wallet for user ${posterTgId}::${posterUsername}: ${error}`);
-      return false;
-    }
-  }
-
+  // * GET WALLET DETAILS: Fetches wallet details for the user in a private chat that includes public key, ETH balance and ERC-20 token balances
   private async getWalletDetails(ctx: Context) {
     try {
       // allow this command only in private chat
@@ -384,73 +261,31 @@ Tip: You can also tag me in a message to add it to your Culture Book.
 
       const wallet = await Wallet.findOne({ telegramId: userId });
       if (!wallet) {
-        await ctx.reply("No wallet found for user.");
+        await ctx.reply("❌ No wallet found for user.");
         return;
       }
 
-      // Fetch ETH balance
-      const balance = await this.provider.getBalance(wallet.publicKey);
-      const balanceInEth = ethers.formatEther(balance);
+      await ctx.reply("🔍 Getting wallet details...");
 
-      const settings = {
-        apiKey: config.alchemyKey,
-        network: Network.BASE_MAINNET,
-      };
-      const alchemy = new Alchemy(settings);
+      try {
+        const { balanceInEth, tokensMessage } = await getETHTokensBalance(this.provider, wallet.publicKey);
 
-      // Fetch ERC-20 token balances using Alchemy
-      const tokenBalancesResponse = await alchemy.core.getTokenBalances(wallet.publicKey);
+        const finalTokensMessage = tokensMessage || "No ERC-20 tokens found in this wallet.";
+        const message = WALLET_DETAILS_MESSAGE(wallet.publicKey, balanceInEth, finalTokensMessage);
 
-      // Prepare a concise response for token balances
-      let tokensMessage = "";
-      if (tokenBalancesResponse.tokenBalances.length > 0) {
-        for (const token of tokenBalancesResponse.tokenBalances) {
-          const { contractAddress, tokenBalance } = token;
-
-          // Skip if token balance is null or undefined
-          if (!tokenBalance) continue;
-
-          // Fetch token metadata
-          const metadata = await alchemy.core.getTokenMetadata(contractAddress);
-
-          // Convert token balance to a readable format using ethers.js BigInt
-          const balance = BigInt(tokenBalance);
-          const readableBalance =
-            metadata.decimals && metadata.decimals > 0
-              ? ethers.formatUnits(balance, metadata.decimals)
-              : balance.toString();
-
-          // Only show tokens with non-zero balance
-          if (readableBalance !== "0" && readableBalance !== "0.0") {
-            tokensMessage += `• ${metadata.name || "Unknown Token"} (${
-              metadata.symbol || "N/A"
-            }): ${readableBalance}\n`;
-          }
-        }
+        await ctx.reply(message, { parse_mode: "Markdown" });
+        logger.info(`[BOT]: Wallet details sent for user ${wallet.telegramUsername}`);
+      } catch (balanceError) {
+        logger.error(`[BOT]: Error fetching wallet balances: ${balanceError}`);
+        await ctx.reply("❌ Error fetching wallet balances. Please try again later.");
       }
-
-      if (!tokensMessage) {
-        tokensMessage = "No ERC-20 tokens found in this wallet.";
-      }
-
-      // Construct the final message
-      const message = `
-💳 Your Wallet's Public Key: \`${wallet.publicKey}\`
-
-💰 Balance: ${balanceInEth} ETH
-
-💸 Tokens:
-${tokensMessage}`;
-
-      // Send the reply
-      await ctx.reply(message, { parse_mode: "Markdown" });
     } catch (error) {
-      logger.error(`Error getting wallet details: ${error}`);
-      await ctx.reply("Failed to get wallet details. Please try again.");
+      logger.error(`[BOT]: Error getting wallet details: ${error}`);
+      await ctx.reply("❌ Failed to get wallet details. Please try again.");
     }
   }
 
-  // * EXPORT WALLET
+  // * EXPORT WALLET: Exports the wallet for the user in a private chat
   private async handleExportWallet(ctx: Context) {
     try {
       // Verify it's a private message to protect sensitive data
@@ -469,30 +304,19 @@ ${tokensMessage}`;
 
       const wallet = await Wallet.findOne({ telegramId: userId });
       if (!wallet) {
-        await ctx.reply("No wallet found for user.");
+        await ctx.reply("❌ No wallet found for user.");
         return;
       }
 
       // Decrypt the private key
       const decryptedPrivateKey = CryptoUtils.decrypt(wallet.privateKey);
 
-      const message = `
-🔐 *Wallet Export for ${wallet.telegramUsername}*
-
-💼 *Public Address:* \`${wallet.publicKey}\`
-
-🔑 *Private Key:* \`${decryptedPrivateKey}\`
-
-⚠️ *IMPORTANT:*
-- Keep this private key secure
-- Never share it with anyone
-- Store it safely offline
-- Delete this message after saving the key
-      `;
+      const message = WALLET_EXPORT_MESSAGE(wallet.telegramUsername, wallet.publicKey, decryptedPrivateKey);
 
       await ctx.reply(message, { parse_mode: "Markdown" });
+      logger.info(`[BOT]: Wallet exported for user ${wallet.telegramUsername}`);
     } catch (error) {
-      logger.error(`Error exporting wallet: ${error}`);
+      logger.error(`[BOT]: Error exporting wallet: ${error}`);
       await ctx.reply("Failed to export wallet. Please try again.");
     }
   }
@@ -638,7 +462,8 @@ ${tokensMessage}`;
   // * HANDLE MESSAGE: Handles tagged and normal text and photo messages from the community.
   // TODO: Handle case when a photo greater than 20 mb is sent
   private async handleMessage(ctx: Context) {
-    if (ctx.message?.text?.startsWith("/")) { // Ignore commands
+    if (ctx.message?.text?.startsWith("/")) {
+      // Ignore commands
       return;
     }
 
@@ -647,16 +472,16 @@ ${tokensMessage}`;
       const senderUsername = ctx.from?.username || "unknown";
       const senderTgId = ctx.from?.id;
 
-      if(!isDefined(chatId, senderUsername, senderTgId)) {
+      if (!isDefined(chatId, senderUsername, senderTgId)) {
         logger.warn("[BOT]: Received message with missing parameters.");
         return;
       }
 
       const community = await findCultureBotCommunityByChatId(chatId!.toString());
-      if (!community) { 
+      if (!community) {
         // TODO: Upon adding the bot to the community, this gets triggered cause the community isn't initialized yet
         logger.warn(`[BOT]: Community not found for chat ID: ${chatId} or maybe new community just got initiated!`);
-        return
+        return;
       }
 
       const repliedMessage = ctx.message?.reply_to_message;
@@ -672,7 +497,7 @@ ${tokensMessage}`;
         // Now that we have a mention, we will process the replied message if it exists
         const messageToProcess = repliedMessage || currentMessage;
         if (!messageToProcess) return;
-        
+
         const processingMsg = await ctx.reply("📝 Processing message...");
         logger.info(`[BOT]: Processing message from ${senderUsername} in community ${community.communityName}`);
 
@@ -680,11 +505,13 @@ ${tokensMessage}`;
         let messageContent: any = {
           text: messageToProcess.text || messageToProcess.caption || "", // text or caption or none (for photo messages)
         };
-        
+
         // Ignore messages that are just mentions without any text or photo or caption
         if (
           !messageToProcess.photo &&
-          messageToProcess.text?.replace(new RegExp((process.env.ENV === "prod" ? "@culturepadbot" : "@culturepadtestbot"), "g"), "").trim() === "" &&
+          messageToProcess.text
+            ?.replace(new RegExp(process.env.ENV === "prod" ? "@culturepadbot" : "@culturepadtestbot", "g"), "")
+            .trim() === "" &&
           !messageToProcess.caption
         ) {
           logger.info(
@@ -701,7 +528,7 @@ ${tokensMessage}`;
             file_id: messageToProcess.photo[messageToProcess.photo.length - 1].file_id, // last photo in the array for highest resolution
           };
         }
-        
+
         // Non-compressed
         if (messageToProcess.document?.file_id) {
           messageContent.photo = {
@@ -712,12 +539,12 @@ ${tokensMessage}`;
         // Store the message in the database
         const storedMessage = await storeMessageInDB(currentMessage, community, { ...messageContent });
         if (!storedMessage) throw new Error("Error storing message in database");
-        
+
         // Launch the poll for voting
         const pollId = await createAndLaunchPoll(ctx, messageToProcess);
         // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
         const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now // TODO: Change this to 24 hours after testing
-        
+
         let message = {
           text: messageContent.text.replace(/@culturepadbot/g, "").trim(),
           senderUsername: messageToProcess.from?.username,
@@ -746,6 +573,32 @@ ${tokensMessage}`;
       }
     } catch (error) {
       logger.error(`[BOT]: Error handling message: ${error}`);
+    }
+  }
+
+  // ! CRON JOB HANDLERS
+
+  // * ANALYZE COMMUNITIES WITH AI: Analyzes all communities with AI and sends a message to the community
+  public async analyzeCommunitiesWithAI() {
+    try {
+      const communities = await getAllCultureBotCommunities();
+
+      // Process each community
+      for (const community of communities) {
+        logger.info(`[BOT]: Processing messages for community: ${community.communityName}`);
+
+        const message = await processCommunity(community);
+        if (!message) {
+          continue;
+        }
+
+        await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "Markdown" });
+      }
+
+      return true;
+    } catch (error) {
+      logger.error(`[BOT]: Error in AI Community Analyzer: ${error}`);
+      return false;
     }
   }
 

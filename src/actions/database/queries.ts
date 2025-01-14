@@ -43,6 +43,19 @@ export const findTrustPool = async (ctx: Context): Promise<ITrustPool | null> =>
   return trustPool;
 }
 
+export const getTrustPoolById = async (trustPoolId: mongoose.Schema.Types.ObjectId): Promise<ITrustPool | null> => {
+  try {
+    const trustPool = await TrustPools.findById(trustPoolId).populate("cultureBotCommunity").populate({
+      path: "cultureBook",
+      select: "value_aligned_posts",
+    });
+    return trustPool;
+  } catch (error) {
+    logger.warn(`[BOT]: Error finding trust pool for ID: ${trustPoolId}`);
+    return null;
+  }
+}
+
 export const createCultureBotCommunity = async ({trustPool, username, userId, chatId, communityName}: createCultureBotCommunityProps): Promise<ICultureBotCommunity> => {
   const cultureBotCommunity = CultureBotCommunity.create({
     trustPool: trustPool._id,
@@ -142,4 +155,14 @@ export const storeToCultureBook = async (message: any, community: ICultureBotCom
   logger.info(`[BOT]: Added post ${id} to culture book ${updatedCultureBook._id} for community: ${community.communityName}`);
   
   return updatedCultureBook;
+}
+
+export const getAllCultureBotCommunities = async (): Promise<ICultureBotCommunity[]> => {
+  try {
+    const communities = await CultureBotCommunity.find({}).limit(5); // TODO: (REMOVE) Limiting to 5 for now
+    return communities;
+  } catch (error) {
+    logger.error(`[BOT]: Error fetching culture bot communities: ${error}`);
+    throw new Error("Error fetching culture bot communities");
+  }
 }

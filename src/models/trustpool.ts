@@ -1,4 +1,5 @@
 import { model, models, Schema, type Document } from "mongoose";
+import type { ICultureBook } from "./cultureBook";
 
 export interface ITrustPool extends Document {
   _id: string;
@@ -14,7 +15,7 @@ export interface ITrustPool extends Document {
   ipfsHash: string;
   communityId: string;
   cultureBotCommunity?: Schema.Types.ObjectId;
-  cultureBook?: Schema.Types.ObjectId;
+  cultureBook?: Schema.Types.ObjectId | ICultureBook;
   createdAt: Date;
   updatedAt: Date;
 }

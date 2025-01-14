@@ -7,3 +7,92 @@
 2024-11-28 14:57:46 [[31merror[39m]: Encryption error: Encryption key must be exactly 32 characters (256 bits)
 2024-11-28 14:57:46 [[31merror[39m]: Error handling /wallet command: Failed to encrypt data
 2024-11-28 15:05:59 [[31merror[39m]: Error in handleBalance: unsupported protocol  (info={ "protocol": "" }, operation="request", code=UNSUPPORTED_OPERATION, version=6.13.4)
+2025-01-13 19:07:20 [[31merror[39m]: Error in cronJobResponder: ConnectionRefused: Unable to connect. Is the computer able to access the url?
+2025-01-13 19:07:20 [[31merror[39m]: [HTTP]: Error processing messages (POST /api/process-messages): Error: Failed to process messages
+2025-01-13 19:07:39 [[31merror[39m]: Error in cronJobResponder: ConnectionRefused: Unable to connect. Is the computer able to access the url?
+2025-01-13 19:07:39 [[31merror[39m]: [HTTP]: Error processing messages (POST /api/process-messages): Error: Failed to process messages
+2025-01-13 19:07:46 [[31merror[39m]: Error in cronJobResponder: ConnectionRefused: Unable to connect. Is the computer able to access the url?
+2025-01-13 19:07:46 [[31merror[39m]: [HTTP]: Error processing messages (POST /api/process-messages): Error: Failed to process messages
+2025-01-13 19:46:12 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 19:54:48 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4611335561
+2025-01-13 19:55:19 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4737444911
+2025-01-13 20:03:49 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4737444911
+2025-01-13 20:04:05 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4611335561
+2025-01-13 20:04:32 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4611335561
+2025-01-13 20:13:23 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 20:28:21 [[31merror[39m]: Error storing message on IPFS: HTTP error: {"error":"Invalid request format."}
+2025-01-13 20:28:21 [[31merror[39m]: Error completing message processing: Error storing message on IPFS
+2025-01-13 20:28:21 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 for culture book 677fc43444c4d2435c7029c8
+2025-01-13 20:28:46 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:34:16 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:34:20 [[31merror[39m]: Error storing message on IPFS: HTTP error: {"error":"Invalid request format."}
+2025-01-13 20:34:20 [[31merror[39m]: Error completing message processing: Error storing message on IPFS
+2025-01-13 20:34:20 [[31merror[39m]: Error processing message 67852b596bd2830b352fd431 for culture book 677fc43444c4d2435c7029c8
+2025-01-13 20:34:23 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:34:23 [[31merror[39m]: Error processing message 67852b596bd2830b352fd431 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:35:14 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:35:15 [[31merror[39m]: Error processing message 67852b596bd2830b352fd431 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:38:01 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:38:01 [[31merror[39m]: Error processing message 67852b596bd2830b352fd431 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:38:06 [[31merror[39m]: Error processing message 67852a03370e0279db6601c4 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:38:06 [[31merror[39m]: Error processing message 67852b596bd2830b352fd431 in culture book 677fc43444c4d2435c7029c8 for community DEVTEST: adfszxc: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 20:41:33 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4638360352
+2025-01-13 20:55:52 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 21:13:06 [[31merror[39m]: [BOT]: Error handling message: TypeError: undefined is not an object (evaluating 'message.photo.length')
+2025-01-13 21:14:26 [[31merror[39m]: [BOT]: Error handling message: TypeError: undefined is not an object (evaluating 'message.photo.length')
+2025-01-13 21:24:42 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 21:24:57 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 21:24:59 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 21:25:01 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-13 21:26:19 [[31merror[39m]: [BOT]: Error handling message: TypeError: undefined is not an object (evaluating 'message.photo.length')
+2025-01-13 21:27:13 [[31merror[39m]: [BOT]: Error handling message: TypeError: undefined is not an object (evaluating 'message?.photo.length')
+2025-01-13 21:32:56 [[31merror[39m]: Error storing message on IPFS: HTTP error: {"error":"Invalid request format."}
+2025-01-13 21:32:56 [[31merror[39m]: Error completing message processing: Error storing message on IPFS
+2025-01-13 21:32:56 [[31merror[39m]: Error processing message 678539251daa15d8bfce69fe for culture book 677fc63144c4d2435c702a56
+2025-01-13 21:34:52 [[31merror[39m]: Error processing message 678539251daa15d8bfce69fe in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:36:10 [[31merror[39m]: Error processing post 678539251daa15d8bfce69fe in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:38:08 [[31merror[39m]: Error storing message on IPFS: HTTP error: {"error":"Invalid request format."}
+2025-01-13 21:38:08 [[31merror[39m]: Error completing message processing: Error storing message on IPFS
+2025-01-13 21:38:08 [[31merror[39m]: Error processing message 67853a5baba5a80fc62ddf16 for culture book 677fc63144c4d2435c702a56
+2025-01-13 21:38:47 [[31merror[39m]: Error processing post 67853a5baba5a80fc62ddf16 in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:38:50 [[31merror[39m]: Error processing post 67853a5baba5a80fc62ddf16 in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:38:54 [[31merror[39m]: Error storing message on IPFS: HTTP error: {"error":"Invalid request format."}
+2025-01-13 21:38:54 [[31merror[39m]: Error completing message processing: Error storing message on IPFS
+2025-01-13 21:38:54 [[31merror[39m]: Error processing message 67853a8c18913c1ea308eed2 for culture book 677fc63144c4d2435c702a56
+2025-01-13 21:40:52 [[31merror[39m]: Error processing post 67853a5baba5a80fc62ddf16 in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:40:53 [[31merror[39m]: Error processing post 67853a8c18913c1ea308eed2 in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:41:28 [[31merror[39m]: Error processing post 67853a5baba5a80fc62ddf16 in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:41:29 [[31merror[39m]: Error processing post 67853a8c18913c1ea308eed2 in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:42:15 [[31merror[39m]: Error storing message on IPFS: HTTP error: {"error":"Invalid request format."}
+2025-01-13 21:42:15 [[31merror[39m]: Error completing message processing: Error storing message on IPFS
+2025-01-13 21:42:15 [[31merror[39m]: Error processing message 67853b54e7ee7560808c063c for culture book 677fc63144c4d2435c702a56
+2025-01-13 21:43:38 [[31merror[39m]: Error processing post 67853b54e7ee7560808c063c in culture book 677fc63144c4d2435c702a56 for community DEVTEST: jthfh: Call to 'stopPoll' failed! (400: Bad Request: poll has already been closed)
+2025-01-13 21:47:19 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4732035993
+2025-01-14 22:08:55 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-14 22:21:27 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-14 22:21:30 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-14 22:21:41 [[31merror[39m]: [BOT]: Error in getETHTokensBalance for 0x0De4432D09bd4e5b89EaE833Acb49C18354984c1: Error: ETH balance not found for publicKey: 0x0De4432D09bd4e5b89EaE833Acb49C18354984c1
+2025-01-14 22:21:41 [[31merror[39m]: [BOT]: Error fetching wallet balances: Error: Failed to retrieve ETH and token balances.
+2025-01-14 23:02:34 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-14 23:20:54 [[31merror[39m]: [SYSTEM]: MongoDB connection error: unable to get issuer certificate
+2025-01-15 01:27:25 [[31merror[39m]: [BOT]: Error in AI Community Analyzer: HttpError: Network request for 'sendMessage' failed!
+2025-01-15 01:27:25 [[31merror[39m]: [HTTP]: Error processing community (POST /api/process-messages): Error: Failed to process messages
+2025-01-15 01:35:28 [[31merror[39m]: [BOT]: Error in AI Community Analyzer: GrammyError: Call to 'sendMessage' failed! (400: Bad Request: can't parse entities: Unsupported start tag "strong/" at byte offset 33)
+2025-01-15 01:35:28 [[31merror[39m]: [HTTP]: Error processing community (POST /api/process-messages): Error: Failed to process messages
+2025-01-15 01:36:20 [[31merror[39m]: [BOT]: Error in AI Community Analyzer: GrammyError: Call to 'sendMessage' failed! (400: Bad Request: can't parse entities: Unsupported start tag "strong/" at byte offset 33)
+2025-01-15 01:36:20 [[31merror[39m]: [HTTP]: Error processing community (POST /api/process-messages): Error: Failed to process messages
+2025-01-15 01:36:42 [[31merror[39m]: [BOT]: Error in AI Community Analyzer: GrammyError: Call to 'sendMessage' failed! (400: Bad Request: can't parse entities: Unsupported start tag "a/" at byte offset 201)
+2025-01-15 01:36:42 [[31merror[39m]: [HTTP]: Error processing community (POST /api/process-messages): Error: Failed to process messages
+2025-01-15 01:41:53 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 01:41:56 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 01:41:58 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 01:42:00 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 01:42:01 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 01:42:04 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 01:51:10 [[31merror[39m]: [BOT]: Error in AI Community Analyzer: HttpError: Network request for 'sendMessage' failed!
+2025-01-15 01:51:10 [[31merror[39m]: [HTTP]: Error processing community (POST /api/process-messages): Error: Failed to process messages
+2025-01-15 01:51:24 [[31merror[39m]: [BOT]: Error in AI Community Analyzer: HttpError: Network request for 'sendMessage' failed!
+2025-01-15 01:51:24 [[31merror[39m]: [HTTP]: Error processing community (POST /api/process-messages): Error: Failed to process messages
+2025-01-15 02:14:05 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 02:14:08 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-15 02:20:40 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
