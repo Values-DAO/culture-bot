@@ -166,3 +166,14 @@ export const getAllCultureBotCommunities = async (): Promise<ICultureBotCommunit
     throw new Error("Error fetching culture bot communities");
   }
 }
+
+export const getAllCultureBooksWithCultureBotCommunity = async (): Promise<ICultureBook[]> => {
+  try {
+    const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity").limit(5); // TODO: (REMOVE) Limiting to 5 for now
+    const cultureBooksWithCommunity = cultureBooks.filter((book) => book.cultureBotCommunity);
+    return cultureBooksWithCommunity;
+  } catch (error) {
+    logger.error(`[BOT]: Error fetching culture books: ${error}`);
+    throw new Error("Error fetching culture books");
+  }
+};

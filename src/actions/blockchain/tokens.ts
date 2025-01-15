@@ -3,7 +3,10 @@ import { ethers } from "ethers";
 import { config } from "../../config/config";
 import { logger } from "../../utils/logger";
 
-export const getETHTokensBalance = async (provider: any, publicKey: string): Promise<{balanceInEth: string, tokensMessage: string}> => {
+export const getETHTokensBalance = async (
+  provider: ethers.JsonRpcProvider,
+  publicKey: string
+): Promise<{ balanceInEth: string; tokensMessage: string }> => {
   try {
     // Fetch ETH balance
     const balance = await provider.getBalance(publicKey);
@@ -21,7 +24,7 @@ export const getETHTokensBalance = async (provider: any, publicKey: string): Pro
     logger.error(`[BOT]: Error in getETHTokensBalance for ${publicKey}: ${error}`);
     throw new Error("Failed to retrieve ETH and token balances.");
   }
-}
+};
 
 export const getERC20TokensBalance = async (publicKey: string): Promise<string> => {
   try {

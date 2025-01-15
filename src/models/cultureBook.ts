@@ -1,9 +1,10 @@
 import { model, models, Schema, type Document } from "mongoose";
+import type { ICultureBotCommunity } from "./community";
 
 export interface ICultureBook extends Document {
   _id: string;
   trustPool?: Schema.Types.ObjectId;
-  cultureBotCommunity?: Schema.Types.ObjectId;
+  cultureBotCommunity?: Schema.Types.ObjectId | ICultureBotCommunity;
   cultureToken?: Schema.Types.ObjectId;
   core_values: Map<string, number>;
   spectrum: Array<{
@@ -12,6 +13,7 @@ export interface ICultureBook extends Document {
     score: number;
   }>;
   value_aligned_posts: Array<{
+    _id: string;
     posterUsername: string;
     posterTgId?: string;
     messageTgId?: string;
@@ -44,6 +46,8 @@ export interface ICultureBook extends Document {
     timestamp: Date;
   };
 }
+
+export type ValueAlignedPost = ICultureBook["value_aligned_posts"][number];
 
 const cultureBookSchema = new Schema({
   // * Trust Pool

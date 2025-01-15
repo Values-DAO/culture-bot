@@ -19,7 +19,7 @@ export const getOrCreateWallet = async (posterTgId: string, posterUsername: stri
     return wallet;
   } catch (error) {
     logger.error(`[BOT]: Error finding or creating wallet for username: ${posterUsername} and tgId: ${posterTgId}: ${error}`);
-    return false;
+    throw new Error("Error finding or creating wallet");
   }
 }
 

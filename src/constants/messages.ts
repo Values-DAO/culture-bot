@@ -1,3 +1,5 @@
+import type mongoose from "mongoose";
+
 const urlPart = process.env.ENV === 'prod' ? 'app' : 'staging';
 
 export const WELCOME_MESSAGE = `
@@ -75,3 +77,13 @@ ${contributorSection}
 Tip: You can also tag me in a message to add it to your Culture Book.
 `;
 }
+
+export const APPROVED_MESSAGE = (trustPoolId: mongoose.Schema.Types.ObjectId) => {
+  return `
+🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${trustPoolId}/culture) ✨
+`;
+}
+
+export const REJECTED_MESSAGE = `
+❌ The community has decided this message doesn’t align with our values. Keep sharing, and let’s continue building our story together!
+`;

@@ -9,7 +9,7 @@ export const pollDatabaseRouter = (telegramService: TelegramService): Router => 
     logger.info("[HTTP]: Received request at /api/poll-database");
     
     try {
-      const response = await telegramService.pollDatabase();
+      const response = await telegramService.checkForDuePosts();
       if (response) { // response is true or false
         res.status(200).json({ message: "Database polled successfully" });
         logger.info("[HTTP]: Database polled successfully");

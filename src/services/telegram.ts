@@ -2,21 +2,28 @@ import { Bot, Context } from "grammy";
 import { config } from "../config/config";
 import { logger } from "../utils/logger";
 import { ethers } from "ethers";
-import { PinataSDK } from "pinata-web3";
-import { CultureBook } from "../models/cultureBook";
-import { connectDB } from "./database";
 import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
 import { isDefined } from "../actions/sanity/validateInputs";
 import { COMMANDS_MESSAGE, POLL_MESSAGE, WALLET_DETAILS_MESSAGE, WALLET_EXPORT_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import { type Schema } from "mongoose";
-import { createCultureBotCommunity, findCultureBookByTrustPoolId, findCultureBotCommunityByChatId, findTrustPool, getAllCultureBotCommunities, storeMessageInDB, storeToCultureBook } from "../actions/database/queries";
-import type { IPFSResponse } from "../types/types";
-import { checkBotMention, createAndLaunchPoll, downloadImage, handleMessageWithoutMention } from "../actions/telegram/utils";
-import { getOrCreateWallet } from "../actions/wallet/utils";
+import {
+  createCultureBotCommunity,
+  findCultureBookByTrustPoolId,
+  findCultureBotCommunityByChatId,
+  findTrustPool,
+  getAllCultureBooksWithCultureBotCommunity,
+  getAllCultureBotCommunities,
+  storeMessageInDB,
+  storeToCultureBook,
+} from "../actions/database/queries";
+import { checkBotMention, createAndLaunchPoll, handleMessageWithoutMention } from "../actions/telegram/utils";
 import { getETHTokensBalance } from "../actions/blockchain/tokens";
 import { processCommunity } from "../actions/cron/analyzeCommunities";
 import { autoRetry } from "@grammyjs/auto-retry";
+import { getDuePosts, processDuePosts } from "../actions/cron/dueMessages";
+import type { ICultureBotCommunity } from "../models/community";
+import type { ICultureBook } from "../models/cultureBook";
 
 // TODO: Change trustpool functionality.
 
@@ -119,129 +126,6 @@ export class TelegramService {
     }
   }
 
-  // * CRON JOB POLL DATABASE
-  // * This route is for the cron job to poll the database for new messages to be processed
-  public async pollDatabase() {
-    try {
-      await connectDB();
-
-      const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity");
-
-      for (const cultureBook of cultureBooks) {
-        // skip if cultureBook has no community
-        if (!cultureBook.cultureBotCommunity) {
-          continue;
-        }
-
-        // @ts-ignore
-        // const value_aligned_posts = cultureBook.value_aligned_posts.filter((post) => post.status === "pending").filter((post) => post.eligibleForVoting);
-        const value_aligned_posts = cultureBook.value_aligned_posts
-          .filter((post) => post.status === "pending")
-          .filter((post) => post.votingEndsAt < new Date())
-          .filter((post) => post.eligibleForVoting);
-
-        if (value_aligned_posts.length === 0) {
-          logger.info(
-            `No messages to process for culture book ${cultureBook._id} in community ${cultureBook.cultureBotCommunity.communityName}`
-          );
-          continue;
-        } else {
-          logger.info(
-            `Processing ${value_aligned_posts.length} messages for community ${cultureBook.cultureBotCommunity.communityName}`
-          );
-        }
-
-        for (const post of value_aligned_posts) {
-          // Stop the poll and process the messages
-          try {
-            // TODO: This code is sh1t, if the message processing fails later on then the poll is stopped but doesn't get processed
-            // TODO: and in future, you cannot stop the poll again, it gives error so there's no way to get the results as well.
-            const result = await this.bot.api.stopPoll(cultureBook.cultureBotCommunity.chatId, post.pollId);
-            const yesVotes = result.options[0].voter_count;
-            const noVotes = result.options[1].voter_count;
-
-            if (yesVotes >= noVotes) {
-              // now the message is eligible for posting onchain
-              // need to avoid duplication, so if the post already exists onchain, skip it
-              // onchain posts have onchain field set to true
-              // check messages by messageTgId
-              // @ts-ignore
-              const existingPost = cultureBook.value_aligned_posts.find(
-                (p) => p?.messageTgId && p?.messageTgId === post?.messageTgId && p.onchain
-              );
-
-              if (existingPost) {
-                console.log(`Post ${post._id} already exists onchain. Skipping...`);
-                post.eligibleForVoting = false;
-                post.onchain = false;
-                post.votes.count = yesVotes - noVotes;
-                await cultureBook.save();
-
-                await this.bot.api.sendMessage(
-                  cultureBook.cultureBotCommunity.chatId,
-                  `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨`,
-                  { reply_to_message_id: post.messageTgId, parse_mode: "Markdown" }
-                );
-                continue;
-              }
-
-              const response = await this.completeMessageProcessing(cultureBook, post, result);
-              if (!response) {
-                logger.error(`Error processing message ${post._id} for culture book ${cultureBook._id}`);
-                continue;
-              } else {
-                logger.info(
-                  `Message ${post._id} processed for community ${cultureBook.cultureBotCommunity.communityName}`
-                );
-                logger.info(
-                  `Creating wallet for user ${post.posterTgId}::${post.posterUsername} for posting message ${post._id} in community ${cultureBook.cultureBotCommunity.communityName}...`
-                );
-                const wallet = await getOrCreateWallet(post.posterTgId, post.posterUsername);
-                // const res = await depositRewards(wallet.publicKey, rewardAmount);
-                if (!wallet) {
-                  logger.error(
-                    `Error creating wallet for user ${post.posterUsername} for posting message ${post._id} in community ${cultureBook.cultureBotCommunity.communityName}`
-                  );
-                  continue;
-                }
-              }
-            } else {
-              post.status = "rejected";
-              post.votes.count = yesVotes - noVotes;
-              post.eligibleForVoting = false;
-              await cultureBook.save();
-
-              logger.info(
-                `Message ${post._id} rejected for community ${cultureBook.cultureBotCommunity.communityName}`
-              );
-            }
-
-            // reply to the community
-            const message =
-              yesVotes >= noVotes
-                ? `🎉 The community has spoken! This message has been deemed value-aligned and is now immortalized onchain. Thanks for keeping our culture alive! Check it out on the [Culture Book](https://app.valuesdao.io/trustpools/${cultureBook.trustPool}/culture) ✨`
-                : "❌ The community has decided this message doesn’t align with our values. Keep sharing, and let’s continue building our story together!";
-
-            await this.bot.api.sendMessage(cultureBook.cultureBotCommunity.chatId, message, {
-              reply_to_message_id: post.messageTgId,
-              parse_mode: "Markdown",
-            });
-          } catch (error) {
-            logger.error(
-              `Error processing post ${post._id} in culture book ${cultureBook._id} for community ${cultureBook.cultureBotCommunity.communityName}:`,
-              error
-            );
-            continue;
-          }
-        }
-      }
-      return true;
-    } catch (error) {
-      logger.error(`Error in pollDatabase: ${error}`);
-      return false;
-    }
-  }
-
   // * GET WALLET DETAILS: Fetches wallet details for the user in a private chat that includes public key, ETH balance and ERC-20 token balances
   private async getWalletDetails(ctx: Context) {
     try {
@@ -319,144 +203,6 @@ export class TelegramService {
       logger.error(`[BOT]: Error exporting wallet: ${error}`);
       await ctx.reply("Failed to export wallet. Please try again.");
     }
-  }
-
-  // This function is for processing individual messages when they are due
-  private async completeMessageProcessing(cultureBook: any, post: any, result: any) {
-    try {
-      // Get photo if present
-      let messageContent: any = { text: post.content };
-      if (post.hasPhoto) {
-        const photoUrl = await this.getPhotoUrl(post.photoFileId);
-        if (photoUrl) {
-          messageContent.photo = {
-            url: photoUrl,
-            file_id: post.photoFileId,
-          };
-        }
-      }
-
-      // Upload the message and photo to IPFS
-      const response = await this.storeMessageOnIpfs(messageContent);
-      if (!response) {
-        throw new Error("Error storing message on IPFS");
-      }
-
-      // Upload the IPFS CID onchain
-      const transactionHash = await this.storeMessageOnChain(response.IpfsHash);
-
-      // Update value_aligned_posts array in culture book with transaction hash, IPFS hash, photo URL and status
-      post.transactionHash = transactionHash;
-      post.ipfsHash = response.IpfsHash;
-      post.photoUrl = response?.gateway_url;
-      post.status = "approved";
-      post.eligibleForVoting = false;
-      post.onchain = true;
-      post.votes.count = result.options[0].voter_count - result.options[1].voter_count;
-
-      await cultureBook.save();
-      return true;
-    } catch (error) {
-      logger.error("Error completing message processing:", error);
-      return false;
-    }
-  }
-
-  private async storeMessageOnIpfs(content: { text: string; photo: any }): Promise<IPFSResponse | undefined> {
-    try {
-      const pinata = new PinataSDK({
-        pinataJwt: config.pinataJwt,
-        pinataGateway: config.pinataGateway,
-      });
-
-      if (content.text && !content.photo) {
-        const file = new File([content.text], "message.txt", { type: "text/plain" });
-        const upload = await pinata.upload.file(file);
-        logger.info("Uploaded text message to IPFS:");
-        console.log(upload);
-        return upload;
-      } else {
-        // If it's a photo message, we need to:
-        // 1. Download the image from Telegram
-        // 2. Upload the image to IPFS
-        // 3. Create a JSON with the text and IPFS image hash
-
-        if (content.photo?.url) {
-          try {
-            // Download image from Telegram
-            const imageBuffer = await downloadImage(content.photo.url);
-
-            // Upload image to IPFS first
-            const imageFile = new File([imageBuffer], "image.jpg", { type: "image/jpeg" });
-            const imageUpload = await pinata.upload.file(imageFile);
-
-            // Create final content object with image IPFS hash
-            const finalContent = {
-              text: content.text,
-              image: {
-                ipfsHash: imageUpload.IpfsHash,
-                // TODO: Can do this for normal messages too
-                gateway_url: `https://violet-many-felidae-752.mypinata.cloud/ipfs/${imageUpload.IpfsHash}`,
-              },
-            };
-
-            // Upload the metadata JSON
-            const metadataFile = new File([JSON.stringify(finalContent)], "message.json", { type: "application/json" });
-
-            const metadataUpload = await pinata.upload.file(metadataFile);
-            logger.info("Uploaded photo message to IPFS:");
-            console.log(metadataUpload);
-            // @ts-ignore
-            metadataUpload.gateway_url = finalContent.image.gateway_url;
-            return metadataUpload;
-          } catch (error) {
-            logger.error("Error processing image:", error);
-            throw error;
-          }
-        }
-
-        // Fallback to just text if no photo
-        const file = new File([content.text], "message.txt", { type: "text/plain" });
-        return await pinata.upload.file(file);
-      }
-    } catch (error) {
-      logger.error("Error storing message on IPFS:", error);
-      return;
-    }
-  }
-
-  private async getPhotoUrl(photoFileId: string): Promise<string | undefined> {
-    try {
-      // This URL is temporary and will expire, however, we can use the file_id to get the photo URL anytime
-      console.log("Photo File Id: ", photoFileId);
-      const file = await this.bot.api.getFile(photoFileId);
-      return `https://api.telegram.org/file/bot${config.telegramToken}/${file.file_path}`;
-    } catch (error) {
-      logger.error(`Error getting photo URL: ${error}`);
-      return undefined;
-    }
-  }
-
-  private async storeMessageOnChain(ipfsHash: string): Promise<string> {
-    const wallet = new ethers.Wallet(config.privateKey, this.provider);
-    const abiCoder = ethers.AbiCoder.defaultAbiCoder();
-
-    // Encode message data with IPFS hash
-    const messageData = abiCoder.encode(["string"], [ipfsHash]);
-
-    const tx = await wallet.sendTransaction({
-      to: wallet.address,
-      data: messageData,
-      value: 0,
-      gasLimit: 150000,
-    });
-
-    const receipt = await tx.wait();
-    if (!receipt?.hash) throw new Error("Transaction failed");
-
-    logger.info(`Stored message onchain with transaction hash: ${receipt.hash}`);
-
-    return receipt.hash;
   }
 
   // * HANDLE MESSAGE: Handles tagged and normal text and photo messages from the community.
@@ -598,6 +344,32 @@ export class TelegramService {
       return true;
     } catch (error) {
       logger.error(`[BOT]: Error in AI Community Analyzer: ${error}`);
+      return false;
+    }
+  }
+
+  // * CHECK FOR DUE MESSAGES: Checks for due messages in all culture books and processes them
+  public async checkForDuePosts() { 
+    try {
+      const cultureBooks = await getAllCultureBooksWithCultureBotCommunity();
+      for (const cultureBook of cultureBooks) { // Process each culture book
+        const cultureBotCommunity = cultureBook.cultureBotCommunity as ICultureBotCommunity;
+        const duePosts = await getDuePosts(cultureBook);
+        if (!duePosts) continue;
+        for (const post of duePosts) { // Process each due message
+          try {
+            await processDuePosts(this.bot, this.provider, cultureBook, post);
+          } catch (error) {
+            logger.warn(
+              `[BOT]: Error processing post ID ${post._id} in culture book ID ${cultureBook._id} for community ${cultureBotCommunity.communityName}: ${error}`
+            );
+            continue;
+          }
+        }
+      }
+      return true;
+    } catch (error) {
+      logger.error(`Error while checking for due posts: ${error}`);
       return false;
     }
   }
