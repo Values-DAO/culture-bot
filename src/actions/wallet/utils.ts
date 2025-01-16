@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import { logger } from "../../utils/logger";
 import { CryptoUtils } from "../../utils/cryptoUtils";
 import { Wallet } from "../../models/wallet";
+import type { ValueAlignedPost } from "../../models/cultureBook";
 
 export const getOrCreateWallet = async (posterTgId: string, posterUsername: string) => {
   try {
@@ -37,4 +38,32 @@ export const createWallet = async (posterTgId: string, posterUsername: string) =
   logger.info(`[BOT]: Wallet created for username: ${posterUsername} and tgId: ${posterTgId}`);
 
   return userWallet;
+}
+
+export const getOrCreateWallets = async (posts: any) => {
+  try {
+    const posters = getPosters(posts);
+    
+    const wallets = []
+    for (const poster of posters) {
+      const wallet = await getOrCreateWallet(poster.posterTgId, poster.posterUsername);
+      wallets.push(wallet);
+    }
+    
+    return wallets;
+  } catch (error) {
+    logger.error(`[BOT]: Error finding or creating wallets for AI extracted posts: ${error}`);
+    throw new Error("Error finding or creating wallets for AI extracted posts");
+  }
+}
+
+export const getPosters = (posts: any) => {
+  const posters = posts.map((post: ValueAlignedPost) => {
+    return {
+      posterUsername: post.posterUsername,
+      posterTgId: post.posterTgId,
+    };
+  });
+  
+  return posters;
 }

@@ -4,9 +4,10 @@ import { logger } from "../../utils/logger";
 import { getTrustPoolById } from "../database/queries";
 import { config } from "../../config/config";
 import type { ITrustPool } from "../../models/trustpool";
-import type { ICultureBook } from "../../models/cultureBook";
+import type { ICultureBook, ValueAlignedPost } from "../../models/cultureBook";
 import { CONTRIBUTORS_MESSAGE, NO_CONTRIBUTORS_MESSAGE } from "../../constants/messages";
 import type mongoose from "mongoose";
+import { getOrCreateWallets } from "../wallet/utils";
 
 export const processCommunity = async (community: ICultureBotCommunity): Promise<string | undefined> => {
   try {
@@ -26,6 +27,9 @@ export const processCommunity = async (community: ICultureBotCommunity): Promise
 
     const posts = getPostsExtractedByAI(trustpool);
     if (!posts) return;
+    
+    const wallets = getOrCreateWallets(posts);
+    // TODO: Distribute rewards
 
     const groupedPosts = groupPostsByUser(posts);
     const topContributors = getTopContributors(groupedPosts);
@@ -81,7 +85,7 @@ export const groupPostsByUser = (posts: any) => {
   return groupedPosts;
 } 
 
-export const getPostsExtractedByAI = (trustpool: ITrustPool) => {
+export const getPostsExtractedByAI = (trustpool: ITrustPool): ValueAlignedPost[] | boolean => {
   try {
     const cultureBook = trustpool!.cultureBook as ICultureBook; // because it's populated
     
