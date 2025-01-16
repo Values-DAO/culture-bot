@@ -159,7 +159,7 @@ export const storeToCultureBook = async (message: any, community: ICultureBotCom
 
 export const getAllCultureBotCommunities = async (): Promise<ICultureBotCommunity[]> => {
   try {
-    const communities = await CultureBotCommunity.find({}).limit(5); // TODO: (REMOVE) Limiting to 5 for now
+    const communities = await CultureBotCommunity.find({})
     return communities;
   } catch (error) {
     logger.error(`[BOT]: Error fetching culture bot communities: ${error}`);
@@ -169,7 +169,7 @@ export const getAllCultureBotCommunities = async (): Promise<ICultureBotCommunit
 
 export const getAllCultureBooksWithCultureBotCommunity = async (): Promise<ICultureBook[]> => {
   try {
-    const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity").limit(5); // TODO: (REMOVE) Limiting to 5 for now
+    const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity")
     const cultureBooksWithCommunity = cultureBooks.filter((book) => book.cultureBotCommunity);
     return cultureBooksWithCommunity;
   } catch (error) {

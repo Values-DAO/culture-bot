@@ -1,7 +1,5 @@
 import { Schema, model, type Document, models } from "mongoose";
 
-// TODO: Replace all these extra interfaces with ICultureBotCommunity
-// Define the Message interface
 interface Message extends Document {
   text: string;
   senderUsername: string;
@@ -11,33 +9,6 @@ interface Message extends Document {
   ipfsHash?: string;
   community: string;
 }
-
-// Base Community interface (without populated fields)
-interface CommunityBase {
-  trustPool: Schema.Types.ObjectId;
-  trustPoolName: string;
-  communityName: string;
-  chatId: string;
-  initiator: string;
-  initiatorTgId: string;
-  isWatching: boolean;
-  privateKey?: string;
-  publicKey?: string;
-  balance: number;
-  messages: Schema.Types.ObjectId[] | Message[];
-  cultureBook: Schema.Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-// Interface for the Community document (without populated fields)
-interface Community extends CommunityBase, Document {}
-
-// Interface for populated Community document
-interface PopulatedCommunity extends Omit<Community, "messages"> {
-  messages: Message[];
-}
-
 export interface ICultureBotCommunity extends Document {
   trustPool: Schema.Types.ObjectId;
   trustPoolName: string;
@@ -121,4 +92,4 @@ const cultureBotCommunitySchema = new Schema<ICultureBotCommunity>(
 export const CultureBotCommunity =
   models.CultureBotCommunity || model<ICultureBotCommunity>("CultureBotCommunity", cultureBotCommunitySchema);
 
-export type { Community, PopulatedCommunity, Message };
+export type { Message };

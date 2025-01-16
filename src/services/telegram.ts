@@ -288,8 +288,8 @@ export class TelegramService {
 
         // Launch the poll for voting
         const pollId = await createAndLaunchPoll(ctx, messageToProcess);
-        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
-        const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now // TODO: Change this to 24 hours after testing
+        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
+        // const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now
 
         let message = {
           text: messageContent.text.replace(/@culturepadbot/g, "").trim(),
