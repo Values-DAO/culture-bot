@@ -338,7 +338,7 @@ export class TelegramService {
           continue;
         }
 
-        await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "Markdown" });
+        await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "HTML" });
       }
 
       return true;

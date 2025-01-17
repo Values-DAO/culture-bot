@@ -68,7 +68,7 @@ export const CONTRIBUTORS_MESSAGE = (trustPoolId: string, contributorSection: an
 
 Hey everyone! This week's Culture Book is ready.
 
-👉 Check it out here: [Culture Book](https://${urlPart}.valuesdao.io/trustpools/${trustPoolId}/culture)
+👉 Check it out here: https://${urlPart}.valuesdao.io/trustpools/${trustPoolId}/culture
 
 📝 Top Contributors this week:
 
