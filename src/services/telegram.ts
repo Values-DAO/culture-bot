@@ -232,7 +232,13 @@ export class TelegramService {
 
       const repliedMessage = ctx.message?.reply_to_message;
       const currentMessage = ctx.message;
-
+      
+      // ignore if message is forwarded
+      if (currentMessage?.forward_origin) {
+        logger.info(`[BOT]: Ignoring forwarded message in community ${community.communityName} sent by ${senderUsername}`);
+        return;
+      }
+           
       // Check for bot mention
       const mentionsBot = checkBotMention(currentMessage);
 
