@@ -1,5 +1,7 @@
 import { Network } from 'alchemy-sdk';
 import dotenv from 'dotenv';
+import { createConfig, http } from "wagmi";
+import { baseSepolia } from "wagmi/chains";
 
 dotenv.config();
 
@@ -24,3 +26,10 @@ export const config = {
     network: process.env.ENV === "prod" ? Network.BASE_MAINNET : Network.BASE_SEPOLIA,
   },
 };
+
+export const bconfig = createConfig({
+  chains: [baseSepolia],
+  transports: {
+    [baseSepolia.id]: http("https://base-sepolia.g.alchemy.com/v2/sCRkeELOK2UImXTjQsv3HsfyvaQ1qlIV"),
+  },
+});

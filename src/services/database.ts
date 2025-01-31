@@ -6,6 +6,7 @@ import { CultureBotCommunity } from "../models/community";
 import { TrustPools } from "../models/trustpool";
 import { Wallet } from "../models/wallet";
 import { CultureBotMessage } from "../models/message";
+import { CultureToken } from "../models/cultureToken";
 
 export async function connectDB() {
   try {

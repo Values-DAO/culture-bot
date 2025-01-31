@@ -10,6 +10,7 @@ interface MessageData {
   text: string;
   senderUsername: string;
   senderTgId: string;
+  messageTgId: string;
   timestamp: string;
 }
 
@@ -17,7 +18,7 @@ async function seedDB() {
   try {
     await connectDB();
 
-    const community = await CultureBotCommunity.findOne({ communityName: "DEVTEST: ValuesDAO" });
+    const community = await CultureBotCommunity.findOne({ communityName: "DEVTEST: BHEL RAGDO" });
 
     if (!community) {
       logger.error("Community not found");
@@ -25,7 +26,7 @@ async function seedDB() {
     }
 
     // Properly import JSON using path.resolve
-    const messagesData: MessageData[] = require(path.resolve(__dirname, "../../converted_messages.json"));
+    const messagesData: MessageData[] = require(path.resolve(__dirname, "../../../../converted_messages.json"));
 
     // First, insert the messages and get their IDs
     const insertedMessages = await CultureBotMessage.insertMany(

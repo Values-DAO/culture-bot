@@ -5,6 +5,7 @@ interface ConvertedMessage {
   text: string;
   senderUsername: string;
   senderTgId: string;
+  messageTgId: string;
 }
 
 // Function to convert Telegram chat export
@@ -12,7 +13,6 @@ function convertTelegramExport(inputFile: string, outputFile: string): void {
   // Read the input JSON file
   const rawData = fs.readFileSync(inputFile, "utf-8");
   const chatData = JSON.parse(rawData);
-
 
   // Convert messages
   const convertedMessages: ConvertedMessage[] = chatData.messages
@@ -32,7 +32,9 @@ function convertTelegramExport(inputFile: string, outputFile: string): void {
       return {
         text: fullText.trim(),
         senderUsername: msg.from || "Unknown",
-        senderTgId: msg.from_id || "Unknown",
+        // remove "user" from msg.from_id: "user23423432"
+        senderTgId: msg.from_id.replace("user", "") || "Unknown",
+        messageTgId: msg.id.toString() || "Unknown",
       };
     })
     .filter((msg: any) => msg.text.length > 0);

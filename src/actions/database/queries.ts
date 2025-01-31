@@ -3,9 +3,10 @@ import { logger } from "../../utils/logger";
 import { TrustPools, type ITrustPool } from "../../models/trustpool";
 import { CultureBotCommunity, type ICultureBotCommunity } from "../../models/community";
 import type { createCultureBotCommunityProps } from "../../types/types";
-import { CultureBook, type ICultureBook } from "../../models/cultureBook";
+import { CultureBook, type ICultureBook, type ValueAlignedPost } from "../../models/cultureBook";
 import { CultureBotMessage } from "../../models/message";
 import mongoose from "mongoose";
+import { CultureToken } from "../../models/cultureToken";
 
 export const findTrustPool = async (ctx: Context): Promise<ITrustPool | null> => {
   const args = ctx.message?.text?.split(" ").slice(1);
@@ -144,6 +145,7 @@ export const storeToCultureBook = async (message: any, community: ICultureBotCom
           hasPhoto: message.hasPhoto,
           photoFileId: message.photoFileId,
           status: "pending",
+          rewardStatus: "processing",
           votingEndsAt: message.votingEndsAt,
           pollId: message.pollId,
         },
@@ -171,9 +173,59 @@ export const getAllCultureBooksWithCultureBotCommunity = async (): Promise<ICult
   try {
     const cultureBooks = await CultureBook.find({}).populate("cultureBotCommunity")
     const cultureBooksWithCommunity = cultureBooks.filter((book) => book.cultureBotCommunity);
-    return cultureBooksWithCommunity;
+    return cultureBooksWithCommunity.slice(-1);
   } catch (error) {
-    logger.error(`[BOT]: Error fetching culture books: ${error}`);
-    throw new Error("Error fetching culture books");
+    logger.error(`[BOT]: Error fetching culture books with communities: ${error}`);
+    throw new Error("Error fetching culture books with communities");
   }
 };
+
+export const getAllCultureBooksWithCultureTokens = async (): Promise<ICultureBook[]> => {
+  try {
+    await CultureToken.find({}); // This is a workaround to fix the issue with the culture token not being found
+    const cultureBooks = await CultureBook.find().populate("cultureToken").populate({
+      path: "cultureBotCommunity",
+      select: "communityName chatId",
+    });
+    
+    const cultureBooksWithTokens = cultureBooks.filter((book) => book.cultureToken);
+    return cultureBooksWithTokens.slice(-1);
+  } catch (error) {
+    logger.error(`[BOT]: Error fetching culture books with culture tokens: ${error}`);
+    throw new Error("Error fetching culture books with culture tokens");
+  }
+}
+
+export const updateUserRewardStatus = async (telegramId: string, pendingPosts: ValueAlignedPost[], book: ICultureBook): Promise<void> => {
+  try {
+    for (const post of pendingPosts) {
+      if (post.posterTgId === telegramId) {
+        post.rewardStatus = "rewarded";
+        logger.info(`[BOT]: Updated reward status from "pending" to "rewarded" for user ${telegramId} for post ${post._id}`);
+      }
+    }
+    
+    await book.save();
+    
+    return
+  } catch (error) {
+    logger.warn(`[BOT]: Error updating user reward status for Telegram ID: ${telegramId}: ${error}`);
+    throw new Error(`Error updating user reward status for Telegram ID: ${telegramId}`);
+  }
+}
+
+export const getChatIdFromCommunity = async (bookId: string): Promise<string> => {
+  try {
+    const book = await CultureBook.findById(bookId).populate({
+      path: "cultureBotCommunity",
+      select: "chatId", 
+    });
+    
+    console.log(book)
+    
+    return book.cultureBotCommunity.chatId;
+  } catch (error) {
+    logger.warn(`[BOT]: Error getting chat ID from community for culture book ID: ${bookId}: ${error}`);
+    throw new Error(`Error getting chat ID from community for culture book ID: ${bookId}`);
+  }
+}

@@ -87,3 +87,33 @@ export const APPROVED_MESSAGE = (trustPoolId: mongoose.Schema.Types.ObjectId) =>
 export const REJECTED_MESSAGE = `
 ❌ The community has decided this message doesn’t align with our values. Keep sharing, and let’s continue building our story together!
 `;
+
+export const REWARDED_MESSAGE = (users: string[], tokenSymbol: string) => {
+  return `
+🎉 Culture Airdrop Alert! 🎉
+
+This week, the following community members made valuable cultural contributions and their posts have been immortalized on-chain! 🌍✨ As a reward, they’ve been airdropped ${tokenSymbol} Culture Tokens!
+
+🏆 This Week’s Rewarded Contributors: ${users.join(", ")}
+
+💰 Claim Your Tokens Now! Send \`/wallet\` in a private message to the bot to check your balance and \`/exportwallet\` to access your rewards.
+
+🔥 Want to earn next week? Post content that reflects our community’s values—rituals, stories, insights, achievements—and tag the bot! The best contributions go onchain and earn Culture Tokens of this community. 🚀
+
+Keep shaping our culture. Next week, your name could be here! 🏛️
+  `;
+};
+
+export const NO_REWARD_MESSAGE = (tokenSymbol: string) => {
+  return `
+🚨 No Airdrop This Week… But It Could Have Been Yours! 🚨
+
+This week, no cultural posts were sent onchain—which means no one received the community’s Culture Tokens.
+
+💡 Remember: Every value-aligned post that goes onchain earns you rewards! Your insights, rituals, stories, and contributions shape the culture of this community—and they deserve to be preserved forever.
+
+🔥 Don't miss out next week! Post meaningful cultural content, tag the bot, and secure your place in history—plus get rewarded in ${tokenSymbol} - your community's Culture Tokens! 🪙✨
+
+Start posting now—next week, it could be your name in the airdrop! 🚀
+`;
+}

@@ -15,17 +15,21 @@
   },
   "dependencies": {
     "@grammyjs/auto-retry": "^2.0.2",
+    "@openzeppelin/merkle-tree": "^1.0.7",
+    "@safe-global/protocol-kit": "^5.1.1",
+    "@safe-global/types-kit": "^1.0.1",
     "@types/express": "^5.0.0",
     "alchemy-sdk": "^3.5.0",
     "axios": "^1.7.8",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
-    "ethers": "^6.13.4",
+    "ethers": "^6.13.5",
     "express": "^4.21.1",
     "grammy": "^1.32.0",
     "mongoose": "^8.8.3",
     "path-browserify": "^1.0.1",
     "pinata-web3": "^0.5.2",
+    "wagmi": "^2.14.8",
     "winston": "^3.17.0"
   }
 }

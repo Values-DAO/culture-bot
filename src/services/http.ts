@@ -6,6 +6,7 @@ import { healthRouter } from "../actions/routes/health";
 import { pollDatabaseRouter } from "../actions/routes/pollDatabase";
 import { processMessagesRouter } from "../actions/routes/processMessages";
 import { apiKeyAuth } from "../actions/middlewares/apiKeyAuth";
+import { distributeRewardsRouter } from "../actions/routes/distributeRewards";
 
 export class HttpServer {
   private app: express.Application;
@@ -26,8 +27,8 @@ export class HttpServer {
   private setupRoutes() {
     this.app.use("/api/process-messages", processMessagesRouter(this.telegramService)); // Process messages endpoint
     this.app.use("/api/poll-database", pollDatabaseRouter(this.telegramService)); // Poll database endpoint
+    this.app.use("/api/distribute-rewards", distributeRewardsRouter()); // Distribute rewards endpoint
     this.app.use("/health", healthRouter()); // Health check endpoint
-    // TODO: Add rewards endpoint
   }
 
   public start(port: number = 3000) {

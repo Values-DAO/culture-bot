@@ -124,6 +124,7 @@ export const updatePostDetails = async (cultureBook: ICultureBook, post: ValueAl
     post.ipfsHash = ipfsResponse.IpfsHash;
     post.photoUrl = ipfsResponse?.gateway_url;
     post.status = "approved";
+    post.rewardStatus = "pending";
     post.eligibleForVoting = false;
     post.onchain = true;
     post.votes.count = votes;
@@ -140,6 +141,7 @@ export const handleExistingMessage = async (cultureBook: ICultureBook, post: Val
     logger.info(`[BOT]: Post ID: ${post._id} already exists onchain. Skipping...`);
     post.eligibleForVoting = false;
     post.onchain = false;
+    post.rewardStatus = "rejected";
     post.votes.count = votes;
     await cultureBook.save();
   } catch (error) {
@@ -152,6 +154,7 @@ export const processRejectedMessage = async (cultureBook: ICultureBook, message:
   try {
     logger.info(`[BOT]: Post ID: ${message._id} has been rejected`);
     message.status = "rejected";
+    message.rewardStatus = "rejected";
     message.votes.count = votes;
     message.eligibleForVoting = false;
     await cultureBook.save();

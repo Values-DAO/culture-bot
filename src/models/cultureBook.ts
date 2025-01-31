@@ -1,11 +1,12 @@
 import { model, models, Schema, type Document } from "mongoose";
 import type { ICultureBotCommunity } from "./community";
+import type { ICultureToken } from "./cultureToken";
 
 export interface ICultureBook extends Document {
   _id: string;
   trustPool?: Schema.Types.ObjectId;
   cultureBotCommunity?: Schema.Types.ObjectId | ICultureBotCommunity;
-  cultureToken?: Schema.Types.ObjectId;
+  cultureToken?: Schema.Types.ObjectId | ICultureToken;
   core_values: Map<string, number>;
   spectrum: Array<{
     name: string;
@@ -38,6 +39,7 @@ export interface ICultureBook extends Document {
     photoUrl?: string;
     photoFileId?: string;
     status: "pending" | "approved" | "rejected" | "processing";
+    rewardStatus: "pending" | "rewarded" | "rejected" | "processing";
     votingEndsAt?: Date;
     pollId?: string;
   }>;
@@ -122,7 +124,8 @@ const cultureBookSchema = new Schema({
         hasPhoto: { type: Boolean, default: false },
         photoUrl: { type: String }, // IPFS Pinata URL
         photoFileId: { type: String }, // Telegram File ID to refetch the image when needed
-        status: { type: String, enum: ["pending", "approved", "rejected", "processing"]},
+        status: { type: String, enum: ["pending", "approved", "rejected", "processing"] }, // onchain status
+        rewardStatus: { type: String, enum: ["pending", "rewarded", "rejected", "processing"], default: "processing" }, // reward status
         votingEndsAt: { type: Date },
         pollId: { type: String },
       },
