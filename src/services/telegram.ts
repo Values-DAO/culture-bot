@@ -5,8 +5,8 @@ import { ethers } from "ethers";
 import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
 import { isDefined } from "../actions/sanity/validateInputs";
-import { COMMANDS_MESSAGE, POLL_MESSAGE, WALLET_DETAILS_MESSAGE, WALLET_EXPORT_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
-import { type Schema } from "mongoose";
+import { COMMANDS_MESSAGE, NO_REWARD_MESSAGE, POLL_MESSAGE, REWARDED_MESSAGE, WALLET_DETAILS_MESSAGE, WALLET_EXPORT_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
+import mongoose, { type Schema } from "mongoose";
 import {
   createCultureBotCommunity,
   findCultureBookByTrustPoolId,
@@ -14,6 +14,7 @@ import {
   findTrustPool,
   getAllCultureBooksWithCultureBotCommunity,
   getAllCultureBotCommunities,
+  getChatIdFromCommunity,
   storeMessageInDB,
   storeToCultureBook,
 } from "../actions/database/queries";
@@ -24,6 +25,7 @@ import { autoRetry } from "@grammyjs/auto-retry";
 import { getDuePosts, processDuePosts } from "../actions/cron/dueMessages";
 import type { ICultureBotCommunity } from "../models/community";
 import type { ICultureBook } from "../models/cultureBook";
+import type { ICultureToken } from "../models/cultureToken";
 
 // TODO: Change trustpool functionality.
 
@@ -288,8 +290,8 @@ export class TelegramService {
 
         // Launch the poll for voting
         const pollId = await createAndLaunchPoll(ctx, messageToProcess);
-        const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
-        // const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now
+        // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
+        const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now
 
         let message = {
           text: messageContent.text.replace(/@culturepadbot/g, "").trim(),
@@ -331,14 +333,19 @@ export class TelegramService {
 
       // Process each community
       for (const community of communities) {
-        logger.info(`[BOT]: Processing messages for community: ${community.communityName}`);
+        try {
+          logger.info(`[BOT]: Processing messages for community: ${community.communityName}`);
+          
+          const message = await processCommunity(community);
+          if (!message) {
+            continue;
+          }
 
-        const message = await processCommunity(community);
-        if (!message) {
+          await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "HTML" });  
+        } catch (error) {
+          logger.warn(`[BOT]: Error processing community ${community.communityName}: ${error}`);
           continue;
         }
-
-        await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "HTML" });
       }
 
       return true;
@@ -371,6 +378,32 @@ export class TelegramService {
     } catch (error) {
       logger.error(`Error while checking for due posts: ${error}`);
       return false;
+    }
+  }
+  
+  // * SEND MESSAGE FOR REWARDS: Sends a message to the community for rewards distribution
+  public async sendMessageForRewards(book: ICultureBook, usersGettingRewarded: { posterTgId: string; posterUsername: string }[] | null) {
+    try {
+      const cultureBotCommunity = book.cultureBotCommunity as ICultureBotCommunity;
+      const cultureToken = book.cultureToken as ICultureToken;
+      
+      if (!usersGettingRewarded) {
+        await this.bot.api.sendMessage(cultureBotCommunity.chatId, NO_REWARD_MESSAGE(cultureToken.symbol));
+        logger.info(`[BOT]: No rewards to distribute for community ${cultureBotCommunity.communityName}`);
+      } else {
+        const users = usersGettingRewarded.map((user) => `@${user.posterUsername}`)
+        // remove duplicates from the array
+        const uniqueUsers = [...new Set(users)];
+        await this.bot.api.sendMessage(cultureBotCommunity.chatId, REWARDED_MESSAGE(uniqueUsers, cultureToken.symbol), {
+          parse_mode: "Markdown",
+        });
+        logger.info(
+          `[BOT]: Message for rewards distributed successfully sent for community ${cultureBotCommunity.communityName}`
+        );
+      }
+    } catch (error) {
+      logger.warn(`[BOT]: Error sending message for rewards: ${error}`);
+      throw new Error("Error sending message for rewards");
     }
   }
 
