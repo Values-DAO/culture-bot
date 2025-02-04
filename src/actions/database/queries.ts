@@ -93,6 +93,19 @@ export const findCultureBotCommunityByChatId = async (chatId: string): Promise<I
   }
 }
 
+// export const findCultureBookByCommunityId = async (communityId: string): Promise<ICultureBook | null> => {
+//   try {
+//     const cultureBook = await CultureBook.findOne({ cultureBotCommunity: communityId });
+//     if (!cultureBook) {
+//       return null;
+//     }  
+//     return cultureBook;
+//   } catch (error) {
+//     logger.error(`[BOT]: Error finding culture book for community ID: ${communityId}`);
+//     return null;
+//   }
+// }
+
 export const storeMessageInDB = async (message: any, community: ICultureBotCommunity, messageContent?: any): Promise<any> => {
   const text = message.text || message.caption || "";
   const botName = process.env.ENV === "prod" ? "@culturepadbot" : "@culturepadtestbot";
@@ -147,7 +160,8 @@ export const storeToCultureBook = async (message: any, community: ICultureBotCom
           status: "pending",
           rewardStatus: "processing",
           votingEndsAt: message.votingEndsAt,
-          pollId: message.pollId,
+          tgPollId: message.tgPollId,
+          tgPollMessageId: message.tgPollMessageId,
         },
       },
     },
@@ -214,18 +228,18 @@ export const updateUserRewardStatus = async (telegramId: string, pendingPosts: V
   }
 }
 
-export const getChatIdFromCommunity = async (bookId: string): Promise<string> => {
-  try {
-    const book = await CultureBook.findById(bookId).populate({
-      path: "cultureBotCommunity",
-      select: "chatId", 
-    });
+// export const getChatIdFromCommunity = async (bookId: string): Promise<string> => {
+//   try {
+//     const book = await CultureBook.findById(bookId).populate({
+//       path: "cultureBotCommunity",
+//       select: "chatId", 
+//     });
     
-    console.log(book)
+//     console.log(book)
     
-    return book.cultureBotCommunity.chatId;
-  } catch (error) {
-    logger.warn(`[BOT]: Error getting chat ID from community for culture book ID: ${bookId}: ${error}`);
-    throw new Error(`Error getting chat ID from community for culture book ID: ${bookId}`);
-  }
-}
+//     return book.cultureBotCommunity.chatId;
+//   } catch (error) {
+//     logger.warn(`[BOT]: Error getting chat ID from community for culture book ID: ${bookId}: ${error}`);
+//     throw new Error(`Error getting chat ID from community for culture book ID: ${bookId}`);
+//   }
+// }

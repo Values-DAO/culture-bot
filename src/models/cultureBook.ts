@@ -27,10 +27,12 @@ export interface ICultureBook extends Document {
     votes: {
       count: number;
       alignedUsers: Array<{
-        userId: string;
+        userTgId: string;
+        userTgUsername: string;
       }>;
       notAlignedUsers: Array<{
-        userId: string;
+        userTgId: string;
+        userTgUsername: string;
       }>;
     };
     transactionHash?: string;
@@ -41,7 +43,8 @@ export interface ICultureBook extends Document {
     status: "pending" | "approved" | "rejected" | "processing";
     rewardStatus: "pending" | "rewarded" | "rejected" | "processing";
     votingEndsAt?: Date;
-    pollId?: string;
+    tgPollId?: string;
+    tgPollMessageId?: string;
   }>;
   updateDescription: {
     content: string;
@@ -97,19 +100,17 @@ const cultureBookSchema = new Schema({
         eligibleForVoting: { type: Boolean, default: true },
         votes: {
           type: {
-            count: { type: Number },
+            count: { type: Number, default: 0 },
             alignedUsers: [
               {
-                type: {
-                  userId: { type: String, required: true },
-                },
+                userTgId: { type: String, required: true },
+                userTgUsername: { type: String, required: true },
               },
             ],
             notAlignedUsers: [
               {
-                type: {
-                  userId: { type: String, required: true },
-                },
+                userTgId: { type: String, required: true },
+                userTgUsername: { type: String, required: true },
               },
             ],
           },
@@ -127,7 +128,8 @@ const cultureBookSchema = new Schema({
         status: { type: String, enum: ["pending", "approved", "rejected", "processing"] }, // onchain status
         rewardStatus: { type: String, enum: ["pending", "rewarded", "rejected", "processing"], default: "processing" }, // reward status
         votingEndsAt: { type: Date },
-        pollId: { type: String },
+        tgPollId: { type: String },
+        tgPollMessageId: { type: String },
       },
       default: [],
     },

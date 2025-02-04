@@ -14,7 +14,6 @@ import {
   findTrustPool,
   getAllCultureBooksWithCultureBotCommunity,
   getAllCultureBotCommunities,
-  getChatIdFromCommunity,
   storeMessageInDB,
   storeToCultureBook,
 } from "../actions/database/queries";
@@ -24,7 +23,7 @@ import { processCommunity } from "../actions/cron/analyzeCommunities";
 import { autoRetry } from "@grammyjs/auto-retry";
 import { getDuePosts, processDuePosts } from "../actions/cron/dueMessages";
 import type { ICultureBotCommunity } from "../models/community";
-import type { ICultureBook } from "../models/cultureBook";
+import { CultureBook, type ICultureBook, type ValueAlignedPost } from "../models/cultureBook";
 import type { ICultureToken } from "../models/cultureToken";
 
 // TODO: Change trustpool functionality.
@@ -41,6 +40,7 @@ export class TelegramService {
   }
 
   private setupHandlers() {
+    this.bot.on("poll_answer", (ctx: Context) => this.handlePollResults(ctx));
     this.bot.command("start", (ctx: Context) => this.handleStart(ctx));
     this.bot.command("commands", (ctx: Context) => this.handleCommands(ctx));
     this.bot.command("trustpool", (ctx: Context) => this.handleTrustPool(ctx));
@@ -289,7 +289,7 @@ export class TelegramService {
         if (!storedMessage) throw new Error("Error storing message in database");
 
         // Launch the poll for voting
-        const pollId = await createAndLaunchPoll(ctx, messageToProcess);
+        const { tgPollId, tgPollMessageId } = await createAndLaunchPoll(ctx, messageToProcess);
         // const votingEndsAt = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours from now
         const votingEndsAt = new Date(Date.now() + 1000 * 5); // 5 seconds from now
 
@@ -303,7 +303,8 @@ export class TelegramService {
           photoFileId: messageContent?.photo?.file_id,
           timestamp: new Date(messageToProcess.date * 1000), // Convert UNIX timestamp to JS timestamp
           votingEndsAt: votingEndsAt,
-          pollId: pollId,
+          tgPollId,
+          tgPollMessageId,
         };
 
         logger.info(
@@ -324,6 +325,44 @@ export class TelegramService {
     }
   }
 
+  private async handlePollResults(ctx: Context) {
+    try {
+      const poll = ctx.pollAnswer;
+      const tgPollId = poll?.poll_id;
+      const userTgId = poll?.user?.id;
+      const userTgUsername = poll?.user?.username;
+      const yesVote = poll?.option_ids[0] === 0;
+
+      logger.info(`[BOT]: Poll results received for poll ID ${tgPollId} from user ${userTgUsername}`);
+
+      if (!tgPollId || !userTgId || !userTgUsername) {
+        logger.warn(`[BOT]: Missing parameters for poll results: ${tgPollId}, ${userTgId}, ${userTgUsername}`);
+        return;
+      }
+
+      const updateQuery = yesVote
+        ? {
+            $inc: { "value_aligned_posts.$.votes.count": 1 },
+            $push: { "value_aligned_posts.$.votes.alignedUsers": { userTgId: userTgId.toString(), userTgUsername } },
+          }
+        : {
+            $inc: { "value_aligned_posts.$.votes.count": 1 },
+            $push: { "value_aligned_posts.$.votes.notAlignedUsers": { userTgId: userTgId.toString(), userTgUsername } },
+          };
+
+      const result = await CultureBook.updateOne({ "value_aligned_posts.tgPollId": tgPollId }, updateQuery);
+
+      if (result.modifiedCount === 0) {
+        logger.warn(`[BOT]: No post updated for poll ID ${tgPollId}`);
+        return;
+      }
+
+      logger.info(`[BOT]: Poll results saved for poll ID ${tgPollId}`);
+    } catch (error) {
+      logger.warn(`[BOT]: Error handling poll results: ${error}`);
+    }
+  }
+
   // ! CRON JOB HANDLERS
 
   // * ANALYZE COMMUNITIES WITH AI: Analyzes all communities with AI and sends a message to the community
@@ -335,13 +374,13 @@ export class TelegramService {
       for (const community of communities) {
         try {
           logger.info(`[BOT]: Processing messages for community: ${community.communityName}`);
-          
+
           const message = await processCommunity(community);
           if (!message) {
             continue;
           }
 
-          await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "HTML" });  
+          await this.bot.api.sendMessage(community.chatId, message, { parse_mode: "HTML" });
         } catch (error) {
           logger.warn(`[BOT]: Error processing community ${community.communityName}: ${error}`);
           continue;
@@ -356,14 +395,16 @@ export class TelegramService {
   }
 
   // * CHECK FOR DUE MESSAGES: Checks for due messages in all culture books and processes them
-  public async checkForDuePosts() { 
+  public async checkForDuePosts() {
     try {
       const cultureBooks = await getAllCultureBooksWithCultureBotCommunity();
-      for (const cultureBook of cultureBooks) { // Process each culture book
+      for (const cultureBook of cultureBooks) {
+        // Process each culture book
         const cultureBotCommunity = cultureBook.cultureBotCommunity as ICultureBotCommunity;
         const duePosts = await getDuePosts(cultureBook);
         if (!duePosts) continue;
-        for (const post of duePosts) { // Process each due message
+        for (const post of duePosts) {
+          // Process each due message
           try {
             await processDuePosts(this.bot, this.provider, cultureBook, post);
           } catch (error) {
@@ -380,18 +421,21 @@ export class TelegramService {
       return false;
     }
   }
-  
+
   // * SEND MESSAGE FOR REWARDS: Sends a message to the community for rewards distribution
-  public async sendMessageForRewards(book: ICultureBook, usersGettingRewarded: { posterTgId: string; posterUsername: string }[] | null) {
+  public async sendMessageForRewards(
+    book: ICultureBook,
+    usersGettingRewarded: { posterTgId: string; posterUsername: string }[] | null
+  ) {
     try {
       const cultureBotCommunity = book.cultureBotCommunity as ICultureBotCommunity;
       const cultureToken = book.cultureToken as ICultureToken;
-      
+
       if (!usersGettingRewarded) {
         await this.bot.api.sendMessage(cultureBotCommunity.chatId, NO_REWARD_MESSAGE(cultureToken.symbol));
         logger.info(`[BOT]: No rewards to distribute for community ${cultureBotCommunity.communityName}`);
       } else {
-        const users = usersGettingRewarded.map((user) => `@${user.posterUsername}`)
+        const users = usersGettingRewarded.map((user) => `@${user.posterUsername}`);
         // remove duplicates from the array
         const uniqueUsers = [...new Set(users)];
         await this.bot.api.sendMessage(cultureBotCommunity.chatId, REWARDED_MESSAGE(uniqueUsers, cultureToken.symbol), {

@@ -18,7 +18,7 @@ export const processDuePosts = async (
   post: ValueAlignedPost,
 ) => {
   const cultureBotCommunity = cultureBook.cultureBotCommunity as ICultureBotCommunity;
-  const voteResult = await stopPostPoll(bot, cultureBotCommunity.chatId, post.pollId!);
+  const voteResult = await stopPostPoll(bot, cultureBotCommunity.chatId, post.tgPollMessageId!);
   const votes = voteResult.options[0].voter_count - voteResult.options[1].voter_count; // yes - no
   if (votes >= 0) {
     await processApprovedMessage(bot, provider, cultureBook, post, votes);
@@ -29,12 +29,12 @@ export const processDuePosts = async (
   }
 };
 
-export const stopPostPoll = async (bot: Bot, chatId: string, pollId: string) => {
+export const stopPostPoll = async (bot: Bot, chatId: string, tgPollMessageId: string) => {
   try {
-    const result = await bot.api.stopPoll(chatId, Number(pollId!));
+    const result = await bot.api.stopPoll(chatId, Number(tgPollMessageId!));
     return result;
   } catch (error) {
-    logger.warn(`[BOT]: Error stopping poll ID: ${pollId} in chat ID: ${chatId}: ${error}`);
+    logger.warn(`[BOT]: Error stopping poll ID: ${tgPollMessageId} in chat ID: ${chatId}: ${error}`);
     throw new Error("Error stopping poll");
   }
 }

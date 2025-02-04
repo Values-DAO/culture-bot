@@ -2437,3 +2437,609 @@
 2025-01-15 02:20:40 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
 2025-01-15 02:20:46 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
 2025-01-15 02:20:47 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:14:12 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:14:12 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:14:29 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:14:29 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:14:48 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:14:48 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:15:18 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:15:18 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:15:19 [[32minfo[39m]: [BOT]: Stored message 679c9baf6e83a12f08b59d99 in database for community: DEVTEST: Thandi Chass from user: rayvego
+2025-01-31 15:15:20 [[32minfo[39m]: [BOT]: Stored message 679c9bb06e83a12f08b59d9d in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:17:44 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-01-31 15:17:44 [[32minfo[39m]: [BOT]: Stored message 679c9c406e83a12f08b59da1 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:17:45 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Sat Feb 01 2025 15:17:45 GMT+0530 (India Standard Time)
+2025-01-31 15:17:45 [[32minfo[39m]: [BOT]: Added post 679c9c416e83a12f08b59da4 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-01-31 15:18:22 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:18:23 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:18:27 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-01-31 15:18:28 [[32minfo[39m]: [BOT]: Stored message 679c9c6b253a5483fc1fa467 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:18:28 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Fri Jan 31 2025 15:18:33 GMT+0530 (India Standard Time)
+2025-01-31 15:18:28 [[32minfo[39m]: [BOT]: Added post 679c9c6c253a5483fc1fa46a to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-01-31 15:19:55 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd2bb8bd8dd9a933d858 in community DEVTEST: ValuesDAO
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd8bb8bd8dd9a933d86b in community DEVTEST: Founder House
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676537bf472d9e661767401d in community DEVTEST: TEST2
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67653812472d9e661767404c in community DEVTEST: TEST
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d308eaab6a88733573d82 in community DEVTEST: Bhai Cabal
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30abaab6a88733573dbe in community DEVTEST: Behen cabal
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30c3aab6a88733573dea in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67719404bcee07ce9ac2fab4 in community DEVTEST: Integration Test
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67775e00bcee07ce9ac30bb0 in community DEVTEST: TEST3
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc35344c4d2435c7029a4 in community DEVTEST: kljqweh
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc43444c4d2435c7029c8 in community DEVTEST: adfszxc
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc63144c4d2435c702a56 in community DEVTEST: jthfh
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc66144c4d2435c702a7a in community DEVTEST: af;jsdlk
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fca3e44c4d2435c702b80 in community DEVTEST: pko
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fe3c644c4d2435c70342e in community DEVTEST: oiiup
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6782256c5130dff786a94f44 in community DEVTEST: TEST4
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678368c15276fcb047ebb3ba in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6788c64d5276fcb047ebc9e1 in community DEVTEST: Executing Bhai Cabal
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 678e85b0df354cf70e804ad9 in community DEVTEST: BHEL RAGDO
+2025-01-31 15:19:55 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-01-31 15:19:58 [[32minfo[39m]: [BOT]: IPFS hash: bafkreiestsered7ccvxzfhb6ijv74r42obxg3f5cgd62pqgttqxse2qfoy
+2025-01-31 15:19:58 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-01-31 15:20:04 [[32minfo[39m]: [BOT]: Transaction hash: 0x20aa7941825b2c993bf56e27227a11498eac59b0b68eb485704d33c55e258955
+2025-01-31 15:20:04 [[32minfo[39m]: [BOT]: Post ID: 679c9c6c253a5483fc1fa46a has been approved and stored onchain
+2025-01-31 15:20:04 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-01-31 15:20:05 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67916e19c54a78ee5e5c9348 in community DEVTEST: PIZZA
+2025-01-31 15:20:05 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c3f14112879dba0160883 in community DEVTEST: Thandi Chass
+2025-01-31 15:20:05 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-01-31 15:21:12 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-01-31 15:21:12 [[32minfo[39m]: [BOT]: Stored message 679c9d10253a5483fc1fa8b4 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:21:13 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Fri Jan 31 2025 15:21:18 GMT+0530 (India Standard Time)
+2025-01-31 15:21:13 [[32minfo[39m]: [BOT]: Added post 679c9d11253a5483fc1fa8b7 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-01-31 15:21:27 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd2bb8bd8dd9a933d858 in community DEVTEST: ValuesDAO
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd8bb8bd8dd9a933d86b in community DEVTEST: Founder House
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676537bf472d9e661767401d in community DEVTEST: TEST2
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67653812472d9e661767404c in community DEVTEST: TEST
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d308eaab6a88733573d82 in community DEVTEST: Bhai Cabal
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30abaab6a88733573dbe in community DEVTEST: Behen cabal
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30c3aab6a88733573dea in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67719404bcee07ce9ac2fab4 in community DEVTEST: Integration Test
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67775e00bcee07ce9ac30bb0 in community DEVTEST: TEST3
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc35344c4d2435c7029a4 in community DEVTEST: kljqweh
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc43444c4d2435c7029c8 in community DEVTEST: adfszxc
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc63144c4d2435c702a56 in community DEVTEST: jthfh
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc66144c4d2435c702a7a in community DEVTEST: af;jsdlk
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fca3e44c4d2435c702b80 in community DEVTEST: pko
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fe3c644c4d2435c70342e in community DEVTEST: oiiup
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6782256c5130dff786a94f44 in community DEVTEST: TEST4
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678368c15276fcb047ebb3ba in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6788c64d5276fcb047ebc9e1 in community DEVTEST: Executing Bhai Cabal
+2025-01-31 15:21:27 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 678e85b0df354cf70e804ad9 in community DEVTEST: BHEL RAGDO
+2025-01-31 15:21:28 [[32minfo[39m]: [BOT]: Downloading image from https://api.telegram.org/file/bot7854719324:AAHBwiQAl5_T6O3foD_h3EAiBBcp0dXZLa0/photos/file_16.jpg
+2025-01-31 15:21:32 [[32minfo[39m]: [BOT]: Uploading photo and text message to IPFS...
+2025-01-31 15:21:36 [[32minfo[39m]: [BOT]: IPFS hash: bafkreidzr7tkev7fgrtmvyslo3sxpa4wwxiojukal4nt2gdftutykm7riy
+2025-01-31 15:21:36 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-01-31 15:21:41 [[32minfo[39m]: [BOT]: Transaction hash: 0xdfd8b02152c773f42a37ebef4a56ebfd90df15048256fd6019493b105598e6c3
+2025-01-31 15:21:41 [[32minfo[39m]: [BOT]: Post ID: 679c9d11253a5483fc1fa8b7 has been approved and stored onchain
+2025-01-31 15:21:41 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-01-31 15:21:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67916e19c54a78ee5e5c9348 in community DEVTEST: PIZZA
+2025-01-31 15:21:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c3f14112879dba0160883 in community DEVTEST: Thandi Chass
+2025-01-31 15:21:42 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-01-31 15:22:13 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-01-31 15:22:13 [[32minfo[39m]: [BOT]: Stored message 679c9d4d253a5483fc1fad05 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:22:14 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Fri Jan 31 2025 15:22:19 GMT+0530 (India Standard Time)
+2025-01-31 15:22:14 [[32minfo[39m]: [BOT]: Added post 679c9d4e253a5483fc1fad08 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-01-31 15:22:39 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd2bb8bd8dd9a933d858 in community DEVTEST: ValuesDAO
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd8bb8bd8dd9a933d86b in community DEVTEST: Founder House
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676537bf472d9e661767401d in community DEVTEST: TEST2
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67653812472d9e661767404c in community DEVTEST: TEST
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d308eaab6a88733573d82 in community DEVTEST: Bhai Cabal
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30abaab6a88733573dbe in community DEVTEST: Behen cabal
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30c3aab6a88733573dea in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67719404bcee07ce9ac2fab4 in community DEVTEST: Integration Test
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67775e00bcee07ce9ac30bb0 in community DEVTEST: TEST3
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc35344c4d2435c7029a4 in community DEVTEST: kljqweh
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc43444c4d2435c7029c8 in community DEVTEST: adfszxc
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc63144c4d2435c702a56 in community DEVTEST: jthfh
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc66144c4d2435c702a7a in community DEVTEST: af;jsdlk
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fca3e44c4d2435c702b80 in community DEVTEST: pko
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fe3c644c4d2435c70342e in community DEVTEST: oiiup
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6782256c5130dff786a94f44 in community DEVTEST: TEST4
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678368c15276fcb047ebb3ba in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6788c64d5276fcb047ebc9e1 in community DEVTEST: Executing Bhai Cabal
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 678e85b0df354cf70e804ad9 in community DEVTEST: BHEL RAGDO
+2025-01-31 15:22:39 [[32minfo[39m]: [BOT]: Post ID: 679c9d4e253a5483fc1fad08 already exists onchain. Skipping...
+2025-01-31 15:22:40 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67916e19c54a78ee5e5c9348 in community DEVTEST: PIZZA
+2025-01-31 15:22:40 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c3f14112879dba0160883 in community DEVTEST: Thandi Chass
+2025-01-31 15:22:40 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-01-31 15:23:27 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-01-31 15:23:28 [[32minfo[39m]: [BOT]: Stored message 679c9d97253a5483fc1fb159 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:23:28 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Fri Jan 31 2025 15:23:33 GMT+0530 (India Standard Time)
+2025-01-31 15:23:28 [[32minfo[39m]: [BOT]: Added post 679c9d98253a5483fc1fb15c to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-01-31 15:23:31 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd2bb8bd8dd9a933d858 in community DEVTEST: ValuesDAO
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd8bb8bd8dd9a933d86b in community DEVTEST: Founder House
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676537bf472d9e661767401d in community DEVTEST: TEST2
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67653812472d9e661767404c in community DEVTEST: TEST
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d308eaab6a88733573d82 in community DEVTEST: Bhai Cabal
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30abaab6a88733573dbe in community DEVTEST: Behen cabal
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30c3aab6a88733573dea in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67719404bcee07ce9ac2fab4 in community DEVTEST: Integration Test
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67775e00bcee07ce9ac30bb0 in community DEVTEST: TEST3
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc35344c4d2435c7029a4 in community DEVTEST: kljqweh
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc43444c4d2435c7029c8 in community DEVTEST: adfszxc
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc63144c4d2435c702a56 in community DEVTEST: jthfh
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc66144c4d2435c702a7a in community DEVTEST: af;jsdlk
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fca3e44c4d2435c702b80 in community DEVTEST: pko
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fe3c644c4d2435c70342e in community DEVTEST: oiiup
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6782256c5130dff786a94f44 in community DEVTEST: TEST4
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678368c15276fcb047ebb3ba in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6788c64d5276fcb047ebc9e1 in community DEVTEST: Executing Bhai Cabal
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678e85b0df354cf70e804ad9 in community DEVTEST: BHEL RAGDO
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67916e19c54a78ee5e5c9348 in community DEVTEST: PIZZA
+2025-01-31 15:23:31 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c3f14112879dba0160883 in community DEVTEST: Thandi Chass
+2025-01-31 15:23:31 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-01-31 15:23:35 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd2bb8bd8dd9a933d858 in community DEVTEST: ValuesDAO
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd8bb8bd8dd9a933d86b in community DEVTEST: Founder House
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676537bf472d9e661767401d in community DEVTEST: TEST2
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67653812472d9e661767404c in community DEVTEST: TEST
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d308eaab6a88733573d82 in community DEVTEST: Bhai Cabal
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30abaab6a88733573dbe in community DEVTEST: Behen cabal
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30c3aab6a88733573dea in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67719404bcee07ce9ac2fab4 in community DEVTEST: Integration Test
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67775e00bcee07ce9ac30bb0 in community DEVTEST: TEST3
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc35344c4d2435c7029a4 in community DEVTEST: kljqweh
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc43444c4d2435c7029c8 in community DEVTEST: adfszxc
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc63144c4d2435c702a56 in community DEVTEST: jthfh
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc66144c4d2435c702a7a in community DEVTEST: af;jsdlk
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fca3e44c4d2435c702b80 in community DEVTEST: pko
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fe3c644c4d2435c70342e in community DEVTEST: oiiup
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6782256c5130dff786a94f44 in community DEVTEST: TEST4
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678368c15276fcb047ebb3ba in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6788c64d5276fcb047ebc9e1 in community DEVTEST: Executing Bhai Cabal
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 678e85b0df354cf70e804ad9 in community DEVTEST: BHEL RAGDO
+2025-01-31 15:23:35 [[32minfo[39m]: [BOT]: Post ID: 679c9d98253a5483fc1fb15c has been rejected
+2025-01-31 15:23:36 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67916e19c54a78ee5e5c9348 in community DEVTEST: PIZZA
+2025-01-31 15:23:36 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c3f14112879dba0160883 in community DEVTEST: Thandi Chass
+2025-01-31 15:23:36 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-01-31 15:25:52 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4717954414
+2025-01-31 15:25:52 [[33mwarn[39m]: [BOT]: Community not found for chat ID: -4717954414 or maybe new community just got initiated!
+2025-01-31 15:25:54 [[32minfo[39m]: [BOT]: Received /start command from username: rayvego
+2025-01-31 15:32:59 [[32minfo[39m]: [BOT]: Received /trustpool command from username: rayvego in community: DEVTEST: PIJJO
+2025-01-31 15:33:00 [[32minfo[39m]: [BOT]: Community name: DEVTEST: PIJJO connected to Trust Pool name: PIJJO and ID: 679c9fab19761b532f826449.
+2025-01-31 15:33:06 [[32minfo[39m]: [BOT]: Stored message 679c9fda253a5483fc1fb9b9 in database for community: DEVTEST: PIJJO from user: rayvego
+2025-01-31 15:47:23 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:47:23 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:47:45 [[32minfo[39m]: [BOT]: Stored message 679ca348f751f6a3fb99e4c6 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:49:24 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:49:24 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:49:35 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:49:35 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:49:39 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:49:39 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:49:41 [[32minfo[39m]: [BOT]: Stored message 679ca3bcf64ccfd512a467e2 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:49:58 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:49:58 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:50:00 [[32minfo[39m]: [BOT]: Stored message 679ca3d058df26c802164ea2 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:53:07 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-01-31 15:53:07 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:53:15 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:53:15 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:53:16 [[32minfo[39m]: [BOT]: Stored message 679ca4947eaf82129a0b26cc in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:53:52 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:53:52 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:53:55 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:53:55 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:54:02 [[33mwarn[39m]: [BOT]: Ignoring forwarded message in community DEVTEST: BHEL RAGDO sent by rayvego
+2025-01-31 15:54:09 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:54:09 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 15:54:11 [[32minfo[39m]: [BOT]: Stored message 679ca4cb9731a5e3d92e0db6 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:57:33 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-01-31 15:57:33 [[32minfo[39m]: [BOT]: Stored message 679ca5959731a5e3d92e0dba in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-01-31 15:57:33 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Fri Jan 31 2025 15:57:38 GMT+0530 (India Standard Time)
+2025-01-31 15:57:34 [[32minfo[39m]: [BOT]: Added post 679ca5959731a5e3d92e0dbd to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-01-31 15:57:41 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd2bb8bd8dd9a933d858 in community DEVTEST: ValuesDAO
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 675ffd8bb8bd8dd9a933d86b in community DEVTEST: Founder House
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676537bf472d9e661767401d in community DEVTEST: TEST2
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67653812472d9e661767404c in community DEVTEST: TEST
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d308eaab6a88733573d82 in community DEVTEST: Bhai Cabal
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30abaab6a88733573dbe in community DEVTEST: Behen cabal
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 676d30c3aab6a88733573dea in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67719404bcee07ce9ac2fab4 in community DEVTEST: Integration Test
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67775e00bcee07ce9ac30bb0 in community DEVTEST: TEST3
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc35344c4d2435c7029a4 in community DEVTEST: kljqweh
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc43444c4d2435c7029c8 in community DEVTEST: adfszxc
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc63144c4d2435c702a56 in community DEVTEST: jthfh
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fc66144c4d2435c702a7a in community DEVTEST: af;jsdlk
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fca3e44c4d2435c702b80 in community DEVTEST: pko
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 677fe3c644c4d2435c70342e in community DEVTEST: oiiup
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6782256c5130dff786a94f44 in community DEVTEST: TEST4
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 678368c15276fcb047ebb3ba in community DEVTEST: Onchain AI Fellowship
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 6788c64d5276fcb047ebc9e1 in community DEVTEST: Executing Bhai Cabal
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 678e85b0df354cf70e804ad9 in community DEVTEST: BHEL RAGDO
+2025-01-31 15:57:42 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-01-31 15:57:44 [[32minfo[39m]: [BOT]: IPFS hash: bafkreidh4yzg4v244nxit3jghqktpygqmvrjx5gom4qq2bzvqmek5hiuum
+2025-01-31 15:57:44 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-01-31 15:57:50 [[32minfo[39m]: [BOT]: Transaction hash: 0x3567cae57885fc0cc2253b4940d8821bd321d8743fb8dbd73db2417116b484ba
+2025-01-31 15:57:50 [[32minfo[39m]: [BOT]: Post ID: 679ca5959731a5e3d92e0dbd has been approved and stored onchain
+2025-01-31 15:57:50 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-01-31 15:57:51 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 67916e19c54a78ee5e5c9348 in community DEVTEST: PIZZA
+2025-01-31 15:57:51 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c3f14112879dba0160883 in community DEVTEST: Thandi Chass
+2025-01-31 15:57:51 [[32minfo[39m]: [BOT]: No due posts found for culture book ID: 679c9fab19761b532f82644b in community DEVTEST: PIJJO
+2025-01-31 15:57:51 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-01-31 15:58:41 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-01-31 15:58:41 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-01-31 23:36:05 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-01-31 23:36:06 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x3380987e838bad6d07f465d64d06fefc50145ab5f42f293c917a1aabb6c7c354
+2025-01-31 23:36:06 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-01-31 23:36:53 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-01-31 23:36:53 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x3380987e838bad6d07f465d64d06fefc50145ab5f42f293c917a1aabb6c7c354
+2025-01-31 23:36:53 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-01-31 23:36:54 [[31merror[39m]: [BOT]: Error updating merkle root: Error: network does not support ENS (operation="getEnsAddress", info={ "network": { "chainId": "84532", "name": "base-sepolia" } }, code=UNSUPPORTED_OPERATION, version=6.13.5)
+2025-01-31 23:37:15 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-01-31 23:37:15 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x3380987e838bad6d07f465d64d06fefc50145ab5f42f293c917a1aabb6c7c354
+2025-01-31 23:37:15 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-01-31 23:37:21 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-01-31 23:37:21 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x3380987e838bad6d07f465d64d06fefc50145ab5f42f293c917a1aabb6c7c354
+2025-01-31 23:37:21 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-01-31 23:37:21 [[31merror[39m]: [BOT]: Error updating merkle root: Error: network does not support ENS (operation="getEnsAddress", info={ "network": { "chainId": "84532", "name": "base-sepolia" } }, code=UNSUPPORTED_OPERATION, version=6.13.5)
+2025-01-31 23:41:28 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-01-31 23:41:28 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x3380987e838bad6d07f465d64d06fefc50145ab5f42f293c917a1aabb6c7c354
+2025-01-31 23:41:28 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-01-31 23:41:37 [[31merror[39m]: [BOT]: Error updating merkle root: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x43a11F1bF8036B5564F81A29357a14D5E01E9269" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x2ad9ea8ed5ffe84077a4f7b56511d9c5f4c2868a2883460f31c3c636b8dab3eb", "blockNumber": 21289404, "contractAddress": null, "cumulativeGasUsed": "1260275", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000298", "gasUsed": "24630", "hash": "0x1e88f63783fca084e67e3da579009713809b2d75e3de0283828081cc856c8479", "index": 13, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x43a11F1bF8036B5564F81A29357a14D5E01E9269" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-01-31 23:42:17 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-01-31 23:42:17 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x3380987e838bad6d07f465d64d06fefc50145ab5f42f293c917a1aabb6c7c354
+2025-01-31 23:42:17 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-01-31 23:42:25 [[31merror[39m]: [BOT]: Error updating merkle root: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x43a11F1bF8036B5564F81A29357a14D5E01E9269" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xbf23826b5cb840260b34626342a2dab8fbafd29afa820286817f77e775929896", "blockNumber": 21289428, "contractAddress": null, "cumulativeGasUsed": "1839386", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000300", "gasUsed": "24630", "hash": "0xf82f0f080ceb1bc91103030f5fe6e346d0fb4e267822c9c2b9899b9524c0f80d", "index": 17, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x43a11F1bF8036B5564F81A29357a14D5E01E9269" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:24:44 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:24:44 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:24:44 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:24:52 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x9567dba6ef39d01f5edb4673d4c3eb519fd9c108769496dd59d30963d0cd162d", "blockNumber": 21315901, "contractAddress": null, "cumulativeGasUsed": "1694577", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000312", "gasUsed": "26359", "hash": "0x59b8d4fea9ccffa9673ceef78b9670dc840a31eaa0268c4a0994268f515fc331", "index": 17, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:25:41 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:25:41 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:25:41 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:25:50 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0xE9493221F86d4DaaF760E0f8d5603eD395181fF4", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xe846404374e07483afbd6a9d151d1487823135466e49f4581d470c803f79ee79", "blockNumber": 21315930, "contractAddress": null, "cumulativeGasUsed": "1913833", "from": "0xE9493221F86d4DaaF760E0f8d5603eD395181fF4", "gasPrice": "1000312", "gasUsed": "26359", "hash": "0xb2519a207dc3954df8da00d20643be96d98ea22aac6882ae53e8d2a0ff9af657", "index": 14, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:26:06 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:26:06 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:26:06 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:26:13 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xc403b564f16c30d70778018650c931b11f37518f2fe09fb95df86ec1acc07919", "blockNumber": 21315942, "contractAddress": null, "cumulativeGasUsed": "1171911", "from": "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358", "gasPrice": "1000312", "gasUsed": "26359", "hash": "0xdd92cbc31130d35b4ab90d3be38162149a1602d29b8acaee17856d88f1d31055", "index": 11, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:31:33 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:31:33 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:31:33 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:31:41 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x19ab95848dfc25794b7116ea9658ef22d4c7900b56a4fa2b687ac013b26b6b07", "blockNumber": 21316105, "contractAddress": null, "cumulativeGasUsed": "2862794", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000311", "gasUsed": "26359", "hash": "0x70f854cebb809b526b81db1ffe0cb85f5e3f2066e679d1b741b907cee3618fe9", "index": 17, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:32:41 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:32:41 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:32:41 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:32:48 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xd88777296f49ad237bc092e30045970814e8b52baba155447086fde4b7d84a50", "blockNumber": 21316139, "contractAddress": null, "cumulativeGasUsed": "1937916", "from": "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358", "gasPrice": "1000314", "gasUsed": "26359", "hash": "0x2753266ab834e2c42c7426edeafb1fedd0fcc5a0c316bd13953d2c0a0b548eae", "index": 18, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:32:51 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:32:51 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:32:51 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:32:58 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xb1e9daf3f4aa23dc906314ddfc5a625f15b7a552cc12561b15387ffe87cb3b4c", "blockNumber": 21316144, "contractAddress": null, "cumulativeGasUsed": "2392047", "from": "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358", "gasPrice": "1000313", "gasUsed": "26359", "hash": "0x1257d5aa695d3de7df199d4d41698917d971fb2c6779b7b4a97f3f9694f65e45", "index": 14, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:33:13 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:33:13 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:33:13 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:33:20 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0xE9493221F86d4DaaF760E0f8d5603eD395181fF4", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xb6f2da9c532aa993861d7f18b6795671a7c6f7276e2cdd68b93292812838afb8", "blockNumber": 21316155, "contractAddress": null, "cumulativeGasUsed": "1815597", "from": "0xE9493221F86d4DaaF760E0f8d5603eD395181fF4", "gasPrice": "1000311", "gasUsed": "26359", "hash": "0x743469e01725f63c35813639c7bb69b6e33aa6747c2f0fde74e41e36833e50c9", "index": 16, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:33:31 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:33:31 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:33:31 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:33:39 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x54ecb66f3debfd3c683f7150c7dc47f6930e9e6f395f102342e1de948fe6fbba", "blockNumber": 21316164, "contractAddress": null, "cumulativeGasUsed": "2483297", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000310", "gasUsed": "26359", "hash": "0x69829dc456686a9aa58249fa1dddd0a3ab57f90d206ad34dccb046d29dd83043", "index": 28, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:34:39 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:34:39 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x68dfbf368fb33c50ac1fa0a6702d09ec52d861985d38674d2c386e8455f76f88
+2025-02-01 14:34:39 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:34:46 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xa56adb33217bf55f1c5568101534841a63824e3767ddbaff3f487c85fe57b842", "blockNumber": 21316198, "contractAddress": null, "cumulativeGasUsed": "2186519", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000311", "gasUsed": "25835", "hash": "0xc5e35d22e463ea9195920ac5371e77e00b70f17b78da4eaec194e82f97de9b60", "index": 18, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:42:28 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:42:28 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:42:28 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:42:37 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x930a761f815261537ee9fb8b36c42a0c953b29812741fb625f79503d79272b91", "blockNumber": 21316433, "contractAddress": null, "cumulativeGasUsed": "3542593", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000306", "gasUsed": "26359", "hash": "0x428f84c52ae8eecb65fc31765f74040b1ff4eab94c56e21ffc3d54763bf3ca6f", "index": 22, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:48:49 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:48:49 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:48:49 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:48:56 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x41c0f359f63232fa83d1b54b54f7f08db5a8919932f7647c67d5495b99293824", "blockNumber": 21316623, "contractAddress": null, "cumulativeGasUsed": "1161294", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000316", "gasUsed": "26359", "hash": "0xfc526114e03dd98528c0a2b23352c54ff3eaf8ae28508262dbd79f62397f843b", "index": 14, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:49:33 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:49:33 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:49:33 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:49:34 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: execution reverted (unknown custom error) (action="estimateGas", data="0xe2517d3f00000000000000000000000098278df51402ed4ce090ccb2d6af23f0989f78ce0000000000000000000000000000000000000000000000000000000000000000", reason=null, transaction={ "data": "0xf5663c5b00000000000000000000000055bce695c9861900ea84850f894cab26bb2a2832000000000000000000000000876324e2c1f9089a98a1d7b77a415175c8e28f9500000000000000000000000000000000000000000000000000000000000000a02ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9000000000000000000000000000000000000000000048b81b67fbcdcf204000000000000000000000000000000000000000000000000000000000000000000012c7ea290f79aca64127cded2c26d37b5232b51acc7708715cf216287aeee9e55", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, invocation=null, revert=null, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:50:12 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:50:12 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:50:12 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:52:47 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:52:47 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:52:47 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:52:49 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: execution reverted (unknown custom error) (action="estimateGas", data="0xe2517d3f00000000000000000000000098278df51402ed4ce090ccb2d6af23f0989f78ce0000000000000000000000000000000000000000000000000000000000000000", reason=null, transaction={ "data": "0xf5663c5b00000000000000000000000055bce695c9861900ea84850f894cab26bb2a2832000000000000000000000000876324e2c1f9089a98a1d7b77a415175c8e28f9500000000000000000000000000000000000000000000000000000000000000a02ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9000000000000000000000000000000000000000000048b81b67fbcdcf204000000000000000000000000000000000000000000000000000000000000000000012c7ea290f79aca64127cded2c26d37b5232b51acc7708715cf216287aeee9e55", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, invocation=null, revert=null, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:53:11 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:53:11 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:53:11 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:53:19 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x2169d1975e2c039f3be2500e50047d3738dc8f9a9a50470e8a9cfeff08d6f634", "blockNumber": 21316755, "contractAddress": null, "cumulativeGasUsed": "1112451", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000311", "gasUsed": "26359", "hash": "0x2c609fca89562992359196a3c73575d071576b8b75a43a0024a5f366c8b697d2", "index": 9, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 14:53:49 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 14:53:49 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 14:53:49 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 14:53:58 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xaa303a402c243b86599c78833772d861072b80e61b40b6720d903fa0450115b0", "blockNumber": 21316774, "contractAddress": null, "cumulativeGasUsed": "2069826", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000311", "gasUsed": "26359", "hash": "0xb29b20376bb65d9d7eeb7ea04bb8fe446739dbf6f628be9391297cf2eb47ac6d", "index": 20, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7EBB2Ad4E6B82db34B9B6887769ce78463e630D8" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 15:52:40 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 15:52:40 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 15:52:40 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 15:52:49 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x39d651143a4a782cc44161ea82691e522cfa0f7c49d424f917ca59486efd8f9b", "blockNumber": 21318539, "contractAddress": null, "cumulativeGasUsed": "3241820", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000312", "gasUsed": "26434", "hash": "0x4d48491576837821def8147f51480a48d3bef49faa653eca559c6485d2a08289", "index": 31, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 15:55:08 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 15:55:08 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x68dfbf368fb33c50ac1fa0a6702d09ec52d861985d38674d2c386e8455f76f88
+2025-02-01 15:55:08 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 15:55:18 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x55d5117e2fe72503c6a6979eb32e4ebec08fd03b3f4c74646242d6fbb60db2ed", "blockNumber": 21318614, "contractAddress": null, "cumulativeGasUsed": "1350221", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000316", "gasUsed": "25910", "hash": "0x877c4eda65fd8fbc611c1c3cf1288458baff598d42a8bfb53aaabaa423c6e0bc", "index": 14, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 16:03:58 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 16:03:58 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x68dfbf368fb33c50ac1fa0a6702d09ec52d861985d38674d2c386e8455f76f88
+2025-02-01 16:03:58 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 16:04:05 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x831328d6ea1574c646bd46687506d0c814902b69fb49ebcddaefb1eb212ce49a", "blockNumber": 21318878, "contractAddress": null, "cumulativeGasUsed": "1864749", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000325", "gasUsed": "25910", "hash": "0xa966098db014add2d8924bf2fbfd559a28dd2b6e85a1cbcbdc2c17ea68f33731", "index": 16, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 16:08:16 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 16:08:16 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x68dfbf368fb33c50ac1fa0a6702d09ec52d861985d38674d2c386e8455f76f88
+2025-02-01 16:08:16 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 16:08:25 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x6e25903c68881f3cf949100f7ab2990bd3660b32e82c1a3e259d4741d94c0e2b", "blockNumber": 21319007, "contractAddress": null, "cumulativeGasUsed": "2660368", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000326", "gasUsed": "25910", "hash": "0xf72ec45f22319958879de276d0b513ef5d141095f34badfc647f4e4e85f5f4f3", "index": 23, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 16:15:44 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 16:15:44 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 16:15:44 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 16:15:46 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: execution reverted (unknown custom error) (action="estimateGas", data="0xe2517d3f00000000000000000000000098278df51402ed4ce090ccb2d6af23f0989f78ce0000000000000000000000000000000000000000000000000000000000000000", reason=null, transaction={ "data": "0xf5663c5b00000000000000000000000055bce695c9861900ea84850f894cab26bb2a283200000000000000000000000088499cf9097cef8a8380647e913160fddb01086b00000000000000000000000000000000000000000000000000000000000000a02ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9000000000000000000000000000000000000000000048b81b67fbcdcf204000000000000000000000000000000000000000000000000000000000000000000012c7ea290f79aca64127cded2c26d37b5232b51acc7708715cf216287aeee9e55", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, invocation=null, revert=null, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 16:15:51 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 16:15:51 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 16:15:51 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 16:15:59 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x44b5a2775d54726c58fb265ba30600b19473414b282548a60b46ac0d097244a5", "blockNumber": 21319235, "contractAddress": null, "cumulativeGasUsed": "2768957", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000333", "gasUsed": "26434", "hash": "0x66a6cef6c82dbd4187025a5a327d603dd99b7e505007cb267b540d1c70adec3e", "index": 17, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 16:23:30 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 16:23:30 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 16:23:30 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 16:23:40 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0xc7c0055a2bc7f5c0e86b0735549b5a3699d2c934506eae9a158d5150ebda7c45", "blockNumber": 21319465, "contractAddress": null, "cumulativeGasUsed": "1613929", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000325", "gasUsed": "26434", "hash": "0x95a656cc0a6bbbc034e9680fbf909adeac94c0b111c909d6250e95805ad93683", "index": 12, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 16:27:17 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 16:27:17 [[32minfo[39m]: [BOT]: Generated Merkle root: 0xe4d12b335e7dd297e9693be88158b408f02a143db86813fcd744c0370531db47
+2025-02-01 16:27:17 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 16:27:26 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x22e28c0284e4f2174595f978004e2d127b7f068c97e9988642da9b87ec2ed662", "blockNumber": 21319578, "contractAddress": null, "cumulativeGasUsed": "1637787", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000324", "gasUsed": "26362", "hash": "0x3f87f7d50ace4e25d0fcf1268e486bf457344d6133da41280a8c5907c3dd3766", "index": 15, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x7D1D2A6ba6638C5852da299CBbbEF01E88fB7524" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 18:54:51 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 18:54:51 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 18:54:51 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 19:02:19 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 19:02:19 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 19:02:19 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 19:02:26 [[32minfo[39m]: [BOT]: Distributed 5494505000000000000000000 tokens to 0x55Bce695c9861900ea84850f894cAB26bb2a2832. Transaction Hash: 0xb2cf2a7f91df8a0dc125f0bc64b9a699d3b9e9f97cdeab37160ecc4f8aa238bf
+2025-02-01 19:02:33 [[32minfo[39m]: [BOT]: Distributed 5494505000000000000000000 tokens to 0x4705c13260a1A4a3701dBC6D7D3CE68448c4BbD5. Transaction Hash: 0xfe93a3a841ae6d58a2081e442919c7efe0d13319e57b3d1069f4e96594277aee
+2025-02-01 19:03:18 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 19:03:18 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x2ac7dd1102fbd7610c442c92291d718aebd83a0e7b7efedc6e9aaae73e7126f9
+2025-02-01 19:03:18 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 19:03:26 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x43562C7441E903102ECCD00Dc761fc0283FA1D20: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x43562C7441E903102ECCD00Dc761fc0283FA1D20" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x371f5e6a574177ee69c7835d69c61b2536710248f733d9584cc64c1cb84660c3", "blockNumber": 21324258, "contractAddress": null, "cumulativeGasUsed": "1401878", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000311", "gasUsed": "33055", "hash": "0xd9102af9fba309f067c734f1a177c7b4ffdaa26890e72c1b5a1e1dd51ac5b6e1", "index": 16, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x43562C7441E903102ECCD00Dc761fc0283FA1D20" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-01 19:04:16 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 19:04:16 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x1a817b82ea810c6702f4e82280b253f139a9d366be31b107b8b5b4c704c1b038
+2025-02-01 19:04:16 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 19:04:23 [[32minfo[39m]: [BOT]: Distributed 5494505000000000000000000 tokens to 0xd5478eC2413b06881dC0E13D3aA9201cd23c6276. Transaction Hash: 0x55514fdca7a9545bc16e1e0102b8755b76bdf2e2df75666f12415c219e275cfa
+2025-02-01 19:04:30 [[32minfo[39m]: [BOT]: Distributed 5494505000000000000000000 tokens to 0x069Cdf5947f5A45136A9672D6161216CBFdA59f3. Transaction Hash: 0x65cc232573b3946b0b4853fb3987e24eb0157c231a6bebf94e0fd0d56f3f1e0e
+2025-02-01 19:04:35 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-01 19:04:35 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x1a817b82ea810c6702f4e82280b253f139a9d366be31b107b8b5b4c704c1b038
+2025-02-01 19:04:35 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-01 19:04:44 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x43562C7441E903102ECCD00Dc761fc0283FA1D20: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x43562C7441E903102ECCD00Dc761fc0283FA1D20" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x8a9e04ec2b16fd06dd7c5b059f9bc8018c66d7df2e28ef2802d104d0c3440ff0", "blockNumber": 21324297, "contractAddress": null, "cumulativeGasUsed": "1664025", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000306", "gasUsed": "33067", "hash": "0x9d23ffcac9b7f3a00f90a7277ea1cf75ba6c86915914660cea7932f424fee1a5", "index": 18, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x43562C7441E903102ECCD00Dc761fc0283FA1D20" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-03 17:59:42 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 17:59:42 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 17:59:45 [[32minfo[39m]: [BOT]: Received /start command from username: rayvego
+2025-02-03 17:59:51 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 17:59:51 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:00:08 [[32minfo[39m]: [BOT]: Stored message 67a0b6cf66235a2dd0c296e4 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:00:13 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:00:13 [[32minfo[39m]: [BOT]: Stored message 67a0b6d566235a2dd0c296e8 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:00:13 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:00:18 GMT+0530 (India Standard Time)
+2025-02-03 18:00:14 [[32minfo[39m]: [BOT]: Added post 67a0b6d566235a2dd0c296eb to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:01:15 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:01:15 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:01:21 [[32minfo[39m]: [BOT]: Stored message 67a0b7199ef5b597ff1dba1a in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:01:26 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:01:26 [[32minfo[39m]: [BOT]: Stored message 67a0b71e9ef5b597ff1dba1e in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:01:27 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:01:32 GMT+0530 (India Standard Time)
+2025-02-03 18:01:27 [[32minfo[39m]: [BOT]: Added post 67a0b71f9ef5b597ff1dba21 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:02:33 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:02:33 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:02:39 [[32minfo[39m]: [BOT]: Stored message 67a0b766a11205f8b3af2cd1 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:02:50 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:02:50 [[32minfo[39m]: [BOT]: Stored message 67a0b772a11205f8b3af2cd5 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:02:51 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:02:56 GMT+0530 (India Standard Time)
+2025-02-03 18:02:51 [[32minfo[39m]: [BOT]: Added post 67a0b773a11205f8b3af2cd8 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:04:44 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:04:44 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:04:54 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:04:54 [[32minfo[39m]: [BOT]: Stored message 67a0b7ee03135bfab3d88e70 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:04:55 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:05:00 GMT+0530 (India Standard Time)
+2025-02-03 18:04:55 [[32minfo[39m]: [BOT]: Added post 67a0b7ef03135bfab3d88e73 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:07:43 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:07:43 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:09:36 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:09:36 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:09:45 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:09:45 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:09:51 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:09:51 [[32minfo[39m]: [BOT]: Stored message 67a0b91786fd5c6ecfc532b4 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:09:52 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:09:57 GMT+0530 (India Standard Time)
+2025-02-03 18:09:52 [[32minfo[39m]: [BOT]: Added post 67a0b91886fd5c6ecfc532b7 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:12:22 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:12:22 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:06 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:14:06 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:20 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:14:20 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:31 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:14:31 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:50 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 18:14:50 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:53 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 18:14:53 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:55 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:14:55 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:14:57 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:14:57 [[32minfo[39m]: [BOT]: Stored message 67a0ba493f69005f70b4fdaf in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:14:57 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:15:02 GMT+0530 (India Standard Time)
+2025-02-03 18:14:57 [[32minfo[39m]: [BOT]: Added post 67a0ba493f69005f70b4fdb2 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:15:29 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:15:29 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:18:06 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 18:18:06 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:18:13 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: BHEL RAGDO
+2025-02-03 18:18:13 [[32minfo[39m]: [BOT]: Stored message 67a0bb0d565dec5fbcdfede5 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-03 18:18:13 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: BHEL RAGDO. Voting ends at Mon Feb 03 2025 18:18:18 GMT+0530 (India Standard Time)
+2025-02-03 18:18:14 [[32minfo[39m]: [BOT]: Added post 67a0bb0d565dec5fbcdfede8 to culture book 678e85b0df354cf70e804ad9 for community: DEVTEST: BHEL RAGDO
+2025-02-03 18:20:55 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 18:20:55 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:25:04 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 18:25:04 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 18:25:20 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 18:25:20 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:24:37 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 19:24:37 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:31:26 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 19:31:26 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:32:35 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 19:32:35 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:35:15 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 19:35:15 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:36:21 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 19:36:21 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:37:15 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 19:37:15 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:40:05 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-03 19:40:05 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:41:07 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 19:41:07 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-03 19:43:34 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-03 19:43:34 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:37:05 [[31merror[39m]: [SYSTEM]: MongoDB connection error: unable to get issuer certificate
+2025-02-04 05:37:05 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:38:00 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:38:00 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:38:12 [[32minfo[39m]: [BOT]: Stored message 67a15a6c30ecd4cffab16e80 in database for community: DEVTEST: BHEL RAGDO from user: rayvego
+2025-02-04 05:41:08 [[31merror[39m]: [BOT]: Error finding culture bot community for chat ID: -4696278035
+2025-02-04 05:41:08 [[33mwarn[39m]: [BOT]: Community not found for chat ID: -4696278035 or maybe new community just got initiated!
+2025-02-04 05:41:11 [[32minfo[39m]: [BOT]: Received /start command from username: rayvego
+2025-02-04 05:53:46 [[32minfo[39m]: [BOT]: Received /trustpool command from username: rayvego in community: DEVTEST: GATHIYO
+2025-02-04 05:53:47 [[32minfo[39m]: [BOT]: Community name: DEVTEST: GATHIYO connected to Trust Pool name: GATHIYO and ID: 67a15c1bea6f15159d04e361.
+2025-02-04 05:54:06 [[32minfo[39m]: [BOT]: Stored message 67a15e2630ecd4cffab16e8c in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 05:54:43 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 05:54:43 [[32minfo[39m]: [BOT]: Stored message 67a15e4b30ecd4cffab16e90 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 05:54:43 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 05:54:48 GMT+0530 (India Standard Time)
+2025-02-04 05:54:43 [[32minfo[39m]: [BOT]: Added post 67a15e4b30ecd4cffab16e93 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 05:54:48 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774102 from user rayvego
+2025-02-04 05:55:38 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-04 05:55:39 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-04 05:55:39 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-04 05:55:42 [[32minfo[39m]: [BOT]: IPFS hash: bafkreibm6jg3ux5qumhcn2b3flc3tyu6dmlb4xa7u5bf44yegnrjhc4yeq
+2025-02-04 05:55:42 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-04 05:55:47 [[32minfo[39m]: [BOT]: Transaction hash: 0x086a8a269ce2f93850a726c8438221b994c552e9c9a3a8eda4dcefc12d50beb8
+2025-02-04 05:55:47 [[32minfo[39m]: [BOT]: Post ID: 67a15e4b30ecd4cffab16e93 has been approved and stored onchain
+2025-02-04 05:55:47 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-02-04 05:55:47 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-04 05:56:36 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:56:36 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:56:42 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 05:56:42 [[32minfo[39m]: [BOT]: Stored message 67a15ec249fcdf10368d5b78 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 05:56:42 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 05:56:47 GMT+0530 (India Standard Time)
+2025-02-04 05:56:42 [[32minfo[39m]: [BOT]: Added post 67a15ec249fcdf10368d5b7b to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 05:57:05 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:57:05 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:57:12 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774103 from user rayvego
+2025-02-04 05:57:32 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:57:32 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:57:46 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:57:46 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:57:53 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:57:53 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:57:59 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:57:59 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:58:17 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:58:17 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:58:18 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 05:58:18 [[32minfo[39m]: [BOT]: Stored message 67a15f220c9f02114a68b201 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 05:58:19 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 05:58:24 GMT+0530 (India Standard Time)
+2025-02-04 05:58:19 [[32minfo[39m]: [BOT]: Added post 67a15f230c9f02114a68b204 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 05:58:19 [[32minfo[39m]: [BOT]: Stored message 67a15f230c9f02114a68b20f in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 05:58:23 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774104 from user rayvego
+2025-02-04 05:58:23 [[33mwarn[39m]: [BOT]: Missing parameters for poll results: undefined, 6127414912449774104, 1110562767, rayvego
+2025-02-04 05:58:44 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 05:58:44 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 05:58:50 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 05:58:51 [[32minfo[39m]: [BOT]: Stored message 67a15f421d89156090ed3cf0 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 05:58:51 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 05:58:56 GMT+0530 (India Standard Time)
+2025-02-04 05:58:51 [[32minfo[39m]: [BOT]: Added post 67a15f431d89156090ed3cf3 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 05:58:53 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774105 from user rayvego
+2025-02-04 05:58:53 [[33mwarn[39m]: [BOT]: Missing parameters for poll results: undefined, 6127414912449774105, 1110562767, rayvego
+2025-02-04 06:01:26 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-04 06:01:26 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:01:37 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:01:37 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:01:38 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:01:38 [[32minfo[39m]: [BOT]: Stored message 67a15fea9809077e58b256fa in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:01:38 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:01:43 GMT+0530 (India Standard Time)
+2025-02-04 06:01:38 [[32minfo[39m]: [BOT]: Added post 67a15fea9809077e58b256fd to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:01:41 [[33mwarn[39m]: [BOT]: Error handling poll results: Error: Missing information for API call to getChat
+2025-02-04 06:01:50 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:01:50 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:01:55 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:01:55 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:02:01 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:02:01 [[32minfo[39m]: [BOT]: Stored message 67a160011dd4c0fde946f9d2 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:02:01 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:02:06 GMT+0530 (India Standard Time)
+2025-02-04 06:02:01 [[32minfo[39m]: [BOT]: Added post 67a160011dd4c0fde946f9d5 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:02:03 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774107 from user rayvego
+2025-02-04 06:02:03 [[33mwarn[39m]: [BOT]: Missing parameters for poll results: undefined, 6127414912449774107, 1110562767, rayvego
+2025-02-04 06:02:16 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:02:16 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:02:25 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:02:25 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:02:30 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:02:30 [[32minfo[39m]: [BOT]: Stored message 67a1601e0780042e955c83f7 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:02:30 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:02:35 GMT+0530 (India Standard Time)
+2025-02-04 06:02:30 [[32minfo[39m]: [BOT]: Added post 67a1601e0780042e955c83fa to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:02:31 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774108 from user rayvego
+2025-02-04 06:02:31 [[33mwarn[39m]: [BOT]: Missing parameters for poll results: undefined, 6127414912449774108, 1110562767, rayvego
+2025-02-04 06:03:06 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:03:06 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:03:10 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:03:10 [[32minfo[39m]: [BOT]: Stored message 67a1604685fd733e899f250d in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:03:10 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:03:15 GMT+0530 (India Standard Time)
+2025-02-04 06:03:10 [[32minfo[39m]: [BOT]: Added post 67a1604685fd733e899f2510 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:03:12 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774109 from user rayvego
+2025-02-04 06:03:12 [[33mwarn[39m]: [BOT]: Missing parameters for poll results: undefined, 6127414912449774109, 1110562767, rayvego
+2025-02-04 06:20:53 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:20:53 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:24:59 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:24:59 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:25:58 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-04 06:25:58 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:26:14 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:26:14 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:26:15 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:26:15 [[32minfo[39m]: [BOT]: Stored message 67a165af23e5f437a54b9b71 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:26:16 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:26:21 GMT+0530 (India Standard Time)
+2025-02-04 06:26:16 [[32minfo[39m]: [BOT]: Added post 67a165b023e5f437a54b9b74 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:26:18 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774112 from user rayvego
+2025-02-04 06:26:32 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:26:32 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:26:36 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:26:36 [[32minfo[39m]: [BOT]: Stored message 67a165c4719775d69bcfbd4e in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:26:36 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:26:41 GMT+0530 (India Standard Time)
+2025-02-04 06:26:36 [[32minfo[39m]: [BOT]: Added post 67a165c4719775d69bcfbd51 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:26:38 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774113 from user rayvego
+2025-02-04 06:27:19 [[32minfo[39m]: [BOT]: Stored message 67a165ef719775d69bcfbd6d in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:27:22 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:27:22 [[32minfo[39m]: [BOT]: Stored message 67a165f2719775d69bcfbd71 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:27:23 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:27:28 GMT+0530 (India Standard Time)
+2025-02-04 06:27:23 [[32minfo[39m]: [BOT]: Added post 67a165f3719775d69bcfbd74 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:27:24 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774114 from user rayvego
+2025-02-04 06:27:57 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:27:57 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:28:02 [[32minfo[39m]: [BOT]: Stored message 67a166192efe6a13d9e1e36e in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:28:04 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:28:04 [[32minfo[39m]: [BOT]: Stored message 67a1661c2efe6a13d9e1e372 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:28:04 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:28:09 GMT+0530 (India Standard Time)
+2025-02-04 06:28:04 [[32minfo[39m]: [BOT]: Added post 67a1661c2efe6a13d9e1e375 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:28:07 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774115 from user rayvego
+2025-02-04 06:28:07 [[33mwarn[39m]: [BOT]: Error handling poll results: TypeError: undefined is not an object (evaluating 'post.votes.count')
+2025-02-04 06:29:54 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:29:54 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:30:00 [[32minfo[39m]: [BOT]: Stored message 67a16690e4e1e52d04c558f5 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:30:03 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-04 06:30:03 [[32minfo[39m]: [BOT]: Stored message 67a16693e4e1e52d04c558f9 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-04 06:30:03 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Tue Feb 04 2025 06:30:08 GMT+0530 (India Standard Time)
+2025-02-04 06:30:03 [[32minfo[39m]: [BOT]: Added post 67a16693e4e1e52d04c558fc to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-04 06:30:05 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6127414912449774116 from user rayvego
+2025-02-04 06:30:05 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6127414912449774116
+2025-02-04 06:34:41 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:34:41 [[31merror[39m]: [SYSTEM]: Error starting services: TypeError: app.use() requires a middleware function
+2025-02-04 06:40:59 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:40:59 [[31merror[39m]: [SYSTEM]: Error starting services: ReferenceError: Can't find variable: distributeEngagementRewardsRouter
+2025-02-04 06:45:42 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-04 06:45:42 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-04 06:49:54 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-04 06:49:55 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005

@@ -39,13 +39,13 @@ export const createAndLaunchPoll = async (ctx: Context, messageToProcess: any) =
     "Is this message value-aligned with our community?",
     [{ text: "Yes" }, { text: "No" }],
     {
-      is_anonymous: true,
+      is_anonymous: false,
       allows_multiple_answers: false,
       reply_to_message_id: messageToProcess.message_id,
     }
   );
-
-  return poll.message_id;
+  
+  return {tgPollMessageId: poll.message_id, tgPollId: poll.poll.id};
 };
 
 export const downloadImage = async (url: string): Promise<Buffer> => {
