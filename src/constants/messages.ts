@@ -104,6 +104,22 @@ Keep shaping our culture. Next week, your name could be here! 🏛️
   `;
 };
 
+export const ENGAGEMENT_REWARDED_MESSAGE = (users: string[], tokenSymbol: string) => {
+  return `
+🎉 Engagement Airdrop Alert! 🎉
+
+This week, the following community members actively participated by voting on posts and contributing to the community's decision-making process! 🌍✨ As a reward, they’ve been airdropped ${tokenSymbol} Culture Tokens!
+
+🏆 This Week’s Engaged Voters: ${users.join(", ")}
+
+💰 Claim Your Tokens Now! Send \`/wallet\` in a private message to the bot to check your balance and \`/exportwallet\` to access your rewards.
+
+🔥 Want to earn next week? Keep engaging with the community by voting on posts and sharing your insights! Your participation helps shape the culture and earns you Culture Tokens. 🚀
+
+Keep engaging and shaping our culture. Next week, your name could be here! 🏛️
+  `;
+};
+
 export const NO_REWARD_MESSAGE = (tokenSymbol: string) => {
   return `
 🚨 No Airdrop This Week… But It Could Have Been Yours! 🚨

@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import { config } from "../../config/config";
 import { logger } from "../../utils/logger";
 import { bondingCurveABI } from "../../contracts/bondingCurveABI";
+import { adminTreasuryRewardsABI, adminTreasuryRewardsAddress } from "../../contracts/adminTreasuryRewardsABI";
 
 export const storeMessageOnChain = async (provider: any, ipfsHash: string): Promise<string> => {
   try {
@@ -41,5 +42,21 @@ export const distributeRewardsToUser = async (amount: string, root: string, proo
   } catch (error) {
     logger.warn(`[BOT]: Error updating merkle root for ${bondingCurveAddress}: ${error}`);
     throw new Error(`Failed to update merkle root for ${bondingCurveAddress}`);
+  }
+}
+
+export const distributeEngagementRewardsToUser = async (amount: string, root: string, proof: any, toAddress: string, tokenAddress: string) => {
+  try { 
+    const provider = new ethers.JsonRpcProvider(config.baseSepoliaRpc);
+    const wallet = new ethers.Wallet(process.env.NEXT_PUBLIC_ADMIN_AUTHORITY_PRIVATE_KEY!, provider);
+    const contract = new ethers.Contract(adminTreasuryRewardsAddress, adminTreasuryRewardsABI, wallet);
+    const tx = await contract.distributeRewards(toAddress, tokenAddress, proof, root, BigInt(amount), {
+      gasLimit: 300000,
+    });
+    const receipt = await tx.wait();
+    logger.info(`[BOT]: Distributed ${amount} tokens to ${toAddress}. Transaction Hash: ${receipt.hash}`);
+  } catch (error) {
+    logger.warn(`[BOT]: Error updating merkle root for ${adminTreasuryRewardsAddress}: ${error}`);
+    throw new Error(`Failed to update merkle root for ${adminTreasuryRewardsAddress}`);
   }
 }

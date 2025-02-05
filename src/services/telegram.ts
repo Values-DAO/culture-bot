@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import { CryptoUtils } from "../utils/cryptoUtils";
 import { Wallet } from "../models/wallet";
 import { isDefined } from "../actions/sanity/validateInputs";
-import { COMMANDS_MESSAGE, NO_REWARD_MESSAGE, POLL_MESSAGE, REWARDED_MESSAGE, WALLET_DETAILS_MESSAGE, WALLET_EXPORT_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
+import { COMMANDS_MESSAGE, ENGAGEMENT_REWARDED_MESSAGE, NO_REWARD_MESSAGE, POLL_MESSAGE, REWARDED_MESSAGE, WALLET_DETAILS_MESSAGE, WALLET_EXPORT_MESSAGE, WELCOME_MESSAGE } from "../constants/messages";
 import mongoose, { type Schema } from "mongoose";
 import {
   createCultureBotCommunity,
@@ -431,7 +431,7 @@ export class TelegramService {
       const cultureBotCommunity = book.cultureBotCommunity as ICultureBotCommunity;
       const cultureToken = book.cultureToken as ICultureToken;
 
-      if (!usersGettingRewarded) {
+      if (usersGettingRewarded?.length === 0 || !usersGettingRewarded) {
         await this.bot.api.sendMessage(cultureBotCommunity.chatId, NO_REWARD_MESSAGE(cultureToken.symbol));
         logger.info(`[BOT]: No rewards to distribute for community ${cultureBotCommunity.communityName}`);
       } else {
@@ -443,6 +443,35 @@ export class TelegramService {
         });
         logger.info(
           `[BOT]: Message for rewards distributed successfully sent for community ${cultureBotCommunity.communityName}`
+        );
+      }
+    } catch (error) {
+      logger.warn(`[BOT]: Error sending message for rewards: ${error}`);
+      throw new Error("Error sending message for rewards");
+    }
+  }
+
+  // * SEND MESSAGE FOR REWARDS: Sends a message to the community for rewards distribution
+  public async sendMessageForEngagementRewards(
+    book: ICultureBook,
+    usersGettingEngagementRewards: { posterTgId: string; posterUsername: string }[] | null
+  ) {
+    try {
+      const cultureBotCommunity = book.cultureBotCommunity as ICultureBotCommunity;
+      const cultureToken = book.cultureToken as ICultureToken;
+
+      if (usersGettingEngagementRewards?.length === 0 || !usersGettingEngagementRewards) {
+        // await this.bot.api.sendMessage(cultureBotCommunity.chatId, NO_REWARD_MESSAGE(cultureToken.symbol));
+        logger.info(`[BOT]: No rewards to distribute for community ${cultureBotCommunity.communityName}`);
+      } else {
+        const users = usersGettingEngagementRewards.map((user) => `@${user.posterUsername}`);
+        // remove duplicates from the array
+        const uniqueUsers = [...new Set(users)];
+        await this.bot.api.sendMessage(cultureBotCommunity.chatId, ENGAGEMENT_REWARDED_MESSAGE(uniqueUsers, cultureToken.symbol), {
+          parse_mode: "Markdown",
+        });
+        logger.info(
+          `[BOT]: Message for engagement rewards distributed successfully sent for community ${cultureBotCommunity.communityName}`
         );
       }
     } catch (error) {

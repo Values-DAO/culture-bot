@@ -228,6 +228,22 @@ export const updateUserRewardStatus = async (telegramId: string, pendingPosts: V
   }
 }
 
+export const updatePostEngagementRewardStatus = async (pendingPosts: ValueAlignedPost[], book: ICultureBook): Promise<void> => {
+  try {
+    for (const post of pendingPosts) {
+      post.engagementRewardStatus = true;
+      logger.info(`[BOT]: Updated engagement reward status from false to true for post ${post._id}`);
+    }
+    
+    await book.save();
+    
+    return
+  } catch (error) {
+    logger.warn(`[BOT]: Error updating post engagement reward status for culture book ID: ${book._id}: ${error}`);
+    throw new Error(`Error updating post engagement reward status for culture book ID: ${book._id}`);
+  }
+}
+
 // export const getChatIdFromCommunity = async (bookId: string): Promise<string> => {
 //   try {
 //     const book = await CultureBook.findById(bookId).populate({

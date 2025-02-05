@@ -42,6 +42,7 @@ export interface ICultureBook extends Document {
     photoFileId?: string;
     status: "pending" | "approved" | "rejected" | "processing";
     rewardStatus: "pending" | "rewarded" | "rejected" | "processing";
+    engagementRewardStatus: boolean,
     votingEndsAt?: Date;
     tgPollId?: string;
     tgPollMessageId?: string;
@@ -127,6 +128,7 @@ const cultureBookSchema = new Schema({
         photoFileId: { type: String }, // Telegram File ID to refetch the image when needed
         status: { type: String, enum: ["pending", "approved", "rejected", "processing"] }, // onchain status
         rewardStatus: { type: String, enum: ["pending", "rewarded", "rejected", "processing"], default: "processing" }, // reward status
+        engagementRewardStatus: { type: Boolean, default: false }, // engagement reward status
         votingEndsAt: { type: Date },
         tgPollId: { type: String },
         tgPollMessageId: { type: String },

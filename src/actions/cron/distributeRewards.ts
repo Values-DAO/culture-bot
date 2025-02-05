@@ -2,9 +2,9 @@ import type { ICultureBook, ValueAlignedPost } from "../../models/cultureBook";
 import { Wallet, type IWallet } from "../../models/wallet";
 import { TelegramService } from "../../services/telegram";
 import { logger } from "../../utils/logger";
-import { distributeRewardsToUser } from "../blockchain/onchain";
+import { distributeEngagementRewardsToUser, distributeRewardsToUser } from "../blockchain/onchain";
 import { generateMerkleTreeAndProofs } from "../blockchain/rewards";
-import { getAllCultureBooksWithCultureTokens, updateUserRewardStatus } from "../database/queries";
+import { getAllCultureBooksWithCultureTokens, updatePostEngagementRewardStatus, updateUserRewardStatus } from "../database/queries";
 
 export const distributeRewards = async (): Promise<boolean> => {
   const telegramService = new TelegramService();
@@ -19,8 +19,9 @@ export const distributeRewards = async (): Promise<boolean> => {
         // @ts-ignore
         logger.info(`[BOT]: Distributing rewards for community ${book.cultureBotCommunity!.communityName} and culture book ID: ${book._id}`);
         
-        const usersGettingRewarded = await distributeRewardsForCultureBook(book);
+        const { usersGettingRewarded, usersGettingEngagementRewards } = await distributeRewardsForCultureBook(book);
         await telegramService.sendMessageForRewards(book, usersGettingRewarded);
+        await telegramService.sendMessageForEngagementRewards(book, usersGettingEngagementRewards);
         
       } catch (error) {
         logger.warn(`[BOT]: Error distributing rewards for culture book ID: ${book._id}: ${error}`);
@@ -37,57 +38,96 @@ export const distributeRewards = async (): Promise<boolean> => {
 
 export const distributeRewardsForCultureBook = async (
   book: ICultureBook
-): Promise<{ posterTgId: string; posterUsername: string }[] | null> => {
-  const pendingPosts = getPendingPosts(book);
-  const pendingUsers = getPendingUsers(pendingPosts);
-  if (pendingUsers.length === 0) {
-    logger.info("[BOT]: No users to distribute rewards to");
-    return null;
-  }
-  const {wallets: usersWallets, totalFrequency} = await getUsersWallets(pendingUsers);
-  // const usersWallets = [
-  //   {
-  //     wallet: {
-  //       telegramUsername: "test",
-  //       telegramId: "1110562767",
-  //       publicKey: "0xEE67f1EF03741a0032A5c9Ccb74997CE910F4358",
-  //     },
-  //     frequency: 1,
-  //   },
-  //   {
-  //     wallet: {
-  //       telegramUsername: "test2",
-  //       telegramId: "1110562767",
-  //       publicKey: "0x4705c13260a1A4a3701dBC6D7D3CE68448c4BbD5",
-  //     },
-  //     frequency: 1,
-  //   },
-  // ];
-  // const totalFrequency = 2;
-  if (usersWallets.length === 0) {
-    logger.info("[BOT]: No users to distribute rewards to");
-    return null;
-  }
-  const baseAmount = BigInt(247252747); // 0.24725274730 % of 100B tokens
-  const scaledAmount = baseAmount * BigInt(10 ** 18); // Scale by 18 decimals
-  const amountUnit = scaledAmount / BigInt(totalFrequency);
-  logger.info(`[BOT]: Distributing ${amountUnit} tokens to ${usersWallets.length} users each`);
-  const { root, proofs } = await generateMerkleTreeAndProofs(usersWallets, amountUnit);
+): Promise<{
+  usersGettingRewarded: { posterTgId: string; posterUsername: string }[] | null;
+  usersGettingEngagementRewards: { posterTgId: string; posterUsername: string }[] | null;
+}> => {
+  try {
+    const pendingPosts = getPendingPosts(book);
+    const pendingUsers = getPendingUsers(pendingPosts);
 
-  // TODO:  call contract to make sure there are enough tokens to reward
+    // Distribute regular rewards
+    let usersGettingRewarded = null;
+    if (pendingUsers.length > 0) {
+      const { wallets: usersWallets, totalFrequency } = await getUsersWallets(pendingUsers);
 
-  for (let i = 0; i < usersWallets.length; i++) {
-    await distributeRewardsToUser(
-      (BigInt(usersWallets[i].frequency) * amountUnit).toString(),
-      root,
-      proofs[i]["proof"],
-      usersWallets[i].wallet.publicKey, // @ts-ignore
-      book.cultureToken!.bondingCurveAddress
-    );
-    await updateUserRewardStatus(usersWallets[i].wallet.telegramId, pendingPosts, book);
+      if (usersWallets.length > 0) {
+        const baseAmount = BigInt(247252747); // 0.24725274730 % of 100B tokens
+        const scaledAmount = baseAmount * BigInt(10 ** 18); // Scale by 18 decimals
+        const amountUnit = scaledAmount / BigInt(totalFrequency);
+        logger.info(`[BOT]: Distributing ${baseAmount} tokens to ${usersWallets.length} users`);
+        const { root, proofs } = await generateMerkleTreeAndProofs(usersWallets, amountUnit);
+
+        for (let i = 0; i < usersWallets.length; i++) {
+          await distributeRewardsToUser(
+            (BigInt(usersWallets[i].frequency) * amountUnit).toString(),
+            root,
+            proofs[i]["proof"],
+            usersWallets[i].wallet.publicKey, // @ts-ignore
+            book.cultureToken!.bondingCurveAddress
+          );
+          await updateUserRewardStatus(usersWallets[i].wallet.telegramId, pendingPosts, book);
+          logger.info(`[BOT]: Rewarded user ${usersWallets[i].wallet.telegramId} with ${BigInt(usersWallets[i].frequency) * amountUnit / BigInt(10 ** 18)} tokens`);
+        }
+
+        usersGettingRewarded = pendingUsers;
+      }
+    }
+
+    // Distribute engagement rewards
+    let usersGettingEngagementRewards = null;
+    const engagementUsers = getEngagementUsers(pendingPosts);
+
+    if (engagementUsers.length > 0) {
+      const { wallets: engagementWallets, totalFrequency: engagementTotalFrequency } = await getUsersWallets(
+        engagementUsers
+      );
+
+      if (engagementWallets.length > 0) {
+        const baseAmount = BigInt(10989010); // 0.010989011 % of 100B tokens
+        const scaledAmount = baseAmount * BigInt(10 ** 18); // Scale by 18 decimals
+        const amountUnit = scaledAmount / BigInt(engagementTotalFrequency);
+        logger.info(`[BOT]: Distributing ${baseAmount} engagement tokens to ${engagementWallets.length} users each`);
+        const { root, proofs } = await generateMerkleTreeAndProofs(engagementWallets, amountUnit);
+
+        for (let i = 0; i < engagementWallets.length; i++) {
+          await distributeEngagementRewardsToUser(
+            (BigInt(engagementWallets[i].frequency) * amountUnit).toString(),
+            root,
+            proofs[i]["proof"],
+            engagementWallets[i].wallet.publicKey, // @ts-ignore
+            book.cultureToken!.tokenAddress,
+          );
+          logger.info(`[BOT]: Rewarded user ${engagementWallets[i].wallet.telegramId} with ${BigInt(engagementWallets[i].frequency) * amountUnit / BigInt(10 ** 18)} engagement tokens`);
+        }
+        await updatePostEngagementRewardStatus(pendingPosts, book);
+
+        usersGettingEngagementRewards = engagementUsers;
+      }
+    }
+
+    return { usersGettingRewarded, usersGettingEngagementRewards };
+  } catch (error) {
+    logger.warn(`[BOT]: Error distributing rewards for culture book ID: ${book._id}: ${error}`);
+    return { usersGettingRewarded: null, usersGettingEngagementRewards: null };
   }
+};
 
-  return pendingUsers;
+// * Returns the users who have voted (aligned or not aligned) on pending posts
+export const getEngagementUsers = (posts: ValueAlignedPost[]): { posterTgId: string; posterUsername: string }[] => {
+  const users = posts.map((post) => {
+    const alignedUsers = post.votes.alignedUsers.map((user) => ({
+      posterTgId: user.userTgId,
+      posterUsername: user.userTgUsername,
+    }));
+    const notAlignedUsers = post.votes.notAlignedUsers.map((user) => ({
+      posterTgId: user.userTgId,
+      posterUsername: user.userTgUsername,
+    }));
+    return [...alignedUsers, ...notAlignedUsers];
+  });
+
+  return users.flat(); // flatten the array cause it is an array of arrays
 };
 
 // * Returns the wallets of the users who have pending posts with their frequency
