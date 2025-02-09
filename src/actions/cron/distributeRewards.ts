@@ -67,7 +67,7 @@ export const distributeRewardsForCultureBook = async (
             book.cultureToken!.bondingCurveAddress
           );
           await updateUserRewardStatus(usersWallets[i].wallet.telegramId, pendingPosts, book);
-          logger.info(`[BOT]: Rewarded user ${usersWallets[i].wallet.telegramId} with ${BigInt(usersWallets[i].frequency) * amountUnit / BigInt(10 ** 18)} tokens`);
+          logger.info(`[BOT]: Rewarded user ${usersWallets[i].wallet.telegramUsername} with ${BigInt(usersWallets[i].frequency) * amountUnit / BigInt(10 ** 18)} tokens`);
         }
 
         usersGettingRewarded = pendingUsers;

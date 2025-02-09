@@ -29,7 +29,6 @@ export const processCommunity = async (community: ICultureBotCommunity): Promise
     if (!posts) return;
     
     const wallets = getOrCreateWallets(posts);
-    // TODO: Distribute rewards
 
     const groupedPosts = groupPostsByUser(posts);
     const topContributors = getTopContributors(groupedPosts);

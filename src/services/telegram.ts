@@ -25,6 +25,7 @@ import { getDuePosts, processDuePosts } from "../actions/cron/dueMessages";
 import type { ICultureBotCommunity } from "../models/community";
 import { CultureBook, type ICultureBook, type ValueAlignedPost } from "../models/cultureBook";
 import type { ICultureToken } from "../models/cultureToken";
+import { getOrCreateWallet } from "../actions/wallet/utils";
 
 // TODO: Change trustpool functionality.
 
@@ -356,6 +357,9 @@ export class TelegramService {
         logger.warn(`[BOT]: No post updated for poll ID ${tgPollId}`);
         return;
       }
+      
+      // Create a wallet for the user if they don't have one
+      const wallet = await getOrCreateWallet(userTgId.toString(), userTgUsername);
 
       logger.info(`[BOT]: Poll results saved for poll ID ${tgPollId}`);
     } catch (error) {

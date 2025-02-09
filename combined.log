@@ -3043,3 +3043,251 @@
 2025-02-04 06:45:42 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
 2025-02-04 06:49:54 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
 2025-02-04 06:49:55 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-05 21:16:48 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-05 21:16:48 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-05 21:17:10 [[32minfo[39m]: [BOT]: Stored message 67a387fe1820a96eb84b90a3 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:17:36 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-05 21:17:36 [[32minfo[39m]: [BOT]: Stored message 67a388181820a96eb84b90a7 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:17:37 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Wed Feb 05 2025 21:17:42 GMT+0530 (India Standard Time)
+2025-02-05 21:17:37 [[32minfo[39m]: [BOT]: Added post 67a388191820a96eb84b90aa to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-05 21:17:40 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6131958889064694005 from user rayvego
+2025-02-05 21:17:40 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6131958889064694005
+2025-02-05 21:18:34 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-05 21:18:36 [[32minfo[39m]: [BOT]: Found 13 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-05 21:18:36 [[32minfo[39m]: [BOT]: Post ID: 67a15ec249fcdf10368d5b7b already exists onchain. Skipping...
+2025-02-05 21:18:38 [[32minfo[39m]: [BOT]: Post ID: 67a15f230c9f02114a68b204 already exists onchain. Skipping...
+2025-02-05 21:18:39 [[32minfo[39m]: [BOT]: Post ID: 67a15f431d89156090ed3cf3 already exists onchain. Skipping...
+2025-02-05 21:18:44 [[32minfo[39m]: [BOT]: Post ID: 67a15fea9809077e58b256fd already exists onchain. Skipping...
+2025-02-05 21:18:45 [[32minfo[39m]: [BOT]: Post ID: 67a160011dd4c0fde946f9d5 already exists onchain. Skipping...
+2025-02-05 21:18:49 [[32minfo[39m]: [BOT]: Post ID: 67a1601e0780042e955c83fa already exists onchain. Skipping...
+2025-02-05 21:18:50 [[32minfo[39m]: [BOT]: Post ID: 67a1604685fd733e899f2510 already exists onchain. Skipping...
+2025-02-05 21:18:51 [[32minfo[39m]: [BOT]: Post ID: 67a165b023e5f437a54b9b74 already exists onchain. Skipping...
+2025-02-05 21:18:56 [[32minfo[39m]: [BOT]: Post ID: 67a165c4719775d69bcfbd51 already exists onchain. Skipping...
+2025-02-05 21:18:57 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-05 21:18:59 [[32minfo[39m]: [BOT]: IPFS hash: bafkreidfdxrtc35cpz2nnko6mgplvruohn4b5fjh7xiayxxxcq5r7jmbwy
+2025-02-05 21:18:59 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-05 21:19:05 [[32minfo[39m]: [BOT]: Transaction hash: 0xec20fe58d12ad08171258cc9ce4903584036f4eee25fa3df679fe447eb8658b2
+2025-02-05 21:19:05 [[32minfo[39m]: [BOT]: Post ID: 67a165f3719775d69bcfbd74 has been approved and stored onchain
+2025-02-05 21:19:05 [[32minfo[39m]: [BOT]: Wallet created for username: rayvego and tgId: 1110562767
+2025-02-05 21:19:09 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-05 21:19:09 [[32minfo[39m]: [BOT]: IPFS hash: bafkreie7q3iidccmpvszul7kudcvvuavuo7u6gzlbobczuk5nqk3b4akba
+2025-02-05 21:19:10 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-05 21:19:15 [[32minfo[39m]: [BOT]: Transaction hash: 0x7f2c2cde85c897b40388a419874288e2139702b4072257b0892813fa1d0830e8
+2025-02-05 21:19:15 [[32minfo[39m]: [BOT]: Post ID: 67a1661c2efe6a13d9e1e375 has been approved and stored onchain
+2025-02-05 21:19:15 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-02-05 21:19:38 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-05 21:19:38 [[32minfo[39m]: [BOT]: IPFS hash: bafkreidtu3euxfdosit4db3omvjenqjumf2e7qr7dg52bv5iqyalgpmvr4
+2025-02-05 21:19:38 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-05 21:19:43 [[32minfo[39m]: [BOT]: Transaction hash: 0x3b91b8fe79f84b774b97d1175bf177a4fd72d7f4ba037b440a35779a7c475d55
+2025-02-05 21:19:43 [[32minfo[39m]: [BOT]: Post ID: 67a16693e4e1e52d04c558fc has been approved and stored onchain
+2025-02-05 21:19:43 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-02-05 21:19:44 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-05 21:19:45 [[32minfo[39m]: [BOT]: IPFS hash: bafkreiekgyeleoidw43j7kjiivw2e7scy36uwf3kffuu5evriuiiqejbky
+2025-02-05 21:19:45 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-05 21:19:50 [[32minfo[39m]: [BOT]: Transaction hash: 0xd0f796c4de49ea76c445151d23f2924cd488d3865ccf886790e91e4320544248
+2025-02-05 21:19:50 [[32minfo[39m]: [BOT]: Post ID: 67a388191820a96eb84b90aa has been approved and stored onchain
+2025-02-05 21:19:50 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-02-05 21:19:51 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-05 21:20:18 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-05 21:20:18 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-05 21:20:21 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-05 21:20:21 [[32minfo[39m]: [BOT]: Distributing 247252747 tokens to 1 users
+2025-02-05 21:20:21 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-05 21:20:21 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x9dfe369208733e9c45c6a56fa2caf44c1f6a562c627ff7135822161bbe911024
+2025-02-05 21:20:21 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-05 21:20:28 [[32minfo[39m]: [BOT]: Distributed 247252747000000000000000000 tokens to 0x6A8F6929Ec49b45f0F08a186C8D1dFE4352855eC. Transaction Hash: 0x12e62df9c7fae760638fca1c3e49630f15904ed8d1263f21abc8b11f68a9ea29
+2025-02-05 21:20:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a15e4b30ecd4cffab16e93
+2025-02-05 21:20:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a165f3719775d69bcfbd74
+2025-02-05 21:20:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a1661c2efe6a13d9e1e375
+2025-02-05 21:20:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a16693e4e1e52d04c558fc
+2025-02-05 21:20:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a388191820a96eb84b90aa
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: Rewarded user 1110562767 with 247252747 tokens
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: Distributing 10989010 engagement tokens to 1 users each
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x75f377a328aaf3a7436f2a8e3493ebc3a9f7a2615970de6468135fb8c06e02d0
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-05 21:20:29 [[33mwarn[39m]: [BOT]: Error distributing rewards for culture book ID: 67a15c1bea6f15159d04e363: ReferenceError: Can't find variable: adminTreasuryRewardsAddress
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:20:29 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:20:29 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-05 21:21:45 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-05 21:21:45 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-05 21:22:04 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-05 21:22:04 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-05 21:22:06 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-05 21:22:06 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:22:06 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:22:06 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-05 21:22:40 [[32minfo[39m]: [BOT]: Wallet details sent for user rayvego
+2025-02-05 21:23:17 [[32minfo[39m]: [BOT]: Stored message 67a3896d00daa52a2f8b0192 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:23:21 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-05 21:23:21 [[32minfo[39m]: [BOT]: Stored message 67a3897100daa52a2f8b0196 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:23:21 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Wed Feb 05 2025 21:23:26 GMT+0530 (India Standard Time)
+2025-02-05 21:23:22 [[32minfo[39m]: [BOT]: Added post 67a3897100daa52a2f8b0199 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-05 21:23:26 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6131958889064694006 from user rayvego
+2025-02-05 21:23:26 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6131958889064694006
+2025-02-05 21:23:52 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-05 21:23:53 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-05 21:23:54 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-05 21:23:56 [[32minfo[39m]: [BOT]: IPFS hash: bafkreibv3ej2aejqbm64cgtswng5x4hricsgxhxs24cs2iquugziiheotq
+2025-02-05 21:23:56 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-05 21:24:01 [[32minfo[39m]: [BOT]: Transaction hash: 0xa875473b5274a1835583fac459df0b3f58fe5015ac0a7a07055ced81894935a3
+2025-02-05 21:24:01 [[32minfo[39m]: [BOT]: Post ID: 67a3897100daa52a2f8b0199 has been approved and stored onchain
+2025-02-05 21:24:01 [[32minfo[39m]: [BOT]: Wallet created for username: rayvego and tgId: 1110562767
+2025-02-05 21:24:04 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-05 21:24:56 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-05 21:24:56 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-05 21:24:58 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-05 21:24:58 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-05 21:24:59 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-05 21:24:59 [[32minfo[39m]: [BOT]: Distributing 247252747 tokens to 1 users
+2025-02-05 21:24:59 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-05 21:24:59 [[32minfo[39m]: [BOT]: Generated Merkle root: 0xc56f581380117889606c64184238c0957a4bde65291ccd35bfcf7919a50394b5
+2025-02-05 21:24:59 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Distributed 247252747000000000000000000 tokens to 0x22bd47D36790E0645507fA67B126Ef82Fc45b89e. Transaction Hash: 0x64345f920e5d3e71816be795bb69f69b819998bf867276cfef09eee37bbcf6ea
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a3897100daa52a2f8b0199
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Rewarded user 1110562767 with 247252747 tokens
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Distributing 10989010 engagement tokens to 1 users each
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x7d9670b16e2d8306521ac1ed8cba14cfa94319fa8ad9cc57e2b70779374cabbb
+2025-02-05 21:25:09 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-05 21:25:18 [[32minfo[39m]: [BOT]: Distributed 10989010000000000000000000 tokens to 0x22bd47D36790E0645507fA67B126Ef82Fc45b89e. Transaction Hash: 0x6d106abd8e84708358d9dc22adf6ebc55878fc50de577c8b4b323053cf3a642b
+2025-02-05 21:25:18 [[32minfo[39m]: [BOT]: Rewarded user 1110562767 with 10989010 engagement tokens
+2025-02-05 21:25:18 [[32minfo[39m]: [BOT]: Updated engagement reward status from false to true for post 67a3897100daa52a2f8b0199
+2025-02-05 21:25:18 [[32minfo[39m]: [BOT]: Message for rewards distributed successfully sent for community DEVTEST: GATHIYO
+2025-02-05 21:25:19 [[32minfo[39m]: [BOT]: Message for engagement rewards distributed successfully sent for community DEVTEST: GATHIYO
+2025-02-05 21:25:19 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-05 21:25:36 [[32minfo[39m]: [BOT]: Wallet details sent for user rayvego
+2025-02-05 21:31:37 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-05 21:31:37 [[32minfo[39m]: [BOT]: Stored message 67a38b611e2cc8fcb244b20e in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:31:38 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Wed Feb 05 2025 21:31:43 GMT+0530 (India Standard Time)
+2025-02-05 21:31:38 [[32minfo[39m]: [BOT]: Added post 67a38b621e2cc8fcb244b211 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-05 21:31:41 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6131958889064694007 from user rayvego
+2025-02-05 21:31:41 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6131958889064694007
+2025-02-05 21:32:05 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-05 21:32:07 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-05 21:32:07 [[32minfo[39m]: [BOT]: Post ID: 67a38b621e2cc8fcb244b211 has been rejected
+2025-02-05 21:32:08 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-05 21:32:15 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-05 21:32:15 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-05 21:32:16 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-05 21:32:16 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:32:16 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:32:16 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-05 21:32:49 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-05 21:32:49 [[32minfo[39m]: [BOT]: Stored message 67a38ba91e2cc8fcb244bbdd in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:32:49 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Wed Feb 05 2025 21:32:54 GMT+0530 (India Standard Time)
+2025-02-05 21:32:50 [[32minfo[39m]: [BOT]: Added post 67a38baa1e2cc8fcb244bbe0 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-05 21:32:51 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6131958889064694008 from user rayvego
+2025-02-05 21:32:51 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6131958889064694008
+2025-02-05 21:32:58 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-05 21:32:59 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-05 21:33:00 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-05 21:33:02 [[32minfo[39m]: [BOT]: IPFS hash: bafkreielw5t254fjcp6zwmcounq5wlijs4pyze4aag2d7i4wonlxkp2lg4
+2025-02-05 21:33:02 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-05 21:33:10 [[32minfo[39m]: [BOT]: Transaction hash: 0x35c962c34af80926db4e05b937b8390746ac348b2181842ca77ac5d2cf1ea2ad
+2025-02-05 21:33:10 [[32minfo[39m]: [BOT]: Post ID: 67a38baa1e2cc8fcb244bbe0 has been approved and stored onchain
+2025-02-05 21:33:10 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-02-05 21:33:10 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-05 21:33:17 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-05 21:33:17 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-05 21:33:17 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-05 21:33:17 [[32minfo[39m]: [BOT]: Distributing 247252747 tokens to 1 users
+2025-02-05 21:33:17 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-05 21:33:17 [[32minfo[39m]: [BOT]: Generated Merkle root: 0xc56f581380117889606c64184238c0957a4bde65291ccd35bfcf7919a50394b5
+2025-02-05 21:33:17 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-05 21:33:26 [[33mwarn[39m]: [BOT]: Error updating merkle root for 0x3738d39a10CFE781D437FA57B95a7cB1A462ab22: Error: transaction execution reverted (action="sendTransaction", data=null, reason=null, invocation=null, revert=null, transaction={ "data": "", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "to": "0x3738d39a10CFE781D437FA57B95a7cB1A462ab22" }, receipt={ "_type": "TransactionReceipt", "blobGasPrice": null, "blobGasUsed": null, "blockHash": "0x35a2a65e670c74b7447ad185f1105779206eced5a4e2b24e20718de4aa788d07", "blockNumber": 21501557, "contractAddress": null, "cumulativeGasUsed": "2076354", "from": "0x98278DF51402ED4cE090cCB2D6AF23f0989F78cE", "gasPrice": "1000298", "gasUsed": "32028", "hash": "0x742980696ced150a666b44b7190e37d0561bc6a5b86c4298a3ac3ac7260ea7ee", "index": 14, "logs": [  ], "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000", "root": null, "status": 0, "to": "0x3738d39a10CFE781D437FA57B95a7cB1A462ab22" }, code=CALL_EXCEPTION, version=6.13.5)
+2025-02-05 21:33:26 [[33mwarn[39m]: [BOT]: Error distributing rewards for culture book ID: 67a15c1bea6f15159d04e363: Error: Failed to update merkle root for 0x3738d39a10CFE781D437FA57B95a7cB1A462ab22
+2025-02-05 21:33:27 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:33:27 [[32minfo[39m]: [BOT]: No rewards to distribute for community DEVTEST: GATHIYO
+2025-02-05 21:33:27 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-05 21:34:06 [[32minfo[39m]: [BOT]: Stored message 67a38bf61e2cc8fcb244c5b7 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-05 21:34:41 [[32minfo[39m]: [BOT]: Stored message 67a38c191e2cc8fcb244c5bb in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-08 14:10:04 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-08 14:10:04 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-08 14:10:05 [[32minfo[39m]: [BOT]: Stored message 67a71865ba75a75aba675014 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-08 14:10:28 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-08 14:10:29 [[32minfo[39m]: [BOT]: Stored message 67a7187cba75a75aba675018 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-08 14:10:29 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Sat Feb 08 2025 14:10:34 GMT+0530 (India Standard Time)
+2025-02-08 14:10:29 [[32minfo[39m]: [BOT]: Added post 67a7187dba75a75aba67501b to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-08 14:10:58 [[32minfo[39m]: [HTTP]: Received request at /health
+2025-02-08 14:10:58 [[32minfo[39m]: [HTTP]: Health check passed
+2025-02-08 14:11:00 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6141063824595223053 from user pareenl
+2025-02-08 14:11:00 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6141063824595223053
+2025-02-08 14:11:06 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-08 14:11:06 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-08 14:11:06 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-08 14:11:10 [[32minfo[39m]: [BOT]: IPFS hash: bafkreihxqtgtoh6fbdfo2kyz7m7dkcer64mqwt6pgo5liuwxawwia6qjlm
+2025-02-08 14:11:10 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-08 14:11:15 [[32minfo[39m]: [BOT]: Transaction hash: 0x50d8a03ad45966e9a6cf738ce16aa507f570e6e4514b04940e235b08f563f565
+2025-02-08 14:11:15 [[32minfo[39m]: [BOT]: Post ID: 67a7187dba75a75aba67501b has been approved and stored onchain
+2025-02-08 14:11:16 [[32minfo[39m]: [BOT]: Wallet created for username: rayvego and tgId: 1110562767
+2025-02-08 14:11:16 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-08 14:11:20 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-08 14:11:20 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-08 14:11:20 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-08 14:11:20 [[32minfo[39m]: [BOT]: Distributing 247252747 tokens to 1 users
+2025-02-08 14:11:20 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-08 14:11:20 [[32minfo[39m]: [BOT]: Generated Merkle root: 0x4c2c13cea1df431ec66061d9d43d5c697973dbba9803e975885cf254697d0ace
+2025-02-08 14:11:20 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Distributed 247252747000000000000000000 tokens to 0x407eB099102FC8D07995eb717660288f82982Fa9. Transaction Hash: 0x43059df27bb4e6f4f58a01fe780b016b10e3fc1adb8ef62f44a66698f450bde8
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a38baa1e2cc8fcb244bbe0
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a7187dba75a75aba67501b
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Rewarded user 1110562767 with 247252747 tokens
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Distributing 10989010 engagement tokens to 1 users each
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Generated Merkle root: 0xe965d8c40309b8e7e74f9ad2ca41b40947589b4fc77d6fdd18b304952dc22efe
+2025-02-08 14:11:28 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-08 14:11:36 [[32minfo[39m]: [BOT]: Distributed 10989010000000000000000000 tokens to 0x407eB099102FC8D07995eb717660288f82982Fa9. Transaction Hash: 0x78d1ef842ec8508955848037229c2fc667c509ad71fc2c99d191f6e4dfeefe0d
+2025-02-08 14:11:36 [[32minfo[39m]: [BOT]: Rewarded user 1110562767 with 10989010 engagement tokens
+2025-02-08 14:11:36 [[32minfo[39m]: [BOT]: Updated engagement reward status from false to true for post 67a38baa1e2cc8fcb244bbe0
+2025-02-08 14:11:36 [[32minfo[39m]: [BOT]: Updated engagement reward status from false to true for post 67a7187dba75a75aba67501b
+2025-02-08 14:11:37 [[32minfo[39m]: [BOT]: Message for rewards distributed successfully sent for community DEVTEST: GATHIYO
+2025-02-08 14:11:37 [[32minfo[39m]: [BOT]: Message for engagement rewards distributed successfully sent for community DEVTEST: GATHIYO
+2025-02-08 14:11:37 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-08 14:11:58 [[32minfo[39m]: [BOT]: Wallet details sent for user rayvego
+2025-02-08 15:08:23 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-08 15:08:23 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-08 15:53:28 [[31merror[39m]: [SYSTEM]: MongoDB connection error: unable to get issuer certificate
+2025-02-08 15:53:28 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-09 23:55:04 [[32minfo[39m]: [SYSTEM]: Connected to MongoDB
+2025-02-09 23:55:04 [[32minfo[39m]: [SYSTEM]: HTTP server listening on port 3005
+2025-02-09 23:55:22 [[32minfo[39m]: [BOT]: Processing message from rayvego in community DEVTEST: GATHIYO
+2025-02-09 23:55:22 [[32minfo[39m]: [BOT]: Stored message 67a8f312528a878feb3ca225 in database for community: DEVTEST: GATHIYO from user: rayvego
+2025-02-09 23:55:22 [[32minfo[39m]: [BOT]: Poll started for message sent by rayvego in community DEVTEST: GATHIYO. Voting ends at Sun Feb 09 2025 23:55:27 GMT+0530 (India Standard Time)
+2025-02-09 23:55:22 [[32minfo[39m]: [BOT]: Added post 67a8f312528a878feb3ca228 to culture book 67a15c1bea6f15159d04e363 for community: DEVTEST: GATHIYO
+2025-02-09 23:55:23 [[32minfo[39m]: [BOT]: Poll results received for poll ID 6145478127557542284 from user rayvego
+2025-02-09 23:55:24 [[32minfo[39m]: [BOT]: Wallet created for username: rayvego and tgId: 1110562767
+2025-02-09 23:55:24 [[32minfo[39m]: [BOT]: Poll results saved for poll ID 6145478127557542284
+2025-02-09 23:56:11 [[32minfo[39m]: [HTTP]: Received request at /health
+2025-02-09 23:56:11 [[32minfo[39m]: [HTTP]: Health check passed
+2025-02-09 23:56:18 [[32minfo[39m]: [HTTP]: Received request at /api/poll-database
+2025-02-09 23:56:18 [[32minfo[39m]: [BOT]: Found 1 due posts for culture book ID: 67a15c1bea6f15159d04e363 in community DEVTEST: GATHIYO
+2025-02-09 23:56:18 [[32minfo[39m]: [BOT]: Uploading text message to IPFS...
+2025-02-09 23:56:21 [[32minfo[39m]: [BOT]: IPFS hash: bafkreif6gcptnsjxhnlcwqf6ka7ey5zgvzrvpwgb4xictlgh2w5tfenlcu
+2025-02-09 23:56:21 [[32minfo[39m]: [BOT]: Storing post onchain...
+2025-02-09 23:56:28 [[32minfo[39m]: [BOT]: Transaction hash: 0x47a95c89f442c64f3873e1acb28b6ea3623ff598702edddf36361f0fad8c3ab4
+2025-02-09 23:56:28 [[32minfo[39m]: [BOT]: Post ID: 67a8f312528a878feb3ca228 has been approved and stored onchain
+2025-02-09 23:56:28 [[32minfo[39m]: [BOT]: Wallet already exists for username: rayvego and tgId: 1110562767
+2025-02-09 23:56:31 [[32minfo[39m]: [HTTP]: Database polled successfully
+2025-02-09 23:56:37 [[32minfo[39m]: [HTTP]: Received request at /api/distribute-rewards
+2025-02-09 23:56:37 [[32minfo[39m]: [BOT]: Distributing rewards...
+2025-02-09 23:56:38 [[32minfo[39m]: [BOT]: Distributing rewards for community DEVTEST: GATHIYO and culture book ID: 67a15c1bea6f15159d04e363
+2025-02-09 23:56:38 [[32minfo[39m]: [BOT]: Distributing 247252747 tokens to 1 users
+2025-02-09 23:56:38 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-09 23:56:38 [[32minfo[39m]: [BOT]: Generated Merkle root: 0xc4ebf66c0a42e02735cf98fca57983fde04f7e2f914e3364822af9b78d0979c8
+2025-02-09 23:56:38 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-09 23:56:46 [[32minfo[39m]: [BOT]: Distributed 247252747000000000000000000 tokens to 0xDdEb6Fe915312723Ae2F5463653467719d7EF180. Transaction Hash: 0x8b2b56edf9d0876b15f6f0ca7e3c24ea63deab524ed39317ad98bfc1e17c0341
+2025-02-09 23:56:46 [[32minfo[39m]: [BOT]: Updated reward status from "pending" to "rewarded" for user 1110562767 for post 67a8f312528a878feb3ca228
+2025-02-09 23:56:47 [[32minfo[39m]: [BOT]: Rewarded user rayvego with 247252747 tokens
+2025-02-09 23:56:47 [[32minfo[39m]: [BOT]: Distributing 10989010 engagement tokens to 1 users each
+2025-02-09 23:56:47 [[32minfo[39m]: [BOT]: Merkle tree leaves: 
+2025-02-09 23:56:47 [[32minfo[39m]: [BOT]: Generated Merkle root: 0xf18191eeff03ab1f28db07fb489cfb3ff1fcc24a99c1d667383c2d0b26bf3ade
+2025-02-09 23:56:47 [[32minfo[39m]: [BOT]: Generated proofs:
+2025-02-09 23:56:56 [[32minfo[39m]: [BOT]: Distributed 10989010000000000000000000 tokens to 0xDdEb6Fe915312723Ae2F5463653467719d7EF180. Transaction Hash: 0x1fb79921d6b21ef47a08cabccdde6b129799f7ee2bb1030edb09cf4ebbed0a0c
+2025-02-09 23:56:56 [[32minfo[39m]: [BOT]: Rewarded user 1110562767 with 10989010 engagement tokens
+2025-02-09 23:56:56 [[32minfo[39m]: [BOT]: Updated engagement reward status from false to true for post 67a8f312528a878feb3ca228
+2025-02-09 23:56:57 [[32minfo[39m]: [BOT]: Message for rewards distributed successfully sent for community DEVTEST: GATHIYO
+2025-02-09 23:56:57 [[32minfo[39m]: [BOT]: Message for engagement rewards distributed successfully sent for community DEVTEST: GATHIYO
+2025-02-09 23:56:57 [[32minfo[39m]: [HTTP]: Rewards distributed successfully
+2025-02-09 23:57:17 [[32minfo[39m]: [BOT]: Wallet details sent for user rayvego

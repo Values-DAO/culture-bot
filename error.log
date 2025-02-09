@@ -117,3 +117,4 @@
 2025-02-04 06:34:41 [[31merror[39m]: [SYSTEM]: Error starting services: TypeError: app.use() requires a middleware function
 2025-02-04 06:40:59 [[31merror[39m]: [SYSTEM]: Error starting services: ReferenceError: Can't find variable: distributeEngagementRewardsRouter
 2025-02-04 06:45:42 [[31merror[39m]: [SYSTEM]: MongoDB connection error: Domain name not found
+2025-02-08 15:53:28 [[31merror[39m]: [SYSTEM]: MongoDB connection error: unable to get issuer certificate
